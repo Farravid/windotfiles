@@ -69,20 +69,18 @@ window_rules:
   - command: "resize borders 0px -7px -7px -7px"
     match_process_name: "steam"
 
-  # ================= Workspace 2 setup (WORK-info) ===========================
-  # - command: "move to workspace 1"
-  #   match_process_name: "rider64"
+  # ================= Workspace 1 setup (Code) ===========================
+#  - command: "move to workspace 1"
+  #     match_process_name: "rider64"
 
-  # ================= Workspace 2 setup (WORK-info) ===========================
-  # - command: "move to workspace 2"
-  #   match_process_name: "slack"
-  #   match_process_name: "chrome"
-  #   match_process_name: "plastic"
+  # # ================= Workspace 2 setup (Work-Info) ===========================
+  #   - command: "move to workspace 2"
+  #     match_title: '/^chrome.*/'
 
-  # ================= Workspace 2 setup (WORK-info) ===========================
-  # - command: "move to workspace 3"
-  #   match_process_name: "Update"
-  #   match_process_name: "Spotify"
+
+  # # ================= Workspace 3 setup (Media) ===========================
+  #  - command: "move to workspace 3"
+  #     match_process_name: ""
 
 
 binding_modes:
@@ -172,7 +170,7 @@ keybindings:
   # Launch CMD terminal (alternatively `exec wt` or `exec %ProgramFiles%/Git/git-bash.exe`
   # to start Windows Terminal and Git Bash respectively.
   - command: "exec wt"
-    binding: "Alt+Enter"
+    binding: "Alt+Shift+Enter"
 
   # Focus the workspace that last had focus.
   - command: "focus workspace recent"
