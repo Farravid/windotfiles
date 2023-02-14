@@ -1,3 +1,7 @@
+@echo off
+echo ====== Enabling script execution =======
+powershell Set-ExecutionPolicy RemoteSigned -Scope CurrentUser 
+
 @REM Installing scoop, the 'non' command-line installer for Windows
 echo ====== Installing Scoop and stuff =======
 powershell irm get.scoop.sh -outfile 'install.ps1'
@@ -12,7 +16,6 @@ echo ====== Installing Oh-my-posh =======
 powershell Set-ExecutionPolicy Bypass -Scope Process -Force; Invoke-Expression ((New-Object System.Net.WebClient).DownloadString('https://ohmyposh.dev/install.ps1'))
 echo ====== Remember to install FuraMono font =======
 powershell oh-my-posh font install
-
 
 @REM Installing PowerToys
 echo ====== Installing PowerToys =======
@@ -30,4 +33,9 @@ powershell cp %USERPROFILE%\windotfiles\scripts\start.bat '%USERPROFILE%\AppData
 echo ====== Replacing the PowerShell profile =======
 powershell cp %USERPROFILE%\windotfiles\PowerShell\Microsoft.PowerShell_profile.ps1 $PROFILE
 
-@REM TODO: powershell settings for font 
+@REM Creating the powershell profile
+echo ====== Replacing the PowerShell settings =======
+set settings=(Get-Item "$Env:LocalAppData\Packages\Microsoft.WindowsTerminal_*\LocalState\settings.json")
+powershell cp %USERPROFILE%\windotfiles\PowerShell\settings.json %settings%
+ 
+ @REM Unistall batch
