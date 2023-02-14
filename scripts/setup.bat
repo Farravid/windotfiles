@@ -1,4 +1,3 @@
-@echo off
 echo ====== Enabling script execution =======
 powershell Set-ExecutionPolicy RemoteSigned -Scope CurrentUser 
 
@@ -37,5 +36,5 @@ powershell cp %USERPROFILE%\windotfiles\PowerShell\Microsoft.PowerShell_profile.
 echo ====== Replacing the PowerShell settings =======
 set settings=(Get-Item "$Env:LocalAppData\Packages\Microsoft.WindowsTerminal_*\LocalState\settings.json")
 powershell cp %USERPROFILE%\windotfiles\PowerShell\settings.json %settings%
- 
- @REM Unistall batch
+
+powershell %USERPROFILE%\windotfiles\scripts\start.bat
