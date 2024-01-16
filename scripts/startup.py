@@ -61,6 +61,7 @@ def main():
         case 'Godot': launch_godot_setup()
 
 if __name__ == "__main__":
-    launch_app("start /b %USERPROFILE%\windotfiles\GlazeWM\GlazeWM_x64_2.1.0.exe", "Glaze (Tilling Windows Manager)")
+    launch_app("start glazewm", "Glaze (Tilling Windows Manager)")
+
     display_decorator()
     main()
