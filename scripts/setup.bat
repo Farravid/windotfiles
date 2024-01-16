@@ -38,3 +38,9 @@ set settings=(Get-Item "$Env:LocalAppData\Packages\Microsoft.WindowsTerminal_*\L
 powershell cp %USERPROFILE%\windotfiles\PowerShell\settings.json %settings%
 
 powershell %USERPROFILE%\windotfiles\scripts\start.bat
+
+
+@REM https://github.com/CrypticButter/ButteryTaskbar/releases/download/v1.2.2/Buttery-Taskbar-setup.exe
+@REM https://github.com/ryanoasis/nerd-fonts/releases/download/v3.1.1/JetBrainsMono.zip
+
+@rem pip install inquirer
