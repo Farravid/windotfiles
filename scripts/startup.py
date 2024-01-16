@@ -9,7 +9,7 @@ NC = '\033[0m'
 
 def display_decorator():
     #subprocess.Popen("neofetch --config ~/dotfiles/.config/neofetch/small_config.conf", shell=True)
-    time.sleep(0.5)
+    #time.sleep(2)
     print("")
     print("== Default apps ==")
     print("[WS1] Terminal")
@@ -20,7 +20,7 @@ def display_decorator():
 
 def launch_app(command, app_name, time_to_sleep = 0.0, workspace = ""):
     print(f"{Purple} == Launching {app_name} == {NC}")
-    subprocess.Popen(command, shell=True, start_new_session=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+    subprocess.run(command, shell=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
     
     #time.sleep(time_to_sleep)
 
@@ -28,8 +28,9 @@ def launch_app(command, app_name, time_to_sleep = 0.0, workspace = ""):
     #   subprocess.Popen(f"i3-msg 'move container to workspace {workspace}'", shell=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
 
 def launch_default_apps():
+    
     #launch_app("kitty", "Blank Kitty")
-    launch_app("C:/Program Files/Google/Chrome/Application/chrome.exe", "Google Chrome", 2, "2:Notes")
+    launch_app("start /b chrome.exe", "Google Chrome", 2, "2:Notes")
     #launch_app("spotify", "Spotify", 2, "3:Media")
     #launch_app("discord", "Discord", 5, "3:Media")
     #launch_app("kitty --hold -e cava", "Cava", 1, "3:Media")
@@ -60,5 +61,6 @@ def main():
         case 'Godot': launch_godot_setup()
 
 if __name__ == "__main__":
+    launch_app("start /b %USERPROFILE%\windotfiles\GlazeWM\GlazeWM_x64_2.1.0.exe", "Glaze (Tilling Windows Manager)")
     display_decorator()
     main()
