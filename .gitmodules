@@ -1,0 +1,3 @@
+[submodule "vendor/winwal"]
+	path = vendor/winwal
+	url = https://github.com/scaryrawr/winwal.git
