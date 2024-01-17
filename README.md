@@ -9,4 +9,5 @@ I'm forced to work on windows so windotfiles I guess 👁️👁️
 # Required dependencies
 
 # Optional dependencies
+- Buttery taskbar -> hides the taskbar, not available in winget
 

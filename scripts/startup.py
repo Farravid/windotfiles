@@ -29,16 +29,13 @@ def launch_app(command, app_name, time_to_sleep = 0.0, workspace = ""):
     #   subprocess.Popen(f"i3-msg 'move container to workspace {workspace}'", shell=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
 
 def launch_default_apps():
-    
     launch_app("start /b chrome.exe", "Google Chrome", 2, "2:Notes")
 
 def launch_c_setup():
-    print("Performing Action 1")
-    # Add your logic for Action 1 here
+    pass
 
 def launch_godot_setup():
-    launch_app("cd ~/Documents/GitHub/ProjectoAmador && scripts/linux/launch_godot_editor.sh", "Godot", 1)
-    launch_app("github-desktop", "Github Desktop", 1, "2:Notes")
+    pass
 
 def main():
     options = [
