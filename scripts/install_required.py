@@ -24,7 +24,7 @@ def install_pcks(installer : str, pkg_names : [str]) -> bool:
 def install_pywal():
     install_pcks("pip", ["pywal", "colorz", "colorthief", "haishoku"])
     print("\n === Importing and running" + Purple + " winwal " + NC + "module to the powershell 7 === \n")
-    subprocess.run("pwsh -Command Update-WalTheme -Image ", text=True)
+    subprocess.run("pwsh -Command Update-WalTheme -Image " + os.environ['USERPROFILE'] + "/windotfiles/assets/pink-trees.jpeg", text=True)
 
 ##
 ##
@@ -44,6 +44,16 @@ def create_sym_links(symlink_file : str, system_path : str = ""):
     
     os.symlink(dotfiles_file_path, system_file_path)
 
+## TODO: REMOVE Eventually here
+def launch_app(command, app_name, time_to_sleep = 0.0, workspace = ""):
+    print(f"{Purple} == Launching {app_name} == {NC}")
+    subprocess.run(command, shell=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+    
+    #time.sleep(time_to_sleep)
+
+    #if(workspace):
+    #   subprocess.Popen(f"i3-msg 'move container to workspace {workspace}'", shell=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+
 ##
 def main():
     prepare_powershell()
@@ -60,8 +70,13 @@ def main():
                              "Microsoft.PowerToys",
                              "Microsoft.NuGet",
                              "JanDeDobbeleer.OhMyPosh"])
+    subprocess.run("pwsh --Command Invoke-Expression $PROFILE", shell=True)
     install_pcks("pip", ["inquirer"])
     install_pywal()
+
+    glaze_colors_script_path = Path.home() / "windotfiles/scripts/import_winwal_glaze_colors.py"
+    launch_app("python " + str(glaze_colors_script_path), "script for reloading colors for GlazeWM from winwal")
+    launch_app("start glazewm", "Glaze (Tilling Windows Manager)")
 
 if __name__ == "__main__":
     main()
