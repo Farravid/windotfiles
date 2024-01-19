@@ -9,7 +9,7 @@ Purple = '\033[0;35m'
 NC = '\033[0m'
 
 def display_decorator():
-    subprocess.Popen("neofetch --config ~/dotfiles/.config/neofetch/small_config.conf", shell=True)
+    subprocess.Popen("neofetch", shell=True)
     time.sleep(0.5)
     print("")
     print("== Default apps ==")

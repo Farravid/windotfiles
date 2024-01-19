@@ -1,2 +1,10 @@
 # Executables
 *.exe
+
+# Rust
+Cargo.lock
+debug/
+target/
+**/*.rs.bk
+*.pdb
+

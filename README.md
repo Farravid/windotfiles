@@ -10,4 +10,5 @@ I'm forced to work on windows so windotfiles I guess 👁️👁️
 
 # Optional dependencies
 - Buttery taskbar -> hides the taskbar, not available in winget
+- Rust -> for dygma keyboard colors
 
