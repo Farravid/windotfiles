@@ -1,18 +1,56 @@
 //$
-const COLOR_PALETTE : &str = "220 10 19 100 176 16 13 100 128 69 91 100 235 99 37 100 146 125 180 100 87 166 212 100 204 140 119 100 169 174 191 100 83 94 127 100 176 16 13 100 128 69 91 100 235 99 37 100 146 125 180 100 87 166 212 100 204 140 119 100 169 174 191 100";
+const COLOR_PALETTE : &str = "21 12 4 100 111 95 75 100 165 126 80 100 148 140 108 100 153 148 138 100 201 163 107 100 213 193 150 100 195 178 161 100 135 102 67 100 111 95 75 100 165 126 80 100 148 140 108 100 153 148 138 100 201 163 107 100 213 193 150 100 195 178 161 100";
 //&
 
-use anyhow::Result;
-use anyhow::bail;
 use dygma_focus::prelude::*;
+use anyhow::{anyhow, bail, Result};
+use std::str::FromStr;
 
-pub(crate) fn rgbw_vec_to_string(data: &[RGBW]) -> String {
+#[allow(dead_code)]
+pub(crate) fn string_to_numerical_vec<T: FromStr>(str: &str) -> Result<Vec<T>>
+where
+    <T as FromStr>::Err: std::fmt::Debug,
+{
+    str.split_whitespace()
+        .map(|part| part.parse::<T>().map_err(|e| anyhow!("{:?}", e)))
+        .collect()
+}
+
+#[allow(dead_code)]
+pub(crate) fn numerical_vec_to_string<T: ToString>(data: &[T]) -> String {
     data.iter()
-        .map(|rgbw| format!("{} {} {} {}", rgbw.r, rgbw.g, rgbw.b, rgbw.w))
+        .map(|num| num.to_string())
         .collect::<Vec<String>>()
         .join(" ")
 }
 
+#[allow(dead_code)]
+pub(crate) fn string_to_rgb_vec(str: &str) -> Result<Vec<RGB>> {
+    str.split_whitespace()
+        .collect::<Vec<&str>>()
+        .chunks(3)
+        .map(|chunk| {
+            if chunk.len() != 3 {
+                bail!("Invalid count, try RGBW instead");
+            }
+            let r = chunk[0].parse()?;
+            let g = chunk[1].parse()?;
+            let b = chunk[2].parse()?;
+
+            Ok(RGB { r, g, b })
+        })
+        .collect()
+}
+
+#[allow(dead_code)]
+pub(crate) fn rgb_vec_to_string(data: &[RGB]) -> String {
+    data.iter()
+        .map(|rgb| format!("{} {} {}", rgb.r, rgb.g, rgb.b))
+        .collect::<Vec<String>>()
+        .join(" ")
+}
+
+#[allow(dead_code)]
 pub(crate) fn string_to_rgbw_vec(str: &str) -> Result<Vec<RGBW>> {
     str.split_whitespace()
         .collect::<Vec<&str>>()
@@ -31,33 +69,24 @@ pub(crate) fn string_to_rgbw_vec(str: &str) -> Result<Vec<RGBW>> {
         .collect()
 }
 
+#[allow(dead_code)]
+pub(crate) fn rgbw_vec_to_string(data: &[RGBW]) -> String {
+    data.iter()
+        .map(|rgbw| format!("{} {} {} {}", rgbw.r, rgbw.g, rgbw.b, rgbw.w))
+        .collect::<Vec<String>>()
+        .join(" ")
+}
+
 #[tokio::main]
 async fn main() -> Result<()> {
-    // Open the first device found and declare as mutable
-    // Other constructors are under Focus::new_*
 
     let mut focus = Focus::new_first_available()?;
     let new_palette = string_to_rgbw_vec(COLOR_PALETTE)?;
     focus.palette_rgbw_set(&new_palette).await?;
-    println!("color: {}", &rgbw_vec_to_string(&new_palette));
+     
+    let the_palette = focus.palette_rgbw_get().await?;
 
+    println!("color: {}", &rgbw_vec_to_string(&the_palette));
     
-
-    //let palette = &focus.palette_rgb_get()?;
-    //focus.string
-    // for color in palette{
-    //     println!("color: {}", &color);
-    // }
-    //0 0 0 0 0 254 24 0 0 0 0 255 231 255 0 0 0 254 234 0 0 52 255 0 206 0 25 2 0 77 168 87 125 0 235 19 20 0 36 219 85 0 126 129 210 131 0 35 143 82 0 100 97 91 0 144 44 72 0 115 142 49 0 94
-
-    //255 255 255 255 255 254 24 255 255 255 255 255 231 255 255 255 255 254 234 255 255 52 255 255 206 255 25 2 255 77 168 87 125 255 235 19 20 255 36 219 85 255 126 129 210 131 255 35 143 82 255 100 97 91 255 144 44 72 255 115 142 49 255 94
-
-    //focus.palette_set(COLOR_PALETTE)?;
-    //focus.palette_rgbw_set("220 95 112 140 254 24 0 0 0 0 255 231 255 0 0 0 254 234 0 0 52 255 0 206 0 25 2 0 77 168 87 125 0 235 19 20 0 36 219 85 0 126 129 210 131 0 35 143 82 0 100 97 91 0 144 44 72 0 115 142 49 0 94").await?;
-    //println!("palette: {}", &focus.palette_get()?);
     Ok(())
 }
-
-//const color_3 : &str = "rgba(86,114,125,1.0)";
-//const color_2 : &str = "rgba(66,95,112,1.0)";
-//const color_1 : &str = "rgba(6,10,10,1.0)";

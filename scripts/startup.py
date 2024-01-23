@@ -1,9 +1,9 @@
 # Setup selector for displaying different programs depending on the work
 
-import subprocess
 import time
 import inquirer
-from pathlib import Path
+import common
+import subprocess
 
 Purple = '\033[0;35m'
 NC = '\033[0m'
@@ -15,21 +15,12 @@ def display_decorator():
     print("== Default apps ==")
     print("[WS1] Terminal")
     print("[WS2] Google Chrome")
-    print("[WS3] Spotify, Discord, Cava")
+    print("[WS3] Spotify, Discord")
     print("")
 
-
-def launch_app(command, app_name, time_to_sleep = 0.0, workspace = ""):
-    print(f"{Purple} == Launching {app_name} == {NC}")
-    subprocess.run(command, shell=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
-    
-    #time.sleep(time_to_sleep)
-
-    #if(workspace):
-    #   subprocess.Popen(f"i3-msg 'move container to workspace {workspace}'", shell=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
-
 def launch_default_apps():
-    launch_app("start /b chrome.exe", "Google Chrome", 2, "2:Notes")
+    common.launch_command("start /b chrome.exe", "Google Chrome")
+    common.launch_command("start /b wt", "Windows Terminal")
 
 def launch_c_setup():
     pass
@@ -41,7 +32,8 @@ def main():
     options = [
         inquirer.List('choice',
                       message="Select a setup to display:",
-                      choices = ["C++", "Godot", "None"]
+                      choices = ["C++", "Godot", "None"],
+
                       )
     ]
 
@@ -56,7 +48,5 @@ def main():
 
 if __name__ == "__main__":
     display_decorator()
-    glaze_colors_script_path = Path.home() / "windotfiles/scripts/import_winwal_glaze_colors.py"
-    launch_app("python " + str(glaze_colors_script_path), "script for reloading colors for GlazeWM from winwal")
-    launch_app("start glazewm", "Glaze (Tilling Windows Manager)")
+    common.launch_glazewm()
     main()

@@ -4,6 +4,10 @@ I'm forced to work on windows so windotfiles I guess 👁️👁️
 ## Installation
 
 ### Git clone
+Make sure to clone the repository with the submodules included
+```shell
+git clone --recurse-submodules https://github.com/Farravid/windotfiles.git
+```
 TODO: Submodules and Home
 
 ### Pre-install dependencies

@@ -1,43 +1,38 @@
 import os
 import subprocess
 from pathlib import Path
-
-Purple = '\033[0;35m'
-NC = '\033[0m'
-
-# TODO: Check if this is working
-windotfiles_path : Path = Path.home() / "windotfiles/"
+import common
 
 ##
 def prepare_powershell():
-    print("\n === Installing the last version of module" + Purple + " PSReadLine " + NC + " === \n")
+    print("\n === Installing the last version of module" + common.Purple + " PSReadLine " + common.NC + " === \n")
     #subprocess.run("pwsh -Command Install-Module PSReadLine -force", shell=True)
-    print("\n === Setting the execution policy for powershell scripts for this user to " + Purple + " RemoteSigned " + NC + " === \n")
+    print("\n === Setting the execution policy for powershell scripts for this user to " + common.Purple + " RemoteSigned " + common.NC + " === \n")
     #subprocess.run("pwsh -Command Set-ExecutionPolicy RemoteSigned -Scope CurrentUser", shell=True, text=True)
-    print("\n === Importing the " + Purple + " Start-Dotfiles-Farravid.xml " + NC + " task to the Task Scheduler === \n")
-    subprocess.run(["pwsh", "-Command", f"Register-ScheduledTask -Xml (Get-Content '{windotfiles_path}\\tasks\\Start-WM.xml' | Out-String) -TaskName 'Start-Dotfiles-Farravid'"], shell=True)
+    print("\n === Importing the " + common.Purple + " Start-Dotfiles-Farravid.xml " + common.NC + " task to the Task Scheduler === \n")
+    subprocess.run(["pwsh", "-Command", f"Register-ScheduledTask -Xml (Get-Content '{common.WINDOTFILES}\\tasks\\Start-WM.xml' | Out-String) -TaskName 'Start-Dotfiles-Farravid'"], shell=True)
 
 ##
 ##
 def install_pcks(installer : str, pkg_names : [str]) -> bool:
     for pkg_name in pkg_names:
-        print("\n === Installing " + Purple + pkg_name + NC + " with " + installer + " === \n")
+        print("\n === Installing " + common.Purple + pkg_name + common.NC + " with " + installer + " === \n")
         subprocess.run([installer, "install", pkg_name])
 
 ##
 ##
 def install_pywal():
     install_pcks("pip", ["pywal", "colorz", "colorthief", "haishoku"])
-    print("\n === Importing and running" + Purple + " winwal " + NC + "module to the powershell 7 === \n")
-    subprocess.run("pwsh -Command Update-WalTheme -Image " + windotfiles_path + "/assets/pink-trees.jpeg", text=True)
+    print("\n === Importing and running" + common.Purple + " winwal " + common.NC + "module to the powershell 7 === \n")
+    subprocess.run("pwsh -Command Update-WalTheme -Image " + common.WINDOTFILES + "/assets/pink-trees.jpeg", text=True)
 
 ##
 ##
 def create_sym_links(symlink_file : str, system_path : str = ""):
-    print("Symlinking " + Purple + symlink_file + NC + " file")
+    print("Symlinking " + common.Purple + symlink_file + common.NC + " file")
 
-    system_file_path : Path = Path(system_path) if system_path != "" else Path.home() / symlink_file
-    dotfiles_file_path : Path = windotfiles_path / symlink_file
+    system_file_path : Path = Path(system_path) if system_path != "" else common.HOME / symlink_file
+    dotfiles_file_path : Path = common.WINDOTFILES / symlink_file
 
     assert dotfiles_file_path.is_file() or dotfiles_file_path.is_dir(), "Trying to symlink an invalid dotfiles file/folder!"
 
@@ -48,16 +43,6 @@ def create_sym_links(symlink_file : str, system_path : str = ""):
         if not path_parent_folder.is_dir(): os.mkdir(path_parent_folder)
     
     os.symlink(dotfiles_file_path, system_file_path)
-
-## TODO: REMOVE Eventually here
-def launch_app(command, app_name, time_to_sleep = 0.0, workspace = ""):
-    print(f"{Purple} == Launching {app_name} == {NC}")
-    subprocess.run(command, shell=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
-    
-    #time.sleep(time_to_sleep)
-
-    #if(workspace):
-    #   subprocess.Popen(f"i3-msg 'move container to workspace {workspace}'", shell=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
 
 ##
 def main():
@@ -79,9 +64,9 @@ def main():
     # install_pcks("pip", ["inquirer"])
     # install_pywal()
 
-    # glaze_colors_script_path = windotfiles_path / "scripts/import_winwal_glaze_colors.py"
-    # launch_app("python " + str(glaze_colors_script_path), "script for reloading colors for GlazeWM from winwal")
-    # launch_app("start glazewm", "Glaze (Tilling Windows Manager)")
+    # Make optional and install: Spotify.Spotify, Code, Obsidian, Everything, 
+
+    # common.launch_glazewm()
 
 if __name__ == "__main__":
     main()

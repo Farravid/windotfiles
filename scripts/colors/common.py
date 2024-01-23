@@ -1,4 +1,6 @@
-from pathlib import Path
+#########################################
+# FUNCTIONS
+#########################################
 
 ## This function will delete all line from the givin start_key
 ## until the stop_key. (include: start_key) (exclude: stop_key)
@@ -21,32 +23,10 @@ def erase(file_name: str, start_key: str, stop_key: str):
     except RuntimeError as ex: 
         print(f"erase error:\n\t{ex}")
 
-##
+## Append a line at the top of a file 
 ##
 def line_prepender(filename, line):
     with open(filename, 'r+', encoding="utf8") as f:
         content = f.read()
         f.seek(0, 0)
         f.write(line.rstrip('\r\n') + '\n' + content)
-
-def main():
-    colors_path = Path.home() / ".cache/wal/colors"
-    glaze_config_paht = Path.home() / "windotfiles/.glaze-wm/config.yaml"
-
-    erase(glaze_config_paht, "#$", "#&")
-
-    file_read = open(colors_path, "r", encoding="utf8")
-
-    color_lines = file_read.readlines()
-    file_read.close()
-    
-    count = 1
-    line_prepender(glaze_config_paht, "#&")
-    for l in color_lines:
-        line_to_write = "define: &color_" + str(count) + " '" + l[:-1] + "'\n"
-        count+=1 
-        line_prepender(glaze_config_paht, line_to_write)
-    line_prepender(glaze_config_paht, "#$")
-
-if __name__ == "__main__":
-    main()

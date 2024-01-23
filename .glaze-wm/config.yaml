@@ -1,20 +1,20 @@
 #$
-define: &color_16 '#a5adae'
-define: &color_15 '#97a4a0'
-define: &color_14 '#9593a4'
-define: &color_13 '#a4647c'
-define: &color_12 '#827272'
-define: &color_11 '#56727d'
-define: &color_10 '#425f70'
-define: &color_9 '#4c5b5d'
-define: &color_8 '#a5adae'
-define: &color_7 '#97a4a0'
-define: &color_6 '#9593a4'
-define: &color_5 '#a4647c'
-define: &color_4 '#827272'
-define: &color_3 '#56727d'
-define: &color_2 '#425f70'
-define: &color_1 '#060a0a'
+define: &color_16 '#c3b2a1'
+define: &color_15 '#d5c196'
+define: &color_14 '#c9a36b'
+define: &color_13 '#99948a'
+define: &color_12 '#948c6c'
+define: &color_11 '#a57e50'
+define: &color_10 '#6f5f4b'
+define: &color_9 '#876643'
+define: &color_8 '#c3b2a1'
+define: &color_7 '#d5c196'
+define: &color_6 '#c9a36b'
+define: &color_5 '#99948a'
+define: &color_4 '#948c6c'
+define: &color_3 '#a57e50'
+define: &color_2 '#6f5f4b'
+define: &color_1 '#150c04'
 #&
 ########################################################
 # DAVID'S COLOR PALETTE
@@ -99,6 +99,7 @@ bar:
       label_medium: "󰕾 <attr fg='white'>{volume_level}%</attr>"
       label_high: " <attr fg='white'>{volume_level}%</attr>"
       label_mute: "󰝟 <attr fg='white'>{volume_level}%</attr>"
+      right_click_command: "exec taskmgr"
     ## MUTED UNTIL GLAZE 2.1 on Winget
     # - type: "music"
     #   foreground: *color_5
