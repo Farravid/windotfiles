@@ -1,20 +1,20 @@
 #$
-define: &color_16 '#c3b2a1'
-define: &color_15 '#d5c196'
-define: &color_14 '#c9a36b'
-define: &color_13 '#99948a'
-define: &color_12 '#948c6c'
-define: &color_11 '#a57e50'
-define: &color_10 '#6f5f4b'
-define: &color_9 '#876643'
-define: &color_8 '#c3b2a1'
-define: &color_7 '#d5c196'
-define: &color_6 '#c9a36b'
-define: &color_5 '#99948a'
-define: &color_4 '#948c6c'
-define: &color_3 '#a57e50'
-define: &color_2 '#6f5f4b'
-define: &color_1 '#150c04'
+define: &color_16 '#a5adae'
+define: &color_15 '#97a4a0'
+define: &color_14 '#9593a4'
+define: &color_13 '#a4647c'
+define: &color_12 '#827272'
+define: &color_11 '#56727d'
+define: &color_10 '#425f70'
+define: &color_9 '#4c5b5d'
+define: &color_8 '#a5adae'
+define: &color_7 '#97a4a0'
+define: &color_6 '#9593a4'
+define: &color_5 '#a4647c'
+define: &color_4 '#827272'
+define: &color_3 '#56727d'
+define: &color_2 '#425f70'
+define: &color_1 '#060a0a'
 #&
 ########################################################
 # DAVID'S COLOR PALETTE
@@ -185,6 +185,8 @@ window_rules:
     match_process_name: "Spotify"
   - command: "set floating"
     match_process_name: "startup-windotfiles"
+  - command: "move to workspace 2"
+    match_process_name: "GitHubDesktop"
 
 #define: &system_mode "(l) 󰌾, (e) 󰗼, (s) 󰤄, (r) 󰑖, (Shift+s) "
 
@@ -324,23 +326,23 @@ keybindings:
     binding: "Alt+9"
 
   # Move focused window to a workspace defined in `workspaces` config.
-  - commands: ["move to workspace 1"]
+  - commands: ["move to workspace 1", focus workspace 1]
     binding: "Alt+Shift+1"
-  - commands: ["move to workspace 2"]
+  - commands: ["move to workspace 2", focus workspace 2]
     binding: "Alt+Shift+2"
-  - commands: ["move to workspace 3"]
+  - commands: ["move to workspace 3", focus workspace 3]
     binding: "Alt+Shift+3"
-  - commands: ["move to workspace 4"]
+  - commands: ["move to workspace 4", focus workspace 4]
     binding: "Alt+Shift+4"
-  - commands: ["move to workspace 5"]
+  - commands: ["move to workspace 5", focus workspace 5]
     binding: "Alt+Shift+5"
-  - commands: ["move to workspace 6"]
+  - commands: ["move to workspace 6", focus workspace 6]
     binding: "Alt+Shift+6"
-  - commands: ["move to workspace 7"]
+  - commands: ["move to workspace 7", focus workspace 7]
     binding: "Alt+Shift+7"
-  - commands: ["move to workspace 8"]
+  - commands: ["move to workspace 8", focus workspace 8]
     binding: "Alt+Shift+8"
-  - commands: ["move to workspace 9"]
+  - commands: ["move to workspace 9", focus workspace 9]
     bindings: ["Alt+Shift+9"]
 
   ################################################################################################

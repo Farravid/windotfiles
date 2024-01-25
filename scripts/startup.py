@@ -2,8 +2,11 @@
 
 import time
 import inquirer
+import os
+import glob
 import common
 import subprocess
+from pathlib import Path
 
 Purple = '\033[0;35m'
 NC = '\033[0m'
@@ -21,12 +24,17 @@ def display_decorator():
 def launch_default_apps():
     common.launch_command("start /b chrome.exe", "Google Chrome")
     common.launch_command("start /b wt", "Windows Terminal")
+    common.launch_command("start /b " + str(common.APPDATA_ROAMING / Path("Spotify/Spotify.exe")), "Spotify")
+
+    discord_folder = next((d for d in glob.glob(os.path.join(str(common.APPDATA_LOCAL / Path("Discord")), 'app*')) if os.path.isdir(d)), None)
+    common.launch_command("start /b " + str(Path(discord_folder + "/Discord.exe")), "Discord")
 
 def launch_c_setup():
     pass
 
 def launch_godot_setup():
-    pass
+    common.launch_command("pwsh -Command godot", "Godot (Suipe)")
+    common.launch_command("start /b " + str(common.APPDATA_LOCAL / Path("GitHubDesktop/GitHubDesktop.exe")), "Github Desktop")
 
 def main():
     options = [
@@ -47,6 +55,6 @@ def main():
         case 'Godot': launch_godot_setup()
 
 if __name__ == "__main__":
-    display_decorator()
     common.launch_glazewm()
+    display_decorator()
     main()

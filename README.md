@@ -5,6 +5,7 @@ I'm forced to work on windows so windotfiles I guess 👁️👁️
 
 ### Git clone
 Make sure to clone the repository with the submodules included
+IT IS IMPORTANT TO CLONE THE REPOSITORY IN YOUR USER FOLDER
 ```shell
 git clone --recurse-submodules https://github.com/Farravid/windotfiles.git
 ```

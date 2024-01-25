@@ -5,31 +5,31 @@ import common
 
 ##
 def prepare_powershell():
-    print("\n === Installing the last version of module" + common.Purple + " PSReadLine " + common.NC + " === \n")
+    print("\n === Installing the last version of module" + common.PURPLE + " PSReadLine " + common.NC + " === \n")
     #subprocess.run("pwsh -Command Install-Module PSReadLine -force", shell=True)
-    print("\n === Setting the execution policy for powershell scripts for this user to " + common.Purple + " RemoteSigned " + common.NC + " === \n")
+    print("\n === Setting the execution policy for powershell scripts for this user to " + common.PURPLE + " RemoteSigned " + common.NC + " === \n")
     #subprocess.run("pwsh -Command Set-ExecutionPolicy RemoteSigned -Scope CurrentUser", shell=True, text=True)
-    print("\n === Importing the " + common.Purple + " Start-Dotfiles-Farravid.xml " + common.NC + " task to the Task Scheduler === \n")
+    print("\n === Importing the " + common.PURPLE + " Start-Dotfiles-Farravid.xml " + common.NC + " task to the Task Scheduler === \n")
     subprocess.run(["pwsh", "-Command", f"Register-ScheduledTask -Xml (Get-Content '{common.WINDOTFILES}\\tasks\\Start-WM.xml' | Out-String) -TaskName 'Start-Dotfiles-Farravid'"], shell=True)
 
 ##
 ##
 def install_pcks(installer : str, pkg_names : [str]) -> bool:
     for pkg_name in pkg_names:
-        print("\n === Installing " + common.Purple + pkg_name + common.NC + " with " + installer + " === \n")
+        print("\n === Installing " + common.PURPLE + pkg_name + common.NC + " with " + installer + " === \n")
         subprocess.run([installer, "install", pkg_name])
 
 ##
 ##
 def install_pywal():
     install_pcks("pip", ["pywal", "colorz", "colorthief", "haishoku"])
-    print("\n === Importing and running" + common.Purple + " winwal " + common.NC + "module to the powershell 7 === \n")
-    subprocess.run("pwsh -Command Update-WalTheme -Image " + common.WINDOTFILES + "/assets/pink-trees.jpeg", text=True)
+    print("\n === Importing and running" + common.PURPLE + " winwal " + common.NC + "module to the powershell 7 === \n")
+    subprocess.run("pwsh -Command Update-WalTheme -Image " + common.WINDOTFILES_ASSETS + "pink-trees.jpeg", text=True)
 
 ##
 ##
 def create_sym_links(symlink_file : str, system_path : str = ""):
-    print("Symlinking " + common.Purple + symlink_file + common.NC + " file")
+    print("Symlinking " + common.PURPLE + symlink_file + common.NC + " file")
 
     system_file_path : Path = Path(system_path) if system_path != "" else common.HOME / symlink_file
     dotfiles_file_path : Path = common.WINDOTFILES / symlink_file
@@ -64,7 +64,7 @@ def main():
     # install_pcks("pip", ["inquirer"])
     # install_pywal()
 
-    # Make optional and install: Spotify.Spotify, Code, Obsidian, Everything, 
+    # Make optional and install: Spotify.Spotify, Discord.Discord, Obsidian.Obsidian, GitHub.GitHubDesktop, voidtools.Everything, Microsoft.VisualStudioCode
 
     # common.launch_glazewm()
 
