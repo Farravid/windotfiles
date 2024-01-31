@@ -41,7 +41,7 @@ def install_pywal():
     install_pckgs("pip", ["pywal", "colorz", "colorthief", "haishoku"])
     print("\n === Importing and running" + common.PURPLE + " winwal " + common.NC + "module to the powershell 7 === \n")
     #TODO: I cant do the update-winwal thingy because it will kill the terminal
-    subprocess.run("pwsh -Command Update-WalTheme -Image " + common.WINDOTFILES_ASSETS + "pink-trees.jpeg", text=True)
+    subprocess.run("pwsh -Command Update-WalTheme -Image " + str(common.WINDOTFILES_ASSETS) + "\pink-trees.jpeg", text=True)
 
 ##
 ##
@@ -78,7 +78,8 @@ def main():
                             "Microsoft.WindowsTerminal",
                             "Microsoft.PowerToys",
                             "Microsoft.NuGet",
-                            "JanDeDobbeleer.OhMyPosh"])
+                            "JanDeDobbeleer.OhMyPosh",
+                            "neofetch"])
     
     common.reload_profile()
     
@@ -87,11 +88,13 @@ def main():
     install_pywal()
 
     install_optional_pckgs("winget", ["Spotify.Spotify",
+                                      "Google.Chrome",
+                                      "GitHub.GitHubDesktop",
                                       "Discord.Discord",
                                       "Obsidian.Obsidian",
                                       "voidtools.Everything",
                                       "Microsoft.VisualStudioCode",
-                                      "Microsoft.VisualStudio.2022.Community"
+                                      "Microsoft.VisualStudio.2022.Community",
                                       "Rustlang.Rustup"])
 
     common.launch_glazewm()

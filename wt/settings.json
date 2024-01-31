@@ -79,10 +79,10 @@
         "face": "FuraMono NF"
       },
       "unfocusedAppearance": {
-        "opacity": 20,
+        "opacity": 15,
         "useAcrylic": true
       },
-      "opacity": 50,
+      "opacity": 65,
       "useAcrylic": true,
       "useAtlasEngine": true,
       "colorScheme": "wal",
