@@ -22,6 +22,8 @@ define: &color_1 '#060a0a'
 # So this file will be modified by the script
 ########################################################
 
+# TODO: Solve sleep and info
+
 general:
   # Whether to automatically focus windows underneath the cursor.
   focus_follows_cursor: false
@@ -100,13 +102,12 @@ bar:
       label_high: " <attr fg='white'>{volume_level}%</attr>"
       label_mute: "󰝟 <attr fg='white'>{volume_level}%</attr>"
       right_click_command: "exec taskmgr"
-    ## MUTED UNTIL GLAZE 2.1 on Winget
-    # - type: "music"
-    #   foreground: *color_5
-    #   label_not_playing: ""
-    #   label_playing: "󰓇 <attr fg='white'>{song_title} - {artist_name}</attr>"
-    #   max_title_length: 20
-    #   max_artist_length: 20
+    - type: "music"
+      foreground: *color_5
+      label_not_playing: ""
+      label_playing: "󰓇 <attr fg='white'>{song_title} - {artist_name}</attr>"
+      max_title_length: 20
+      max_artist_length: 20
     - type: "tiling direction"
       background: *color_5
       label_horizontal: "⮂"
@@ -216,7 +217,7 @@ binding_modes:
     - command: "exec shutdown /l"
       bindings: ["E"]
     # Suspend the computer
-    - command: "exec rundll32.exe powrprof.dll,SetSuspendState 0,1,0"
+    - command: "exec rundll32.exe powrprof.dll, SetSuspendState Sleep"
       bindings: ["S"]
     # Hibernate the computer
     - command: "exec rundll32.exe powrprof.dll,SetSuspendState Hibernate"

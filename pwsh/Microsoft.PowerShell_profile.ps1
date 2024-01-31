@@ -13,4 +13,4 @@ Set-Alias -Name godot -Value $env:USERPROFILE\Documents\GitHub\ProjectoAmador\sc
 
 # Update the terminal, glaze and dygma color scheme based on the given wallpaper
 # It also sets the given wallpaper
-function update-winwal ([string]$wallpaper) { python $env:USERPROFILE\windotfiles\scripts\common.py $wallpaper }
+function update-winwal ([string]$wallpaper) { python $env:USERPROFILE\windotfiles\scripts\colors\update_winwal.py $wallpaper }

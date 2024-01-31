@@ -1,29 +1,46 @@
 import os
 import subprocess
+import inquirer
 from pathlib import Path
 import common
 
 ##
 def prepare_powershell():
     print("\n === Installing the last version of module" + common.PURPLE + " PSReadLine " + common.NC + " === \n")
-    #subprocess.run("pwsh -Command Install-Module PSReadLine -force", shell=True)
+    subprocess.run("pwsh -Command Install-Module PSReadLine -force", shell=True)
     print("\n === Setting the execution policy for powershell scripts for this user to " + common.PURPLE + " RemoteSigned " + common.NC + " === \n")
-    #subprocess.run("pwsh -Command Set-ExecutionPolicy RemoteSigned -Scope CurrentUser", shell=True, text=True)
+    subprocess.run("pwsh -Command Set-ExecutionPolicy RemoteSigned -Scope CurrentUser", shell=True, text=True)
     print("\n === Importing the " + common.PURPLE + " Start-Dotfiles-Farravid.xml " + common.NC + " task to the Task Scheduler === \n")
     subprocess.run(["pwsh", "-Command", f"Register-ScheduledTask -Xml (Get-Content '{common.WINDOTFILES}\\tasks\\Start-WM.xml' | Out-String) -TaskName 'Start-Dotfiles-Farravid'"], shell=True)
 
 ##
 ##
-def install_pcks(installer : str, pkg_names : [str]) -> bool:
+def install_pckgs(installer : str, pkg_names : [str]) -> bool:
     for pkg_name in pkg_names:
         print("\n === Installing " + common.PURPLE + pkg_name + common.NC + " with " + installer + " === \n")
         subprocess.run([installer, "install", pkg_name])
 
+def install_optional_pckgs(installer : str, pkg_names : [str]):
+    for pkg_name in pkg_names:
+        
+        message = 'Do you want to unstall ' + common.PURPLE + pkg_name + common.NC + ' ?'
+        question = [
+            inquirer.List(
+                "choice", message,["Yes", "No"],
+            ),
+        ]
+
+        answer = inquirer.prompt(question)
+
+        if answer["choice"] == "Yes":
+            install_pckgs(installer, [pkg_name])
+
 ##
 ##
 def install_pywal():
-    install_pcks("pip", ["pywal", "colorz", "colorthief", "haishoku"])
+    install_pckgs("pip", ["pywal", "colorz", "colorthief", "haishoku"])
     print("\n === Importing and running" + common.PURPLE + " winwal " + common.NC + "module to the powershell 7 === \n")
+    #TODO: I cant do the update-winwal thingy because it will kill the terminal
     subprocess.run("pwsh -Command Update-WalTheme -Image " + common.WINDOTFILES_ASSETS + "pink-trees.jpeg", text=True)
 
 ##
@@ -47,26 +64,37 @@ def create_sym_links(symlink_file : str, system_path : str = ""):
 ##
 def main():
     prepare_powershell()
-    # result = subprocess.run('pwsh -Command $PROFILE', shell=True, capture_output=True, text=True)
-    # create_sym_links("pwsh/Microsoft.PowerShell_profile.ps1", result.stdout.strip())
-    # create_sym_links("wt/settings.json", os.environ['LocalAppData'] + "\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState\settings.json")
-    # create_sym_links(".glaze-wm/config.yaml")
-    # install_pcks("winget", ["glazewm",
-    #                         "Git.Git",
-    #                         "Github.GitLFS",
-    #                          "DEVCOM.JetBrainsMonoNerdFont",
-    #                          "Microsoft.PowerShell",
-    #                          "Microsoft.WindowsTerminal",
-    #                          "Microsoft.PowerToys",
-    #                          "Microsoft.NuGet",
-    #                          "JanDeDobbeleer.OhMyPosh"])
-    # subprocess.run("pwsh --Command Invoke-Expression $PROFILE", shell=True)
-    # install_pcks("pip", ["inquirer"])
-    # install_pywal()
 
-    # Make optional and install: Spotify.Spotify, Discord.Discord, Obsidian.Obsidian, GitHub.GitHubDesktop, voidtools.Everything, Microsoft.VisualStudioCode
+    result = subprocess.run('pwsh -Command $PROFILE', shell=True, capture_output=True, text=True)
+    create_sym_links("pwsh/Microsoft.PowerShell_profile.ps1", result.stdout.strip())
+    create_sym_links("wt/settings.json", os.environ['LocalAppData'] + "\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState\settings.json")
+    create_sym_links(".glaze-wm/config.yaml")
 
-    # common.launch_glazewm()
+    install_pckgs("winget", ["glzr-io.glazewm",
+                            "Git.Git",
+                            "Github.GitLFS",
+                            "DEVCOM.JetBrainsMonoNerdFont",
+                            "Microsoft.PowerShell",
+                            "Microsoft.WindowsTerminal",
+                            "Microsoft.PowerToys",
+                            "Microsoft.NuGet",
+                            "JanDeDobbeleer.OhMyPosh"])
+    
+    common.reload_profile()
+    
+    install_pckgs("pip", ["inquirer"])
+    
+    install_pywal()
+
+    install_optional_pckgs("winget", ["Spotify.Spotify",
+                                      "Discord.Discord",
+                                      "Obsidian.Obsidian",
+                                      "voidtools.Everything",
+                                      "Microsoft.VisualStudioCode",
+                                      "Microsoft.VisualStudio.2022.Community"
+                                      "Rustlang.Rustup"])
+
+    common.launch_glazewm()
 
 if __name__ == "__main__":
     main()
