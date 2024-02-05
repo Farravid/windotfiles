@@ -73,7 +73,7 @@ bar:
   opacity: 0.8
   background: *color_1
   foreground: "#ffffff"
-  font_family: "JetBrainsMono Nerd Font Bold"
+  font_family: "JetBrainsMono NF Bold"
   font_size: "15px"
   padding: "4px 6px"
   offset_x: "20"

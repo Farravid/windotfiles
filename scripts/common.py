@@ -25,6 +25,7 @@ APPDATA_LOCAL : Path = os.environ['LocalAppData']
 ## Reloads the Powershell's profile
 ##
 def reload_profile():
+    launch_command("pwsh -Command $env:Path = [System.Environment]::GetEnvironmentVariable(\"Path\",\"Machine\") + \";\" + [System.Environment]::GetEnvironmentVariable(\"Path\",\"User\")", "a reload for the path")
     launch_command("pwsh -Command Invoke-Expression $PROFILE", "a reloading for the Powershell profile")
 
 ## Simply launch a terminal command with an optional debugging
@@ -34,7 +35,7 @@ def launch_command(command, app_name = "", show_output = False):
         print(f"{PURPLE} == Launching {app_name} == {NC}")
     
     if show_output: subprocess.run(command, shell=True)
-    else: subprocess.run(command, shell=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+    else: subprocess.run(command, shell=True, stdout=subprocess.DEVNULL)
 
 ## Change the windows' color mode to dark or light
 ##

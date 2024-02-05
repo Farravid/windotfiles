@@ -1,1 +1,0 @@
-start /b wt python %USERPROFILE%\windotfiles\scripts\startup.py

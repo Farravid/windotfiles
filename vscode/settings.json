@@ -1,0 +1,8 @@
+{
+    "editor.fontFamily": "JetBrainsMono NF",
+    "workbench.colorTheme": "Wal Bordered",
+    "glassit.alpha": 220,
+    "editor.fontSize": 13,
+    "editor.wordWrap": "on",
+    "workbench.iconTheme": "vscode-icons",
+}

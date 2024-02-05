@@ -24,7 +24,7 @@ def display_decorator():
 def launch_default_apps():
     common.launch_command("start /b chrome.exe", "Google Chrome")
     common.launch_command("start /b wt", "Windows Terminal")
-    common.launch_command("start /b " + str(common.APPDATA_ROAMING / Path("Spotify/Spotify.exe")), "Spotify")
+    common.launch_command("start /b spotify", "Spotify")
 
     discord_folder = next((d for d in glob.glob(os.path.join(str(common.APPDATA_LOCAL / Path("Discord")), 'app*')) if os.path.isdir(d)), None)
     common.launch_command("start /b " + str(Path(discord_folder + "/Discord.exe")), "Discord")
