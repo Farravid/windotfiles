@@ -1,6 +1,8 @@
 import os
 import subprocess
+import logging
 import inquirer
+import pyuac
 from pathlib import Path
 import common
 
@@ -63,27 +65,25 @@ def create_sym_links(symlink_file : str, system_path : str = ""):
 
 ##
 def main():
+    input("Pre-installation ready, press enter to continue with the setup. >")
     prepare_powershell()
-
-    result = subprocess.run('pwsh -Command $PROFILE', shell=True, capture_output=True, text=True)
-    create_sym_links("pwsh/Microsoft.PowerShell_profile.ps1", result.stdout.strip())
-    create_sym_links("wt/settings.json", os.environ['LocalAppData'] + "\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState\settings.json")
-    create_sym_links(".glaze-wm/config.yaml")
 
     install_pckgs("winget", ["glzr-io.glazewm",
                             "Git.Git",
                             "Github.GitLFS",
                             "DEVCOM.JetBrainsMonoNerdFont",
-                            "Microsoft.PowerShell",
                             "Microsoft.WindowsTerminal",
                             "Microsoft.PowerToys",
                             "Microsoft.NuGet",
                             "JanDeDobbeleer.OhMyPosh",
                             "neofetch"])
+
+    result = subprocess.run('pwsh -Command $PROFILE', shell=True, capture_output=True, text=True)
+    create_sym_links("pwsh/Microsoft.PowerShell_profile.ps1", result.stdout.strip())
+    create_sym_links("wt/settings.json", os.environ['LocalAppData'] + "\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState\settings.json")
+    create_sym_links(".glaze-wm/config.yaml")
     
     common.reload_profile()
-    
-    install_pckgs("pip", ["inquirer"])
     
     install_pywal()
 
@@ -99,5 +99,12 @@ def main():
 
     common.launch_glazewm()
 
+    common.change_win_color_mode()
+    input("Press enter to close the window. >")
+
 if __name__ == "__main__":
-    main()
+    if not pyuac.isUserAdmin():
+        logging.error("You should launch the pre_install.bat script as admin!")
+        input("Press enter to close the window. >")
+    else:        
+        main()

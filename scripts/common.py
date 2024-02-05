@@ -25,7 +25,7 @@ APPDATA_LOCAL : Path = os.environ['LocalAppData']
 ## Reloads the Powershell's profile
 ##
 def reload_profile():
-    launch_command("pwsh --Command Invoke-Expression $PROFILE", "a reloading for the Powershell profile")
+    launch_command("pwsh -Command Invoke-Expression $PROFILE", "a reloading for the Powershell profile")
 
 ## Simply launch a terminal command with an optional debugging
 ##
@@ -35,6 +35,12 @@ def launch_command(command, app_name = "", show_output = False):
     
     if show_output: subprocess.run(command, shell=True)
     else: subprocess.run(command, shell=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+
+## Change the windows' color mode to dark or light
+##
+def change_win_color_mode(to_dark = True):
+    theme_value = "0" if to_dark else "1"
+    launch_command("pwsh -Command New-ItemProperty -Path HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Themes\Personalize -Name SystemUsesLightTheme -Value " + theme_value + " -Type Dword -Force; New-ItemProperty -Path HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Themes\Personalize -Name AppsUseLightTheme -Value " + theme_value + " -Type Dword -Force", "a change to the windows color mode")
 
 ## Launch the tiling windows manager GlazeWM
 ## It also import the colors to the GlazeWM config file from winwal
