@@ -1,7 +1,7 @@
 winget install Python.Python.3.11
 winget install Microsoft.PowerShell
 
-pip install --upgrade pip
+python.exe -m pip install --upgrade pip
 
 pip install inquirer
 pip install pyuac

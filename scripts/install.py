@@ -13,7 +13,7 @@ def prepare_powershell():
     print("\n === Setting the execution policy for powershell scripts for this user to " + common.PURPLE + " RemoteSigned " + common.NC + " === \n")
     subprocess.run("pwsh -Command Set-ExecutionPolicy RemoteSigned -Scope CurrentUser", shell=True, text=True)
     print("\n === Importing the " + common.PURPLE + " Start-Dotfiles-Farravid.xml " + common.NC + " task to the Task Scheduler === \n")
-    subprocess.run(["pwsh", "-Command", f"Register-ScheduledTask -Xml (Get-Content '{common.WINDOTFILES}\\tasks\\Start-WM.xml' | Out-String) -TaskName 'Start-Dotfiles-Farravid'"], shell=True)
+    subprocess.run(["pwsh", "-Command", f"Register-ScheduledTask -Xml (Get-Content '{common.WINDOTFILES}\\tasks\\start-dotfiles.xml' | Out-String) -TaskName 'Start-Dotfiles-Farravid'"], shell=True)
 
 ##
 ##

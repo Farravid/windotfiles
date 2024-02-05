@@ -1,6 +1,3 @@
-# Executables
-*.exe
-
 # Rust
 Cargo.lock
 debug/
