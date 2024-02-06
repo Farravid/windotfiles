@@ -89,7 +89,7 @@
       "useAcrylic": true,
       "useAtlasEngine": true,
       "colorScheme": "wal",
-      "cursorColor": "#a5adae"
+      "cursorColor": "#a1a4a4"
     },
     "list": [
       {
@@ -426,24 +426,24 @@
     },
     {
       "name": "wal",
-      "black": "#060a0a",
-      "red": "#425f70",
-      "green": "#56727d",
-      "yellow": "#827272",
-      "blue": "#a4647c",
-      "purple": "#9593a4",
-      "cyan": "#97a4a0",
-      "white": "#a5adae",
-      "brightBlack": "#4c5b5d",
-      "brightRed": "#425f70",
-      "brightGreen": "#56727d",
-      "brightYellow": "#827272",
-      "brightBlue": "#a4647c",
-      "brightPurple": "#9593a4",
-      "brightCyan": "#97a4a0",
-      "brightWhite": "#a5adae",
-      "background": "#060a0a",
-      "foreground": "#a5adae"
+      "black": "#030505",
+      "red": "#343c4c",
+      "green": "#5b6c86",
+      "yellow": "#ac7c6c",
+      "blue": "#8f91a3",
+      "purple": "#a2acbc",
+      "cyan": "#a4b4c4",
+      "white": "#a1a4a4",
+      "brightBlack": "#434949",
+      "brightRed": "#343c4c",
+      "brightGreen": "#5b6c86",
+      "brightYellow": "#ac7c6c",
+      "brightBlue": "#8f91a3",
+      "brightPurple": "#a2acbc",
+      "brightCyan": "#a4b4c4",
+      "brightWhite": "#a1a4a4",
+      "background": "#030505",
+      "foreground": "#a1a4a4"
     }
   ],
   "showTabsInTitlebar": true,
