@@ -1,7 +1,7 @@
 {
   "PreviousHotkey": "Alt \u002B Space",
   "Hotkey": "Alt \u002B D",
-  "UseCentralizedKeyboardHook": false,
+  "UseCentralizedKeyboardHook": true,
   "SearchQueryResultsWithDelay": true,
   "SearchInputDelayFast": 50,
   "SearchInputDelay": 150,
@@ -16,7 +16,7 @@
   "WindowLeft": 2240,
   "WindowTop": 346,
   "MaxResultsToShow": 4,
-  "ActivateTimes": 76,
+  "ActivateTimes": 129,
   "HideWhenDeactivated": true,
   "ClearInputOnLaunch": false,
   "TabSelectsContextButtons": true,

@@ -4,7 +4,7 @@ It uses the Windows Package Manager (winget) and Python's package installer (pip
 It also sets up the necessary configuration files and creates symlinks to the dotfiles repository.
 
 Usage:
-1. Navigate to the directory where pre_install.bat is located.
+1. Navigate to the directory where install.bat is located.
 3. Run the batch script as administrator.
 
 Note: This script requires an internet connection and may prompt you to accept EULAs and other agreements.
@@ -37,6 +37,8 @@ def prepare_powershell():
     subprocess.run("pwsh -Command Install-Module PSReadLine -force", shell=True)
     print(f"\n === Setting the execution policy for powershell scripts for this user to " + common.PURPLE + " RemoteSigned " + common.NC + " === \n")
     subprocess.run("pwsh -Command Set-ExecutionPolicy RemoteSigned -Scope CurrentUser", shell=True, text=True)
+    print("\n === Importing the " + common.PURPLE + " start-dotfiles.xml " + common.NC + " task to the Task Scheduler === \n")
+    subprocess.run(["pwsh", "-Command", f"Register-ScheduledTask -Xml (Get-Content '{common.WINDOTFILES}\\tasks\\start-dotfiles.xml' | Out-String) -TaskName 'start-dotfiles'"], shell=True)
 
 
 def install_pckgs(installer: EInstaller, pkg_names: list, commands: str = ""):
@@ -120,65 +122,66 @@ def main():
     common.change_win_color_mode()
     prepare_powershell()
 
-    install_pckgs(EInstaller.WINGET, [
-        "glzr-io.glazewm",
-        "Git.Git",
-        "Github.GitLFS",
-        "DEVCOM.JetBrainsMonoNerdFont -v \"2.3.3\" -e",
-        "Microsoft.WindowsTerminal",
-        "Microsoft.PowerToys",
-        "Microsoft.NuGet",
-        "JanDeDobbeleer.OhMyPosh",
-        "neofetch"])
+    # install_pckgs(EInstaller.WINGET, [
+    #     "glzr-io.glazewm",
+    #     "Git.Git",
+    #     "Github.GitLFS",
+    #     "DEVCOM.JetBrainsMonoNerdFont -v \"2.3.3\" -e",
+    #     "Microsoft.WindowsTerminal",
+    #     "Microsoft.PowerToys",
+    #     "Microsoft.NuGet",
+    #     "JanDeDobbeleer.OhMyPosh",
+    #     "neofetch"])
 
-    result = subprocess.run('pwsh -Command $PROFILE', shell=True, capture_output=True, text=True)
-    create_sym_links("pwsh/Microsoft.PowerShell_profile.ps1", result.stdout.strip())
-    create_sym_links("wt/settings.json", str(common.APPDATA_LOCAL) + "\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState\settings.json")
-    create_sym_links(".glaze-wm/config.yaml")
-    create_sym_links("powertoys/settings.json", str(common.APPDATA_LOCAL) + "\Microsoft\PowerToys\settings.json")
-    create_sym_links("powertoys/PowerToys Run/Settings/PowerToysRunSettings.json", str(common.APPDATA_LOCAL) + "\Microsoft\PowerToys\PowerToys Run\Settings\PowerToysRunSettings.json")
+    # result = subprocess.run('pwsh -Command $PROFILE', shell=True, capture_output=True, text=True)
+    # create_sym_links("pwsh/Microsoft.PowerShell_profile.ps1", result.stdout.strip())
+    # create_sym_links("wt/settings.json", str(common.APPDATA_LOCAL) + "\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState\settings.json")
+    # create_sym_links(".glaze-wm/config.yaml")
+    # create_sym_links("powertoys/settings.json", str(common.APPDATA_LOCAL) + "\Microsoft\PowerToys\settings.json")
+    # create_sym_links("powertoys/PowerToys Run/Settings/PowerToysRunSettings.json", str(common.APPDATA_LOCAL) + "\Microsoft\PowerToys\PowerToys Run\Settings\PowerToysRunSettings.json")
 
-    common.reload_powershell()
+    # common.reload_powershell()
 
-    install_pywal()
+    # install_pywal()
 
-    install_optional_pckgs(EInstaller.WINGET, [
-        "Spotify.Spotify",
-        "Google.Chrome",
-        "GitHub.GitHubDesktop",
-        "Discord.Discord",
-        "Obsidian.Obsidian",
-        "Neovim.Neovim",
-        "voidtools.Everything",
-        "Microsoft.VisualStudioCode",
-        "Microsoft.VisualStudio.2022.BuildTools",
-        "Microsoft.VisualStudio.2022.Community",
-        "Rustlang.Rustup"])
+    # install_optional_pckgs(EInstaller.WINGET, [
+    #     "Spotify.Spotify",
+    #     "Google.Chrome",
+    #     "GitHub.GitHubDesktop",
+    #     "Discord.Discord",
+    #     "Obsidian.Obsidian",
+    #     "Neovim.Neovim",
+    #     "voidtools.Everything",
+    #     "Microsoft.VisualStudioCode",
+    #     "Microsoft.VisualStudio.2022.BuildTools",
+    #     "Microsoft.VisualStudio.2022.Community",
+    #     "Rustlang.Rustup"])
 
-    create_sym_links("vscode/settings.json", str(common.APPDATA_ROAMING) + "\Code\User\settings.json")
+    # create_sym_links("vscode/settings.json", str(common.APPDATA_ROAMING) + "\Code\User\settings.json")
 
-    install_optional_pckgs(EInstaller.CODE, [
-        "s-nlf-fh.glassit",
-        "ms-vscode.cpptools",
-        "naumovs.color-highlight",
-        "donjayamanne.python-extension-pack",
-        "1YiB.rust-bundle",
-        "dlasagno.wal-theme",
-        "ms-vscode.powershell",
-        "eamodio.gitlens",
-        "wayou.vscode-todo-highlight",
-        "vscode-icons-team.vscode-icons",
-        "TabNine.tabnine-vscode"], " --force")
+    # install_optional_pckgs(EInstaller.CODE, [
+    #     "s-nlf-fh.glassit",
+    #     "ms-vscode.cpptools",
+    #     "naumovs.color-highlight",
+    #     "donjayamanne.python-extension-pack",
+    #     "1YiB.rust-bundle",
+    #     "dlasagno.wal-theme",
+    #     "ms-vscode.powershell",
+    #     "eamodio.gitlens",
+    #     "wayou.vscode-todo-highlight",
+    #     "vscode-icons-team.vscode-icons",
+    #     "TabNine.tabnine-vscode",
+    #     "yzhang.markdown-all-in-one"], " --force")
 
-    common.reload_powershell()
-    common.launch_glazewm()
+    # common.reload_powershell()
+    # common.launch_glazewm()
 
     input("Press enter to close the window. >")
 
 
 if __name__ == "__main__":
     if not pyuac.isUserAdmin():
-        logging.error("You should launch the pre_install.bat script as admin!")
+        logging.error("You should launch the install.bat script as admin!")
         input("Press enter to close the window. >")
     else:
         main()
