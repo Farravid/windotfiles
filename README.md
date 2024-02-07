@@ -1,10 +1,25 @@
-# 🪟 WINDOTFILES 10/11 🪟
-I'm forced to work on windows so windotfiles I guess 👁️👁️
-![](readme/showcase.mkv)
+<div align="center">
+  <h1>windotfiles</h1>
+  <img src="https://img.shields.io/badge/Windows%2011-%230079d5.svg?style=for-the-badge&logo=Windows%2011&logoColor=white"</img>
+  <img src="https://img.shields.io/badge/Windows%20Terminal-%234D4D4D.svg?style=for-the-badge&logo=windows-terminal&logoColor=white"</img>
+  <img src="https://img.shields.io/badge/PowerShell-%235391FE.svg?style=for-the-badge&logo=powershell&logoColor=white"</img>
+  <img src="https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54"</img>
+  <p></p>  
+
+</div>
+
+<div align="center">
+  <img src="readme/showcase.gif" alt="Showcase of the windotfiles opening terminals, bottom and using update-winwal"/>
+  <p>
+    <sub>
+      Showcase of the windotfiles opening terminals, bottom and using update-winwal.
+    </sub>
+  </p>
+</div>
+
 
 # Table of Contents
 
-- [🪟 WINDOTFILES 10/11 🪟](#-windotfiles-1011-)
 - [Table of Contents](#table-of-contents)
 - [Repository explanation](#repository-explanation)
 - [Installation](#installation)
@@ -193,7 +208,7 @@ In top of winwal, we have an `update-winwal` powershell command available for up
 This command, for now, supports updating the color scheme of the following software:
 - `Windows Terminal`
 - `GlazeWM`
-- `Dygma Keyboard`
+- `Dygma Keyboard` (disabled by now)
 
 In order to use it, run the following command:
 ```shell
