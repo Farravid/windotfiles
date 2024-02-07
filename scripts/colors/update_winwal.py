@@ -48,7 +48,7 @@ def update_winwal():
         f"pwsh -Command Update-WalTheme -Image {os.path.abspath(sys.argv[1])}",
         "Update-WalTheme to update color schemes with the given wallpaper",
     )
-    update_dygma_winwal()
+    #update_dygma_winwal()
 
 
 def main():

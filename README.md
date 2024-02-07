@@ -1,5 +1,6 @@
 # 🪟 WINDOTFILES 10/11 🪟
 I'm forced to work on windows so windotfiles I guess 👁️👁️
+![](readme/showcase.mkv)
 
 # Table of Contents
 
@@ -96,6 +97,7 @@ You will have a prompt for each of the dependecies for choosing whether to insta
   
   ### WinGet dependencies
   
+  * `Bottom` ➡️ A customizable graphical process/system monitor for the terminal.
   * `Spotify` ➡️ You know what this is
   * `Google Chrome` ➡️ Default windotfiles browser. (Alt + G will launch it)
   * `Github Desktop` ➡️ User interface for Github repositories

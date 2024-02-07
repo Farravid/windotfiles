@@ -122,59 +122,60 @@ def main():
     common.change_win_color_mode()
     prepare_powershell()
 
-    # install_pckgs(EInstaller.WINGET, [
-    #     "glzr-io.glazewm",
-    #     "Git.Git",
-    #     "Github.GitLFS",
-    #     "DEVCOM.JetBrainsMonoNerdFont -v \"2.3.3\" -e",
-    #     "Microsoft.WindowsTerminal",
-    #     "Microsoft.PowerToys",
-    #     "Microsoft.NuGet",
-    #     "JanDeDobbeleer.OhMyPosh",
-    #     "neofetch"])
+    install_pckgs(EInstaller.WINGET, [
+        "glzr-io.glazewm",
+        "Git.Git",
+        "Github.GitLFS",
+        "DEVCOM.JetBrainsMonoNerdFont -v \"2.3.3\" -e",
+        "Microsoft.WindowsTerminal",
+        "Microsoft.PowerToys",
+        "Microsoft.NuGet",
+        "JanDeDobbeleer.OhMyPosh",
+        "neofetch"])
 
-    # result = subprocess.run('pwsh -Command $PROFILE', shell=True, capture_output=True, text=True)
-    # create_sym_links("pwsh/Microsoft.PowerShell_profile.ps1", result.stdout.strip())
-    # create_sym_links("wt/settings.json", str(common.APPDATA_LOCAL) + "\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState\settings.json")
-    # create_sym_links(".glaze-wm/config.yaml")
-    # create_sym_links("powertoys/settings.json", str(common.APPDATA_LOCAL) + "\Microsoft\PowerToys\settings.json")
-    # create_sym_links("powertoys/PowerToys Run/Settings/PowerToysRunSettings.json", str(common.APPDATA_LOCAL) + "\Microsoft\PowerToys\PowerToys Run\Settings\PowerToysRunSettings.json")
+    result = subprocess.run('pwsh -Command $PROFILE', shell=True, capture_output=True, text=True)
+    create_sym_links("pwsh/Microsoft.PowerShell_profile.ps1", result.stdout.strip())
+    create_sym_links("wt/settings.json", str(common.APPDATA_LOCAL) + "\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState\settings.json")
+    create_sym_links(".glaze-wm/config.yaml")
+    create_sym_links("powertoys/settings.json", str(common.APPDATA_LOCAL) + "\Microsoft\PowerToys\settings.json")
+    create_sym_links("powertoys/PowerToys Run/Settings/PowerToysRunSettings.json", str(common.APPDATA_LOCAL) + "\Microsoft\PowerToys\PowerToys Run\Settings\PowerToysRunSettings.json")
 
-    # common.reload_powershell()
+    common.reload_powershell()
 
-    # install_pywal()
+    install_pywal()
 
-    # install_optional_pckgs(EInstaller.WINGET, [
-    #     "Spotify.Spotify",
-    #     "Google.Chrome",
-    #     "GitHub.GitHubDesktop",
-    #     "Discord.Discord",
-    #     "Obsidian.Obsidian",
-    #     "Neovim.Neovim",
-    #     "voidtools.Everything",
-    #     "Microsoft.VisualStudioCode",
-    #     "Microsoft.VisualStudio.2022.BuildTools",
-    #     "Microsoft.VisualStudio.2022.Community",
-    #     "Rustlang.Rustup"])
+    install_optional_pckgs(EInstaller.WINGET, [
+        "Clement.bottom",
+        "Spotify.Spotify",
+        "Google.Chrome",
+        "GitHub.GitHubDesktop",
+        "Discord.Discord",
+        "Obsidian.Obsidian",
+        "Neovim.Neovim",
+        "voidtools.Everything",
+        "Microsoft.VisualStudioCode",
+        "Microsoft.VisualStudio.2022.BuildTools",
+        "Microsoft.VisualStudio.2022.Community",
+        "Rustlang.Rustup"])
 
-    # create_sym_links("vscode/settings.json", str(common.APPDATA_ROAMING) + "\Code\User\settings.json")
+    create_sym_links("vscode/settings.json", str(common.APPDATA_ROAMING) + "\Code\User\settings.json")
 
-    # install_optional_pckgs(EInstaller.CODE, [
-    #     "s-nlf-fh.glassit",
-    #     "ms-vscode.cpptools",
-    #     "naumovs.color-highlight",
-    #     "donjayamanne.python-extension-pack",
-    #     "1YiB.rust-bundle",
-    #     "dlasagno.wal-theme",
-    #     "ms-vscode.powershell",
-    #     "eamodio.gitlens",
-    #     "wayou.vscode-todo-highlight",
-    #     "vscode-icons-team.vscode-icons",
-    #     "TabNine.tabnine-vscode",
-    #     "yzhang.markdown-all-in-one"], " --force")
+    install_optional_pckgs(EInstaller.CODE, [
+        "s-nlf-fh.glassit",
+        "ms-vscode.cpptools",
+        "naumovs.color-highlight",
+        "donjayamanne.python-extension-pack",
+        "1YiB.rust-bundle",
+        "dlasagno.wal-theme",
+        "ms-vscode.powershell",
+        "eamodio.gitlens",
+        "wayou.vscode-todo-highlight",
+        "vscode-icons-team.vscode-icons",
+        "TabNine.tabnine-vscode",
+        "yzhang.markdown-all-in-one"], " --force")
 
-    # common.reload_powershell()
-    # common.launch_glazewm()
+    common.reload_powershell()
+    common.launch_glazewm()
 
     input("Press enter to close the window. >")
 
