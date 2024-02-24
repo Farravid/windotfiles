@@ -17,6 +17,7 @@ WINDOTFILES_SCRIPTS : Path = Path.home() / "windotfiles/scripts/"
 WINDOTFILES_ASSETS : Path = Path.home() / "windotfiles/assets/"
 APPDATA_ROAMING : Path = os.environ['appdata']
 APPDATA_LOCAL : Path = os.environ['LocalAppData']
+PROGRAM_FILES : Path = Path(os.environ['programfiles'])
 
 #########################################
 # FUNCTIONS
@@ -32,7 +33,7 @@ def reload_powershell():
     launch_command("pwsh -Command $env:Path = [System.Environment]::GetEnvironmentVariable(\"Path\",\"Machine\") + \";\" + [System.Environment]::GetEnvironmentVariable(\"Path\",\"User\")", "a reload for the path")
     launch_command("pwsh -Command Invoke-Expression $PROFILE", "a reloading for the Powershell profile")
 
-def launch_command(command: str, app_name: str = "", show_output: bool = False) -> None:
+def launch_command(command: str, app_name: str = "", show_output: bool = False, use_popen : bool = False) -> None:
     """
     Launches an application or a command prompt with the given command.
 
@@ -42,6 +43,8 @@ def launch_command(command: str, app_name: str = "", show_output: bool = False) 
             Defaults to "".
         show_output (bool, optional): A boolean value indicating whether to show
             the output of the command. Defaults to False.
+        use_popen (bool, optional): A boolean value indicating whether to run
+            the command or using subprocess.pOpen to run the command. Defaults to False.
 
     Returns:
         None
@@ -50,9 +53,11 @@ def launch_command(command: str, app_name: str = "", show_output: bool = False) 
         print(f"{PURPLE}== Launching {app_name} =={NC}")
 
     if show_output:
-        subprocess.run(command, shell=True)
+        if use_popen: subprocess.Popen(command, shell=True)
+        else: subprocess.run(command, shell=True)
     else:
-        subprocess.run(command, shell=True, stdout=subprocess.DEVNULL)
+        if use_popen: subprocess.Popen(command, shell=True, stdout=subprocess.DEVNULL)
+        else: subprocess.run(command, shell=True, stdout=subprocess.DEVNULL)
 
 def change_win_color_mode(to_dark: bool = True) -> None:
     """

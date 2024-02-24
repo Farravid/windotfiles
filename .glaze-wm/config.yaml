@@ -1,20 +1,20 @@
 #$
-define: &color_16 '#a5a3a5'
-define: &color_15 '#bfaa99'
-define: &color_14 '#608d88'
-define: &color_13 '#b26c58'
-define: &color_12 '#ca5b41'
-define: &color_11 '#368d8b'
-define: &color_10 '#6c3437'
-define: &color_9 '#4b474b'
-define: &color_8 '#a5a3a5'
-define: &color_7 '#bfaa99'
-define: &color_6 '#608d88'
-define: &color_5 '#b26c58'
-define: &color_4 '#ca5b41'
-define: &color_3 '#368d8b'
-define: &color_2 '#6c3437'
-define: &color_1 '#060505'
+define: &color_16 '#a1a4a4'
+define: &color_15 '#a4b4c4'
+define: &color_14 '#a2acbc'
+define: &color_13 '#8f91a3'
+define: &color_12 '#ac7c6c'
+define: &color_11 '#5b6c86'
+define: &color_10 '#343c4c'
+define: &color_9 '#434949'
+define: &color_8 '#a1a4a4'
+define: &color_7 '#a4b4c4'
+define: &color_6 '#a2acbc'
+define: &color_5 '#8f91a3'
+define: &color_4 '#ac7c6c'
+define: &color_3 '#5b6c86'
+define: &color_2 '#343c4c'
+define: &color_1 '#030505'
 #&
 ########################################################
 # DAVID'S COLOR PALETTE
@@ -70,7 +70,7 @@ focus_borders:
 bar:
   height: "30px"
   position: "top"
-  opacity: 0.8
+  opacity: 1.0
   background: *color_1
   foreground: "#ffffff"
   font_family: "JetBrainsMono NF Bold"
@@ -79,8 +79,6 @@ bar:
   offset_x: "20"
   offset_y: "10"
   border_radius: "5"
-  component_separator:
-    label: " 󰜗 "
   components_left:
   # This is a hack to display an icon
   - type: "text"
@@ -96,20 +94,26 @@ bar:
     - type: "window title"
   components_right:
     - type: "volume"
-      foreground: *color_5
+      margin: 0 6
+      padding: 0 8
+      border_width: 0 0 2
+      border_radius: 4
+      foreground: *color_2
+      #background: *color_5
       label_low: " <attr fg='white'>{volume_level}%</attr>"
       label_medium: "󰕾 <attr fg='white'>{volume_level}%</attr>"
       label_high: " <attr fg='white'>{volume_level}%</attr>"
       label_mute: "󰝟 <attr fg='white'>{volume_level}%</attr>"
       right_click_command: "exec taskmgr"
     - type: "music"
-      foreground: *color_5
+      foreground: *color_1
+      background: *color_3
       label_not_playing: ""
       label_playing: "󰓇 <attr fg='white'>{song_title} - {artist_name}</attr>"
       max_title_length: 20
       max_artist_length: 20
     - type: "tiling direction"
-      background: *color_5
+      background: *color_4
       label_horizontal: "⮂"
       label_vertical: "⮁"
       margin: "0 4px"
@@ -119,27 +123,27 @@ bar:
       margin: "0 4px 0 0"
       padding: "0 8px"
     - type: "cpu"
-      foreground: *color_5
+      background: *color_6
+      foreground: *color_1
       label: "CPU:<attr fg='white'>{percent_usage}%</attr>"
       refresh_interval_ms: 1000
     - type: "gpu"
-      foreground: *color_5
+      background: *color_7
+      foreground: *color_1
       label: "GPU:<attr fg='white'>{percent_usage}%</attr>"
       refresh_interval_ms: 1000
     - type: "memory"
-      foreground: *color_5
+      background: *color_8
+      foreground: *color_1
       label: "RAM:<attr fg='white'>{percent_usage}%</attr>"
       refresh_interval_ms: 1000
     - type: "clock"
-      foreground: *color_5
+      background: *color_9
+      foreground: *color_1
+      foreground: *color_1
       # Documentation on formatting date/time string:
       # https://learn.microsoft.com/en-us/dotnet/standard/base-types/custom-date-and-time-format-strings
-      time_formatting: "ddd MMM d"
-    - type: "clock"
-      foreground: *color_5
-      # Documentation on formatting date/time string:
-      # https://learn.microsoft.com/en-us/dotnet/standard/base-types/custom-date-and-time-format-strings
-      time_formatting: "hh:mm tt"
+      time_formatting: "ddd MMM d hh:mm tt"
 
 
 workspaces:
@@ -182,12 +186,12 @@ window_rules:
   ################################################################################################
   - command: "set floating"
     match_process_name: "Everything"
-  - command: "move to workspace 3"
-    match_process_name: "Spotify"
-  - command: "set floating"
-    match_process_name: "startup-windotfiles"
+  - command: "move to workspace 1"
+    match_process_name: "/UnrealEditor|rider64|Godot/"
   - command: "move to workspace 2"
-    match_process_name: "GitHubDesktop"
+    match_process_name: "/Slack|GitHubDesktop|p4v/"
+  - command: "move to workspace 3"
+    match_process_name: "/Discord|Spotify/"
 
 #define: &system_mode "(l) 󰌾, (e) 󰗼, (s) 󰤄, (r) 󰑖, (Shift+s) "
 
@@ -210,6 +214,8 @@ binding_modes:
   ################################################################################################
   ## David's section
   ################################################################################################
+
+#define: &system_mode "(l) 󰌾, (e) 󰗼, (s) 󰤄, (r) 󰑖, (Shift+s) "
 
   - name: "system_action"
     keybindings:
@@ -285,7 +291,7 @@ keybindings:
 
   # Kill GlazeWM process safely.
   - command: "exit wm"
-    binding: "Alt+Shift+E"
+    binding: "Alt+Shift+X"
 
   # Re-evaluate configuration file.
   - command: "reload config"
@@ -294,7 +300,7 @@ keybindings:
   # Launch CMD terminal (alternatively `exec wt` or `exec %ProgramFiles%/Git/git-bash.exe`
   # to start Windows Terminal and Git Bash respectively.
   - command: "exec wt"
-    binding: "Alt+Enter"
+    binding: "Alt+Shift+Enter"
 
   # Focus the workspace that last had focus.
   - command: "focus workspace recent"
@@ -352,11 +358,15 @@ keybindings:
   
   # Launching faster file browser (Everything)
   - command: exec %ProgramFiles%/Everything/Everything.exe
+    binding: "Alt+Shift+E"
+
+    # Launching default file browser (OneCommander)
+  - command: exec %ProgramFiles%/OneCommander/OneCommander.exe
     binding: "Alt+E"
 
   # Launching google chrome
   - command: exec %ProgramFiles%/Google/Chrome/Application/chrome.exe
-    binding: "Alt+G"
+    binding: "Alt+Shift+G"
 
   # DAVID: Mode system mode
   # TODO

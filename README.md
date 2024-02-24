@@ -32,8 +32,7 @@
     - [Visual Code extensions](#visual-code-extensions)
     - [Run the script](#run-the-script)
   - [4. Configure the Task Scheduler](#4-configure-the-task-scheduler)
-  - [5. PowerToys](#5-powertoys)
-  - [6. Reboot the system](#6-reboot-the-system)
+  - [5. Reboot the system](#5-reboot-the-system)
 - [Usage](#usage)
   - [Sym links](#sym-links)
   - [Startup launcher](#startup-launcher)
@@ -97,7 +96,7 @@ These dependencies will be instaled when you run the installation script.
   *  ⌨️ `Windows Terminal` ➡️ Main terminal emulator
   *  ⌨️ `Oh My Posh` ➡️ Prompt theme engine for any shell
   *  🔠 `JetBrainsMonoNerdFont` ➡️ Windotfiles use this font
-  * 🧸 `Power Toys` ➡️ Set of functionalities for Windows. Mainly **PowerToy Run**
+  * 🍃 `Flow Launcher` ➡️ Application launcher. Similar to Rofi
   *  🏬 `GitLFS` ➡️ Windotfiles use Git LFS
   * 🎨 `neofetch` ➡️ This is just for style not gonna lie
   * 🧈 `Buttery Taskbar 2` ➡️ Allows to hide the taskbar forever (This is an .exe in the vendor's folder)
@@ -159,14 +158,7 @@ However, if you don't see the `start-dotfiles` task in your **Task Scheduler** y
 
 ![alt text](readme/task-scheduler.png)
 
-## 5. PowerToys
-> [!WARNING]
-The configuration for PowerToys should work as expect with [`Sym links`](#sym-links) but if that is not the case you can always manually restore the backup.\
-Make sure to select the right folder and then hit restore.
-
-![alt text](readme/powertoys.png)
-
-## 6. Reboot the system
+## 5. Reboot the system
 
 After completing the previous steps, restart the system to fully apply the changes.
 

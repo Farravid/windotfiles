@@ -36,8 +36,7 @@ def display_decorator():
     time.sleep(0.5)
     print(f"{PURPLE}" * 60 + NC)
     print("== Default apps ==")
-    print("[WS1] Terminal")
-    print("[WS2] Google Chrome")
+    print("[WS1] Google Chrome")
     print("[WS3] Spotify, Discord")
     print(f"{PURPLE}" * 60 + NC)
 
@@ -47,7 +46,6 @@ def launch_default_apps():
     This function launches the default apps for each workspace.
     """
     common.launch_command("start /b chrome.exe", "Google Chrome")
-    common.launch_command("start /b wt", "Windows Terminal")
     common.launch_command("start /b spotify", "Spotify")
 
     discord_folder = next((d for d in glob.glob(os.path.join(str(common.APPDATA_LOCAL / Path("Discord")), 'app*')) if os.path.isdir(d)), None)
@@ -60,6 +58,14 @@ def launch_c_setup():
     """
     pass
 
+def launch_frg_setup():
+    """
+    This function launches the setup for working. Slack, Perforce, Unreal...
+    """
+    common.launch_command(str(common.PROGRAM_FILES) + "\\Slack\\Slack.exe", "Slack", False, True)
+    common.launch_command(str(common.PROGRAM_FILES) + "\\Perforce\\p4v.exe", "Perforce", False, True)
+    common.launch_command(str(common.PROGRAM_FILES) + "\\JetBrains\JetBrains Rider 2023.3.3\\bin\\rider64.exe", "Rider", False, True)
+    
 
 def launch_godot_setup():
     """
@@ -78,7 +84,7 @@ def main():
     options = [
         inquirer.List('choice',
                       message="Select a setup to display:",
-                      choices = ["C++", "Godot", "None"],
+                      choices = ["FRG", "C++", "Godot", "None"],
 
                       )
     ]
@@ -92,7 +98,7 @@ def main():
     match answer['choice']:
         case 'C++'  : launch_c_setup()
         case 'Godot': launch_godot_setup()
-
+        case 'FRG': launch_frg_setup()
 
 if __name__ == "__main__":
     common.launch_glazewm()

@@ -122,13 +122,25 @@ def main():
     common.change_win_color_mode()
     prepare_powershell()
 
+    #TODO: 
+    # OneCommander: Colors
+    #RIDER: Colors?
+    # Flow launcher settings
+    # Spicetify (text): setup
+    # GlazeWM bar colors
+    # Discord: colors and themes
+    # Everything: colors
+    # change spotify on startup
+    # fix flow launcher not working properly
+
+
     install_pckgs(EInstaller.WINGET, [
         "glzr-io.glazewm",
         "Git.Git",
         "Github.GitLFS",
         "DEVCOM.JetBrainsMonoNerdFont -v \"2.3.3\" -e",
         "Microsoft.WindowsTerminal",
-        "Microsoft.PowerToys",
+        "Flow-Launcher.Flow-Launcher",
         "Microsoft.NuGet",
         "JanDeDobbeleer.OhMyPosh",
         "neofetch"])
@@ -137,8 +149,7 @@ def main():
     create_sym_links("pwsh/Microsoft.PowerShell_profile.ps1", result.stdout.strip())
     create_sym_links("wt/settings.json", str(common.APPDATA_LOCAL) + "\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState\settings.json")
     create_sym_links(".glaze-wm/config.yaml")
-    create_sym_links("powertoys/settings.json", str(common.APPDATA_LOCAL) + "\Microsoft\PowerToys\settings.json")
-    create_sym_links("powertoys/PowerToys Run/Settings/PowerToysRunSettings.json", str(common.APPDATA_LOCAL) + "\Microsoft\PowerToys\PowerToys Run\Settings\PowerToysRunSettings.json")
+    create_sym_links("flow_launcher/Settings.json", str(common.APPDATA_ROAMING) + "\FlowLauncher\Settings\Settings.json")
 
     common.reload_powershell()
 
@@ -146,19 +157,24 @@ def main():
 
     install_optional_pckgs(EInstaller.WINGET, [
         "Clement.bottom",
+        "DygmaLabs.Bazecor",
         "Spotify.Spotify",
+        "Spicetify.Spicetify"
         "Google.Chrome",
         "GitHub.GitHubDesktop",
         "Discord.Discord",
         "Obsidian.Obsidian",
         "Neovim.Neovim",
+        "OBSProject.OBSProject",
+        "Microsoft.DirectX",
+        "Nvidia.GeForceExperience",
         "voidtools.Everything",
         "Microsoft.VisualStudioCode",
         "Microsoft.VisualStudio.2022.BuildTools",
         "Microsoft.VisualStudio.2022.Community",
         "Rustlang.Rustup"])
 
-    create_sym_links("vscode/settings.json", str(common.APPDATA_ROAMING) + "\Code\User\settings.json")
+    create_sym_links("vscode/settings.json", str(common.APPDATA_ROAMING) + "\Code\\User\settings.json")
 
     install_optional_pckgs(EInstaller.CODE, [
         "s-nlf-fh.glassit",

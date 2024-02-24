@@ -14,6 +14,10 @@
       "keys": "ctrl+v"
     },
     {
+      "command": "find",
+      "keys": "ctrl+shift+f"
+    },
+    {
       "command": {
         "action": "splitPane",
         "split": "auto",
@@ -22,19 +26,14 @@
       "keys": "alt+shift+d"
     },
     {
-      "command": "find",
-      "keys": "ctrl+shift+f"
-    },
-    {
       "command": "closePane",
       "keys": "ctrl+q"
     },
     {
       "command": {
-        "action": "moveFocus",
-        "direction": "left"
+        "action": "closeTab"
       },
-      "keys": "ctrl+shift+left"
+      "keys": "ctrl+shift+q"
     },
     {
       "command": {
@@ -45,9 +44,10 @@
     },
     {
       "command": {
-        "action": "closeTab"
+        "action": "moveFocus",
+        "direction": "left"
       },
-      "keys": "ctrl+shift+q"
+      "keys": "ctrl+shift+left"
     },
     {
       "command": {
@@ -81,15 +81,15 @@
         "face": "JetBrainsMono NF",
         "weight": "bold"
       },
-      "opacity": 65,
+      "opacity": 85,
       "unfocusedAppearance": {
-        "opacity": 15,
+        "opacity": 30,
         "useAcrylic": true
       },
       "useAcrylic": true,
       "useAtlasEngine": true,
       "colorScheme": "wal",
-      "cursorColor": "#a5a3a5"
+      "cursorColor": "#a1a4a4"
     },
     "list": [
       {
@@ -143,6 +143,18 @@
         "guid": "{8152f7da-0df2-5b5a-b56d-9d5f42bffa7e}",
         "hidden": false,
         "name": "Developer PowerShell for VS 2022 (2)",
+        "source": "Windows.Terminal.VisualStudio"
+      },
+      {
+        "guid": "{b9cfb920-8635-5b0c-b31f-ed1fd30340b6}",
+        "hidden": true,
+        "name": "Developer Command Prompt for VS 2019",
+        "source": "Windows.Terminal.VisualStudio"
+      },
+      {
+        "guid": "{b2634467-7600-54ff-8a90-53d5a5864cc4}",
+        "hidden": true,
+        "name": "Developer PowerShell for VS 2019",
         "source": "Windows.Terminal.VisualStudio"
       }
     ]
@@ -426,24 +438,24 @@
     },
     {
       "name": "wal",
-      "black": "#060505",
-      "red": "#6c3437",
-      "green": "#368d8b",
-      "yellow": "#ca5b41",
-      "blue": "#b26c58",
-      "purple": "#608d88",
-      "cyan": "#bfaa99",
-      "white": "#a5a3a5",
-      "brightBlack": "#4b474b",
-      "brightRed": "#6c3437",
-      "brightGreen": "#368d8b",
-      "brightYellow": "#ca5b41",
-      "brightBlue": "#b26c58",
-      "brightPurple": "#608d88",
-      "brightCyan": "#bfaa99",
-      "brightWhite": "#a5a3a5",
-      "background": "#060505",
-      "foreground": "#a5a3a5"
+      "black": "#030505",
+      "red": "#343c4c",
+      "green": "#5b6c86",
+      "yellow": "#ac7c6c",
+      "blue": "#8f91a3",
+      "purple": "#a2acbc",
+      "cyan": "#a4b4c4",
+      "white": "#a1a4a4",
+      "brightBlack": "#434949",
+      "brightRed": "#343c4c",
+      "brightGreen": "#5b6c86",
+      "brightYellow": "#ac7c6c",
+      "brightBlue": "#8f91a3",
+      "brightPurple": "#a2acbc",
+      "brightCyan": "#a4b4c4",
+      "brightWhite": "#a1a4a4",
+      "background": "#030505",
+      "foreground": "#a1a4a4"
     }
   ],
   "showTabsInTitlebar": true,
