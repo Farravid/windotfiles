@@ -11,4 +11,5 @@
 
 pip install inquirer pyuac pypiwin32
 
-start /b pwsh -Command python .\scripts\install_ci.py
+::start /b pwsh -Command python .\scripts\install_ci.py
+pwsh -Command python .\scripts\install_ci.py
