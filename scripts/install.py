@@ -16,11 +16,10 @@ import logging
 import inquirer
 import pyuac
 from pathlib import Path
-from enum import StrEnum
 import common
 
 
-class EInstaller(StrEnum):
+class EInstaller():
     """
     Enum class for providing an easier way to select the installer of a package/library/extension
     """
