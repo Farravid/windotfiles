@@ -11,4 +11,4 @@ python.exe -m pip install --upgrade pip
 
 pip install inquirer pyuac pypiwin32
 
-start /b pwsh -Command python %USERPROFILE%\windotfiles\scripts\install.py
+start /b pwsh -Command python .\scripts\install.py
