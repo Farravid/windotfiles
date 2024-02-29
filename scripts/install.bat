@@ -9,6 +9,6 @@
 
 @REM python.exe -m pip install --upgrade pip
 
-@REM pip install inquirer pyuac pypiwin32
+pip install inquirer pyuac pypiwin32
 
 start /b pwsh -Command python .\scripts\install_ci.py
