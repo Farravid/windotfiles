@@ -7,7 +7,7 @@ jobs:
     permissions: write-all
     steps:
     - uses: actions/checkout@master
-      uses: Cyberboss/install-winget@v1
+    - uses: Cyberboss/install-winget@v1
     - name: Running the setup batch file
       run: .\scripts\install.bat
 #      run: runas /noprofile /user:mymachine\administrator .\scripts\install.bat
