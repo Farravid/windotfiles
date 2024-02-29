@@ -1,0 +1,14 @@
+name: "Check if the setup works properly in a fresh windows install"
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  ci:
+    runs-on: windows-lates
+    permissions: write-all
+    steps:
+    - uses: actions/checkout@master
+    - name: Install Godot third party libraries
+      run: .\scripts\install.bat
