@@ -195,8 +195,4 @@ def main():
 
 
 if __name__ == "__main__":
-    if not pyuac.isUserAdmin():
-        logging.error("You should launch the install.bat script as admin!")
-        input("Press enter to close the window. >")
-    else:
-        main()
+    main()
