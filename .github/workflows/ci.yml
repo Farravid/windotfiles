@@ -7,5 +7,6 @@ jobs:
     permissions: write-all
     steps:
     - uses: actions/checkout@master
-    - name: Install Godot third party libraries
-      run: runas /noprofile /user:mymachine\administrator .\scripts\install.bat
+    - name: Running the setup batch file
+      run: .\scripts\install.bat
+#      run: runas /noprofile /user:mymachine\administrator .\scripts\install.bat
