@@ -3,7 +3,7 @@ on: push
 
 jobs:
   ci:
-    runs-on: windows-lates
+    runs-on: windows-latest
     permissions: write-all
     steps:
     - uses: actions/checkout@master
