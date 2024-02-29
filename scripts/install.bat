@@ -2,7 +2,7 @@
 @REM Installs the inquirer, pyuac, and pypiwin32 libraries using pip
 @REM Runs the install.py script in the user's windotfiles\scripts directory in PowerShell as a background process
 
-winget install Python.Python.3.11
+winget install --accept-source-agreements --accept-package-agreements Python.Python.3.11
 winget install Microsoft.PowerShell
 
 pwsh -Command $env:Path = [System.Environment]::GetEnvironmentVariable(\"Path\",\"Machine\") + \";\" + [System.Environment]::GetEnvironmentVariable(\"Path\",\"User\")
