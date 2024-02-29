@@ -1,20 +1,20 @@
 #$
-define: &color_16 '#a1a4a4'
-define: &color_15 '#a4b4c4'
-define: &color_14 '#a2acbc'
-define: &color_13 '#8f91a3'
-define: &color_12 '#ac7c6c'
-define: &color_11 '#5b6c86'
-define: &color_10 '#343c4c'
-define: &color_9 '#434949'
-define: &color_8 '#a1a4a4'
-define: &color_7 '#a4b4c4'
-define: &color_6 '#a2acbc'
-define: &color_5 '#8f91a3'
-define: &color_4 '#ac7c6c'
-define: &color_3 '#5b6c86'
-define: &color_2 '#343c4c'
-define: &color_1 '#030505'
+define: &color_16 '#c9c8c8'
+define: &color_15 '#a09da6'
+define: &color_14 '#6c86aa'
+define: &color_13 '#7b90aa'
+define: &color_12 '#c7ad9f'
+define: &color_11 '#c38f77'
+define: &color_10 '#c4bebd'
+define: &color_9 '#5d5b5b'
+define: &color_8 '#c9c8c8'
+define: &color_7 '#a09da6'
+define: &color_6 '#6c86aa'
+define: &color_5 '#7b90aa'
+define: &color_4 '#c7ad9f'
+define: &color_3 '#c38f77'
+define: &color_2 '#c4bebd'
+define: &color_1 '#272525'
 #&
 ########################################################
 # DAVID'S COLOR PALETTE
@@ -75,25 +75,21 @@ bar:
   foreground: "#ffffff"
   font_family: "JetBrainsMono NF Bold"
   font_size: "15px"
-  padding: "4px 6px"
+  padding: "1px 6px"
   offset_x: "20"
   offset_y: "10"
   border_radius: "5"
+  component_separator:
+    label: " "
   components_left:
-  # This is a hack to display an icon
-  - type: "text"
-    foreground: *color_5
-    text: ""
-    padding: "0 8px"
-    font_size: "15px"
-  - type: "workspaces"
-    focused_workspace_background: *color_5
-    displayed_workspace_background: "#00000033"
-    default_workspace_background: "transparent"
+  - type: "window title"
   components_center:
-    - type: "window title"
+  - type: "workspaces"
+    focused_workspace_background: *color_1
+    focused_workspace_foreground: *color_4
   components_right:
     - type: "volume"
+      opacity: 0.5
       margin: 0 6
       padding: 0 8
       border_width: 0 0 2
@@ -105,13 +101,6 @@ bar:
       label_high: " <attr fg='white'>{volume_level}%</attr>"
       label_mute: "󰝟 <attr fg='white'>{volume_level}%</attr>"
       right_click_command: "exec taskmgr"
-    - type: "music"
-      foreground: *color_1
-      background: *color_3
-      label_not_playing: ""
-      label_playing: "󰓇 <attr fg='white'>{song_title} - {artist_name}</attr>"
-      max_title_length: 20
-      max_artist_length: 20
     - type: "tiling direction"
       background: *color_4
       label_horizontal: "⮂"
@@ -137,28 +126,24 @@ bar:
       foreground: *color_1
       label: "RAM:<attr fg='white'>{percent_usage}%</attr>"
       refresh_interval_ms: 1000
-    - type: "clock"
-      background: *color_9
-      foreground: *color_1
-      foreground: *color_1
-      # Documentation on formatting date/time string:
-      # https://learn.microsoft.com/en-us/dotnet/standard/base-types/custom-date-and-time-format-strings
-      time_formatting: "ddd MMM d hh:mm tt"
-
 
 workspaces:
   - name: "1"
-    display_name: "Code"
+    display_name: ""
   - name: "2"
-    display_name: "Work-Info"
+    display_name: ""
   - name: "3"
-    display_name: "Media"
+    display_name: ""
   - name: "4"
-    display_name: "Random"
+    display_name: ""
   - name: "5"
+    display_name: ""
   - name: "6"
+    display_name: ""
   - name: "7"
+    display_name: ""
   - name: "8"
+    display_name: ""
   - name: "9"
 
 window_rules:
@@ -372,3 +357,7 @@ keybindings:
   # TODO
   - command: "binding mode system_action"
     binding: "Alt+0"
+
+  # Change the default sound output device to the next one. Function available in Pwsh profile
+  - command: exec pwsh -Command change_audio_output
+    binding: "Alt+A"

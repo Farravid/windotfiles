@@ -39,6 +39,7 @@ def prepare_powershell():
     subprocess.run("pwsh -Command Set-ExecutionPolicy RemoteSigned -Scope CurrentUser", shell=True, text=True)
     print("\n === Importing the " + common.PURPLE + " start-dotfiles.xml " + common.NC + " task to the Task Scheduler === \n")
     subprocess.run(["pwsh", "-Command", f"Register-ScheduledTask -Xml (Get-Content '{common.WINDOTFILES}\\tasks\\start-dotfiles.xml' | Out-String) -TaskName 'start-dotfiles'"], shell=True)
+    common.launch_command("pwsh -Command Install-Module -Name AudioDeviceCmdlets -Force -Verbose", "installation of AudioDeviceCmdlets module")
 
 
 def install_pckgs(installer: EInstaller, pkg_names: list, commands: str = ""):
@@ -66,7 +67,7 @@ def install_optional_pckgs(installer: EInstaller, pkg_names: list, commands: str
     """
     for pkg_name in pkg_names:
 
-        message = f'Do you want to {"" if installer == EInstaller.PIP else "un"}stall ' + common.PURPLE + pkg_name + common.NC + ' ?'
+        message = f'Do you want to {"" if installer == EInstaller.PIP else "in"}stall ' + common.PURPLE + pkg_name + common.NC + ' ?'
         question = [
             inquirer.List(
                 "choice", message, ["Yes", "No"],
@@ -126,12 +127,13 @@ def main():
     # OneCommander: Colors
     #RIDER: Colors?
     # Flow launcher settings
+    # Flow launcher with everything
     # Spicetify (text): setup
-    # GlazeWM bar colors
+    # GlazeWM new bar or colors
     # Discord: colors and themes
-    # Everything: colors
-    # change spotify on startup
+    # remove onedrive and pre-installed spotify bro
     # fix flow launcher not working properly
+    # Startup launcher: remove C++ or add windotfiles and close powershell
 
 
     install_pckgs(EInstaller.WINGET, [
@@ -144,12 +146,12 @@ def main():
         "Microsoft.NuGet",
         "JanDeDobbeleer.OhMyPosh",
         "neofetch"])
-
+    
     result = subprocess.run('pwsh -Command $PROFILE', shell=True, capture_output=True, text=True)
     create_sym_links("pwsh/Microsoft.PowerShell_profile.ps1", result.stdout.strip())
     create_sym_links("wt/settings.json", str(common.APPDATA_LOCAL) + "\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState\settings.json")
     create_sym_links(".glaze-wm/config.yaml")
-    create_sym_links("flow_launcher/Settings.json", str(common.APPDATA_ROAMING) + "\FlowLauncher\Settings\Settings.json")
+    #create_sym_links("flow_launcher/Settings.json", str(common.APPDATA_ROAMING) + "\FlowLauncher\Settings\Settings.json")
 
     common.reload_powershell()
 
@@ -159,7 +161,7 @@ def main():
         "Clement.bottom",
         "DygmaLabs.Bazecor",
         "Spotify.Spotify",
-        "Spicetify.Spicetify"
+        "Spicetify.Spicetify",
         "Google.Chrome",
         "GitHub.GitHubDesktop",
         "Discord.Discord",

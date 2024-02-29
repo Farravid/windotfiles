@@ -46,7 +46,7 @@ def launch_default_apps():
     This function launches the default apps for each workspace.
     """
     common.launch_command("start /b chrome.exe", "Google Chrome")
-    common.launch_command("start /b spotify", "Spotify")
+    common.launch_command("start /b " + str(common.APPDATA_ROAMING / Path("Spotify/Spotify.exe")), "Spotify")
 
     discord_folder = next((d for d in glob.glob(os.path.join(str(common.APPDATA_LOCAL / Path("Discord")), 'app*')) if os.path.isdir(d)), None)
     common.launch_command("start /b " + str(Path(discord_folder + "/Discord.exe")), "Discord")
