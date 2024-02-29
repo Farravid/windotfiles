@@ -16,11 +16,10 @@ import logging
 import inquirer
 import pyuac
 from pathlib import Path
-from enum import StrEnum
 import common
 
 
-class EInstaller(StrEnum):
+class EInstaller():
     """
     Enum class for providing an easier way to select the installer of a package/library/extension
     """
@@ -118,7 +117,6 @@ def main():
     """
     The main function of the script.
     """
-    input("Pre-installation ready, press enter to continue with the setup. >")
 
     common.change_win_color_mode()
     prepare_powershell()
@@ -157,7 +155,7 @@ def main():
 
     install_pywal()
 
-    install_optional_pckgs(EInstaller.WINGET, [
+    install_pckgs(EInstaller.WINGET, [
         "Clement.bottom",
         "DygmaLabs.Bazecor",
         "Spotify.Spotify",
@@ -178,7 +176,7 @@ def main():
 
     create_sym_links("vscode/settings.json", str(common.APPDATA_ROAMING) + "\Code\\User\settings.json")
 
-    install_optional_pckgs(EInstaller.CODE, [
+    install_pckgs(EInstaller.CODE, [
         "s-nlf-fh.glassit",
         "ms-vscode.cpptools",
         "naumovs.color-highlight",
@@ -194,8 +192,6 @@ def main():
 
     common.reload_powershell()
     common.launch_glazewm()
-
-    input("Press enter to close the window. >")
 
 
 if __name__ == "__main__":
