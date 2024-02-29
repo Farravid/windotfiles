@@ -9,6 +9,6 @@ pwsh -Command $env:Path = [System.Environment]::GetEnvironmentVariable(\"Path\",
 
 python.exe -m pip install --upgrade pip
 
-pip install inquirer pyuac pypiwin32
+pip install inquirer pyuac pypiwin32 StrEnum
 
 start /b pwsh -Command python .\scripts\install.py
