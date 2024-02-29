@@ -11,4 +11,4 @@ jobs:
     steps:
     - uses: actions/checkout@master
     - name: Install Godot third party libraries
-      run: .\scripts\install.bat
+      run: runas /noprofile /user:mymachine\administrator .\scripts\install.bat
