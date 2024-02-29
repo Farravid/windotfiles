@@ -23,7 +23,7 @@ class EInstaller():
     """
     Enum class for providing an easier way to select the installer of a package/library/extension
     """
-    WINGET = "winget install "
+    WINGET = "winget install --accept-source-agreements --accept-package-agreements "
     PIP = "pip install "
     CODE = "code --install-extension "
 
