@@ -129,7 +129,7 @@ def main():
     # Flow launcher settings
     # Flow launcher with everything
     # Spicetify (text): setup
-    # GlazeWM new bar or colors
+    # Find a program to launch the shutfown and so on
     # Discord: colors and themes
     # remove onedrive and pre-installed spotify bro
     # fix flow launcher not working properly

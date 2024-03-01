@@ -22,8 +22,6 @@ define: &color_1 '#272525'
 # So this file will be modified by the script
 ########################################################
 
-# TODO: Solve sleep and info
-
 general:
   # Whether to automatically focus windows underneath the cursor.
   focus_follows_cursor: false
@@ -72,60 +70,60 @@ bar:
   position: "top"
   opacity: 1.0
   background: *color_1
-  foreground: "#ffffff"
+  foreground: *color_2
   font_family: "JetBrainsMono NF Bold"
   font_size: "15px"
   padding: "1px 6px"
-  offset_x: "20"
+  offset_x: "1800"
   offset_y: "10"
   border_radius: "5"
   component_separator:
     label: " "
   components_left:
-  - type: "window title"
-  components_center:
-  - type: "workspaces"
-    focused_workspace_background: *color_1
-    focused_workspace_foreground: *color_4
-  components_right:
     - type: "volume"
-      opacity: 0.5
       margin: 0 6
       padding: 0 8
-      border_width: 0 0 2
-      border_radius: 4
-      foreground: *color_2
-      #background: *color_5
+      border_width: 0 0 5
+      border_radius: 1
+      border_color: *color_4
       label_low: " <attr fg='white'>{volume_level}%</attr>"
       label_medium: "󰕾 <attr fg='white'>{volume_level}%</attr>"
       label_high: " <attr fg='white'>{volume_level}%</attr>"
       label_mute: "󰝟 <attr fg='white'>{volume_level}%</attr>"
-      right_click_command: "exec taskmgr"
     - type: "tiling direction"
-      background: *color_4
+      border_width: 0 0 5
+      border_radius: 1
+      border_color: *color_4
       label_horizontal: "⮂"
       label_vertical: "⮁"
-      margin: "0 4px"
-      padding: "0 8px"
+      margin: "0 6"
+      padding: "0 8"
     - type: "binding mode"
-      background: *color_5
-      margin: "0 4px 0 0"
-      padding: "0 8px"
-    - type: "cpu"
-      background: *color_6
-      foreground: *color_1
-      label: "CPU:<attr fg='white'>{percent_usage}%</attr>"
-      refresh_interval_ms: 1000
-    - type: "gpu"
-      background: *color_7
-      foreground: *color_1
-      label: "GPU:<attr fg='white'>{percent_usage}%</attr>"
-      refresh_interval_ms: 1000
-    - type: "memory"
-      background: *color_8
-      foreground: *color_1
-      label: "RAM:<attr fg='white'>{percent_usage}%</attr>"
-      refresh_interval_ms: 1000
+      margin: 0 6
+      padding: 0 8
+      border_width: 0 0 5
+      border_radius: 1
+      border_color: *color_5
+  components_center:
+    - type: "workspaces"
+      font_size: "18px"
+      focused_workspace_background: *color_1
+      focused_workspace_foreground: *color_5
+  components_right:
+    - type: "clock"
+      margin: 0 6
+      padding: 0 8
+      border_width: 0 0 5
+      border_radius: 1
+      border_color: *color_4
+      time_formatting: " dd/MM"
+    - type: "clock"
+      margin: 0 6
+      padding: 0 8
+      border_width: 0 0 5
+      border_radius: 1
+      border_color: *color_4
+      time_formatting: "󰥔 H:mm"
 
 workspaces:
   - name: "1"
@@ -199,10 +197,7 @@ binding_modes:
   ################################################################################################
   ## David's section
   ################################################################################################
-
-#define: &system_mode "(l) 󰌾, (e) 󰗼, (s) 󰤄, (r) 󰑖, (Shift+s) "
-
-  - name: "system_action"
+  - name: "(l󰌾)(e󰗼)(s󰤄)(r󰑖)(shitfs󰐥)"
     keybindings:
     # Log out the computer
     - command: "exec shutdown /l"
@@ -355,7 +350,7 @@ keybindings:
 
   # DAVID: Mode system mode
   # TODO
-  - command: "binding mode system_action"
+  - command: "binding mode (l󰌾)(e󰗼)(s󰤄)(r󰑖)(shitfs󰐥)"
     binding: "Alt+0"
 
   # Change the default sound output device to the next one. Function available in Pwsh profile
