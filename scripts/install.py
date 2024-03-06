@@ -13,20 +13,9 @@ Note: This script requires an internet connection and may prompt you to accept E
 import os
 import subprocess
 import logging
-import inquirer
 import pyuac
 from pathlib import Path
-from enum import StrEnum
 import common
-
-
-class EInstaller(StrEnum):
-    """
-    Enum class for providing an easier way to select the installer of a package/library/extension
-    """
-    WINGET = "winget install "
-    PIP = "pip install "
-    CODE = "code --install-extension "
 
 
 def prepare_powershell():
@@ -41,50 +30,11 @@ def prepare_powershell():
     subprocess.run(["pwsh", "-Command", f"Register-ScheduledTask -Xml (Get-Content '{common.WINDOTFILES}\\tasks\\start-dotfiles.xml' | Out-String) -TaskName 'start-dotfiles'"], shell=True)
     common.launch_command("pwsh -Command Install-Module -Name AudioDeviceCmdlets -Force -Verbose", "installation of AudioDeviceCmdlets module")
 
-
-def install_pckgs(installer: EInstaller, pkg_names: list, commands: str = ""):
-    """
-    Installs the specified packages using the specified installer.
-
-    Args:
-        installer (EInstaller): The installer to use (winget, pip, or code).
-        pkg_names (list): The names of the packages to install.
-        commands (str, optional): Additional commands to pass to the installer.
-    """
-    for pkg_name in pkg_names:
-        print(f"\n === Installing " + common.PURPLE + pkg_name + common.NC + " with " + installer + " === \n")
-        common.launch_command(installer + pkg_name + commands, "", True)
-
-
-def install_optional_pckgs(installer: EInstaller, pkg_names: list, commands: str = ""):
-    """
-    Installs or uninstalls the specified optional packages using the specified installer.
-
-    Args:
-        installer (EInstaller): The installer to use (winget, pip, or code).
-        pkg_names (list): The names of the packages to install or uninstall.
-        commands (str, optional): Additional commands to pass to the installer.
-    """
-    for pkg_name in pkg_names:
-
-        message = f'Do you want to {"" if installer == EInstaller.PIP else "in"}stall ' + common.PURPLE + pkg_name + common.NC + ' ?'
-        question = [
-            inquirer.List(
-                "choice", message, ["Yes", "No"],
-            ),
-        ]
-
-        answer = inquirer.prompt(question)
-
-        if answer["choice"] == "Yes":
-            install_pckgs(installer, [pkg_name], commands)
-
-
 def install_pywal():
     """
     Installs the pywal package and its dependencies.
     """
-    install_pckgs(EInstaller.PIP, ["pywal", "colorz", "colorthief", "haishoku"])
+    common.install_pckgs(common.EInstaller.PIP, ["pywal", "colorz", "colorthief", "haishoku"])
     print(f"\n === Importing and running" + common.PURPLE + " winwal " + common.NC + "module to the powershell 7 === \n")
     subprocess.run("pwsh -Command update-winwal " + str(common.WINDOTFILES_ASSETS) + "\dunes.png", text=True)
 
@@ -125,60 +75,34 @@ def main():
 
     #TODO: 
     # OneCommander: Colors
-    #RIDER: Colors?
-    # Flow launcher settings
-    # Flow launcher with everything
-    # Spicetify (text): setup
-    # Find a program to launch the shutfown and so on
+    # RIDER: Colors
+    # Flow launcher: Colors
+    # Spicetify (text): setup and colors
     # Discord: colors and themes
-    # remove onedrive and pre-installed spotify bro
-    # fix flow launcher not working properly
-    # Startup launcher: remove C++ or add windotfiles and close powershell
+    # remove onedrive and pre-installed spotify bro and proper install fro spotify
+    # CI/CD github 
+    # I'd love to fix dygma
+    # Fix Windows terminal not closing on startup
 
-
-    install_pckgs(EInstaller.WINGET, [
-        "glzr-io.glazewm",
-        "Git.Git",
-        "Github.GitLFS",
-        "DEVCOM.JetBrainsMonoNerdFont -v \"2.3.3\" -e",
-        "Microsoft.WindowsTerminal",
-        "Flow-Launcher.Flow-Launcher",
-        "Microsoft.NuGet",
-        "JanDeDobbeleer.OhMyPosh",
-        "neofetch"])
+    common.install_pckgs(common.EInstaller.WINGET, common.REQUIRED_WINGET_PROGRAMS)
     
     result = subprocess.run('pwsh -Command $PROFILE', shell=True, capture_output=True, text=True)
     create_sym_links("pwsh/Microsoft.PowerShell_profile.ps1", result.stdout.strip())
     create_sym_links("wt/settings.json", str(common.APPDATA_LOCAL) + "\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState\settings.json")
     create_sym_links(".glaze-wm/config.yaml")
-    #create_sym_links("flow_launcher/Settings.json", str(common.APPDATA_ROAMING) + "\FlowLauncher\Settings\Settings.json")
 
     common.reload_powershell()
 
+    # Copying flow_launcher windotfiles settings to the computer installation.
+    common.launch_command("pwsh -Command cp_windotfiles_to_fl") 
+
     install_pywal()
 
-    install_optional_pckgs(EInstaller.WINGET, [
-        "Clement.bottom",
-        "DygmaLabs.Bazecor",
-        "Spotify.Spotify",
-        "Spicetify.Spicetify",
-        "Google.Chrome",
-        "GitHub.GitHubDesktop",
-        "Discord.Discord",
-        "Obsidian.Obsidian",
-        "Neovim.Neovim",
-        "OBSProject.OBSProject",
-        "Microsoft.DirectX",
-        "Nvidia.GeForceExperience",
-        "voidtools.Everything",
-        "Microsoft.VisualStudioCode",
-        "Microsoft.VisualStudio.2022.BuildTools",
-        "Microsoft.VisualStudio.2022.Community",
-        "Rustlang.Rustup"])
+    common.install_optional_pckgs(common.EInstaller.WINGET, common.OPTIONAL_WINGET_PROGRAMS)
 
     create_sym_links("vscode/settings.json", str(common.APPDATA_ROAMING) + "\Code\\User\settings.json")
 
-    install_optional_pckgs(EInstaller.CODE, [
+    common.install_optional_pckgs(common.EInstaller.CODE, [
         "s-nlf-fh.glassit",
         "ms-vscode.cpptools",
         "naumovs.color-highlight",
@@ -192,6 +116,7 @@ def main():
         "TabNine.tabnine-vscode",
         "yzhang.markdown-all-in-one"], " --force")
 
+    #TODO: Is this reload necessary?
     common.reload_powershell()
     common.launch_glazewm()
 

@@ -34,7 +34,9 @@
   - [4. Configure the Task Scheduler](#4-configure-the-task-scheduler)
   - [5. Reboot the system](#5-reboot-the-system)
 - [Usage](#usage)
+  - [Update windotfiles](#update-windotfiles)
   - [Sym links](#sym-links)
+  - [Flow Launcher](#flow-launcher)
   - [Startup launcher](#startup-launcher)
   - [Aliases](#aliases)
   - [Update the color scheme](#update-the-color-scheme)
@@ -74,7 +76,6 @@ Invoke-WebRequest -Uri https://aka.ms/getwinget -OutFile winget.msixbundle
 Add-AppPackage -ForceApplicationShutdown .\winget.msixbundle
 del .\winget.msixbundle
 ```
-
 
 ## 3. Install dependencies
 In order to fully install and use the windotfiles, you need to install some dependencies.\
@@ -165,6 +166,15 @@ After completing the previous steps, restart the system to fully apply the chang
 # Usage
 After the sucessful installation you can still modify the windotfiles for your specific cases or use some of the functionalities described below.
 
+## Update windotfiles
+If you have been using the windotfiles for some time you will notice some packages need upgrades.\
+For this reason, I've created a powershell command available to make this process straight-away.
+```shell
+update-windotfiles
+```
+You only need to run this command on your powershell to run through the update of all the windotfiles packages you have installed.\
+It will update the required and the optional packages you have installed as well as the VSCode extensions you decided to install.
+
 ## Sym links
 
 > [!NOTE]
@@ -172,6 +182,11 @@ A sym link is a way to link one file to an additional folder location. This way 
 
 Every config file of this repository is symlinked to the original config file when running the `install.bat` script.\
 This way, you can modify the files from the repository and the changes will be reflected in the actual programs, without the need of copying them manually.
+
+## Flow Launcher
+TODO
+> [!WARNING]
+Make sure to close Flow Launcher entirely before copying the windotfiles settings to the computer installation
 
 ## Startup launcher
 This python script (`startup.py`) will be launched from the `Task Scheduler` every time you log in. It is in charge of launching `GlazeWM` and prompting the user with a setup selector.
@@ -187,12 +202,23 @@ The default configuration is my usual configuration and my usual setups but you 
 
 </details>
 
+> [!NOTE]
+Make sure to disable all the relevant programs from windows start up in order to have a perfect experience
 
 ## Aliases
-The `PowerShell` profile available in the `pwsh` contains some useful aliases that you can use or modify.
+The `PowerShell` profile available in the `pwsh` contains some useful aliases that you can use or modify. Some of theme:
 ```shell
-# Change directory to the windotfiles folder and show the content
-windotfiles
+# Move and show the windotfiles folder
+function windotfiles {Set-Location -Path $env:USERPROFILE\windotfiles && Get-ChildItem -Force }
+
+# Open the windotfiles folder in Visual Studio Code
+function cwindotfiles { code $env:USERPROFILE\windotfiles }
+
+# Move and show the downloads folder
+function down {Set-Location -Path $env:USERPROFILE\Downloads && Get-ChildItem -Force }
+
+# Move and show the documents folder
+function doc {Set-Location -Path $env:USERPROFILE\Documents && Get-ChildItem -Force }
 ```   
 
 ## Update the color scheme
@@ -200,6 +226,7 @@ In top of winwal, we have an `update-winwal` powershell command available for up
 This command, for now, supports updating the color scheme of the following software:
 - `Windows Terminal`
 - `GlazeWM`
+- `VSCode` (`dlasagno.wal-theme` plugin must be installed)
 - `Dygma Keyboard` (disabled by now)
 
 In order to use it, run the following command:
@@ -215,3 +242,4 @@ update-winwal .\assets\dunes.png
 - [`Buttery Taskbar 2`](https://github.com/LuisThiamNye/ButteryTaskbar2)
 - [`Dygma Rust API`](https://github.com/mbwilding/dygma-focus-api-rs)
 - [`Oh My Posh`](https://ohmyposh.dev/)
+- [`Flow Launcher`](https://www.flowlauncher.com/)

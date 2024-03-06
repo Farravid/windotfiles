@@ -20,6 +20,31 @@ function change_audio_output
     }
 }
 
+<#
+ Copy the current computer flow launcher settings to the windotfiles
+ Flow launcher doesn't support SYMLINKS! 
+#>
+
+function cp_fl_to_windotfiles 
+{
+    Copy-Item  $env:Appdata\FlowLauncher\Plugins $env:USERPROFILE\windotfiles\flow_launcher -Force -Recurse
+    Copy-Item  $env:Appdata\FlowLauncher\Settings $env:USERPROFILE\windotfiles\flow_launcher -Force -Recurse
+    Copy-Item  $env:Appdata\FlowLauncher\Themes $env:USERPROFILE\windotfiles\flow_launcher -Force -Recurse
+}
+
+<#
+ Copy the current windotfiles flow launcher settings to computer
+ Flow launcher doesn't support SYMLINKS! 
+#>
+
+function cp_windotfiles_to_fl 
+{
+    Copy-Item  $env:USERPROFILE\windotfiles\flow_launcher\Plugins $env:Appdata\FlowLauncher -Force -Recurse
+    Copy-Item  $env:USERPROFILE\windotfiles\flow_launcher\Settings $env:Appdata\FlowLauncher -Force -Recurse
+    Copy-Item  $env:USERPROFILE\windotfiles\flow_launcher\Themes $env:Appdata\FlowLauncher -Force -Recurse
+    Start-Process $env:LocalAppData\FlowLauncher\Flow.Launcher.exe
+}
+
 
 ###############################
 # ALIASES
@@ -49,3 +74,6 @@ function cgodot { code $env:USERPROFILE\Documents\GitHub\ProjectoAmador }
 # Update the terminal, glaze and dygma color scheme based on the given wallpaper
 # It also sets the given wallpaper
 function update-winwal ([string]$wallpaper) { python $env:USERPROFILE\windotfiles\scripts\colors\update_winwal.py $wallpaper }
+
+# Updat the windotfiles packages
+function update-windotfiles { python $env:USERPROFILE\windotfiles\scripts\update.py }

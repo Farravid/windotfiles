@@ -1,0 +1,174 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v5.0/win-x64",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v5.0": {},
+    ".NETCoreApp,Version=v5.0/win-x64": {
+      "Flow.Launcher.Plugin.SpotifyPremium/1.0.0": {
+        "dependencies": {
+          "Flow.Launcher.Plugin": "2.1.0",
+          "SpotifyAPI.Web": "6.2.2",
+          "SpotifyAPI.Web.Auth": "6.2.2"
+        },
+        "runtime": {
+          "Flow.Launcher.Plugin.SpotifyPremium.dll": {}
+        }
+      },
+      "EmbedIO/3.4.3": {
+        "dependencies": {
+          "Unosquare.Swan.Lite": "3.0.0"
+        },
+        "runtime": {
+          "lib/netstandard2.0/EmbedIO.dll": {
+            "assemblyVersion": "3.4.3.0",
+            "fileVersion": "3.4.3.0"
+          }
+        }
+      },
+      "Flow.Launcher.Plugin/2.1.0": {
+        "dependencies": {
+          "JetBrains.Annotations": "2021.2.0",
+          "PropertyChanged.Fody": "3.4.0"
+        },
+        "runtime": {
+          "lib/net5.0-windows7.0/Flow.Launcher.Plugin.dll": {
+            "assemblyVersion": "0.0.0.0",
+            "fileVersion": "0.0.0.0"
+          }
+        }
+      },
+      "Fody/6.5.1": {},
+      "JetBrains.Annotations/2021.2.0": {
+        "runtime": {
+          "lib/netstandard2.0/JetBrains.Annotations.dll": {
+            "assemblyVersion": "2021.2.0.0",
+            "fileVersion": "2021.2.0.0"
+          }
+        }
+      },
+      "Newtonsoft.Json/13.0.1": {
+        "runtime": {
+          "lib/netstandard2.0/Newtonsoft.Json.dll": {
+            "assemblyVersion": "13.0.0.0",
+            "fileVersion": "13.0.1.25517"
+          }
+        }
+      },
+      "PropertyChanged.Fody/3.4.0": {
+        "dependencies": {
+          "Fody": "6.5.1"
+        },
+        "runtime": {
+          "lib/netstandard2.1/PropertyChanged.dll": {
+            "assemblyVersion": "3.4.0.0",
+            "fileVersion": "3.4.0.0"
+          }
+        }
+      },
+      "SpotifyAPI.Web/6.2.2": {
+        "dependencies": {
+          "Newtonsoft.Json": "13.0.1"
+        },
+        "runtime": {
+          "lib/net5.0/SpotifyAPI.Web.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      },
+      "SpotifyAPI.Web.Auth/6.2.2": {
+        "dependencies": {
+          "EmbedIO": "3.4.3",
+          "SpotifyAPI.Web": "6.2.2"
+        },
+        "runtime": {
+          "lib/net5.0/SpotifyAPI.Web.Auth.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      },
+      "Unosquare.Swan.Lite/3.0.0": {
+        "runtime": {
+          "lib/netstandard2.0/Swan.Lite.dll": {
+            "assemblyVersion": "3.0.0.0",
+            "fileVersion": "3.0.0.0"
+          }
+        }
+      }
+    }
+  },
+  "libraries": {
+    "Flow.Launcher.Plugin.SpotifyPremium/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "EmbedIO/3.4.3": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-YM6hpZNAfvbbixfG9T4lWDGfF0D/TqutbTROL4ogVcHKwPF1hp+xS3ABwd3cxxTxvDFkj/zZl57QgWuFA8Igxw==",
+      "path": "embedio/3.4.3",
+      "hashPath": "embedio.3.4.3.nupkg.sha512"
+    },
+    "Flow.Launcher.Plugin/2.1.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-nZF5JLgwQ8JwN2EB3wwkxacRDT75gqSx6cOOTzjHJeRSSEqO10bHORXJOddYvlC+cgdR6CPXss49VJqM/Fun8A==",
+      "path": "flow.launcher.plugin/2.1.0",
+      "hashPath": "flow.launcher.plugin.2.1.0.nupkg.sha512"
+    },
+    "Fody/6.5.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-DEw9rPG5vrpaK4vPPze0f4q6Zd0mfzjGNKy49nrmINkftIHpkyf8KH+uC/qF8y6v1askPWu9NbJS9bkmN5wXaA==",
+      "path": "fody/6.5.1",
+      "hashPath": "fody.6.5.1.nupkg.sha512"
+    },
+    "JetBrains.Annotations/2021.2.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-kKSyoVfndMriKHLfYGmr0uzQuI4jcc3TKGyww7buJFCYeHb/X0kodYBPL7n9454q7v6ASiRmDgpPGaDGerg/Hg==",
+      "path": "jetbrains.annotations/2021.2.0",
+      "hashPath": "jetbrains.annotations.2021.2.0.nupkg.sha512"
+    },
+    "Newtonsoft.Json/13.0.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-ppPFpBcvxdsfUonNcvITKqLl3bqxWbDCZIzDWHzjpdAHRFfZe0Dw9HmA0+za13IdyrgJwpkDTDA9fHaxOrt20A==",
+      "path": "newtonsoft.json/13.0.1",
+      "hashPath": "newtonsoft.json.13.0.1.nupkg.sha512"
+    },
+    "PropertyChanged.Fody/3.4.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-IAZyq0uolKo2WYm4mjx+q7A8fSGFT0x2e1s3y+ODn4JI0kqTDoo9GF2tdaypUzRFJZfdMxfC5HZW9QzdJLtOnA==",
+      "path": "propertychanged.fody/3.4.0",
+      "hashPath": "propertychanged.fody.3.4.0.nupkg.sha512"
+    },
+    "SpotifyAPI.Web/6.2.2": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-WNAqhQYg1xXNCPZ4QKavwFl05wXZ8XiHT89u3SrMeGlPPpJETzKmfozk5BoLaTCRV2HyceGERRrHOvK/BNtC2A==",
+      "path": "spotifyapi.web/6.2.2",
+      "hashPath": "spotifyapi.web.6.2.2.nupkg.sha512"
+    },
+    "SpotifyAPI.Web.Auth/6.2.2": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-6pMffNGZUbKKJmX7wOcaVrLSWms8/Hy5M/iC5K/jy+lgbpLALxCUHQXJkkeTJFUb/y+EAOJJIcHd1aGZGy2lyQ==",
+      "path": "spotifyapi.web.auth/6.2.2",
+      "hashPath": "spotifyapi.web.auth.6.2.2.nupkg.sha512"
+    },
+    "Unosquare.Swan.Lite/3.0.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-noPwJJl1Q9uparXy1ogtkmyAPGNfSGb0BLT1292nFH1jdMKje6o2kvvrQUvF9Xklj+IoiAI0UzF6Aqxlvo10lw==",
+      "path": "unosquare.swan.lite/3.0.0",
+      "hashPath": "unosquare.swan.lite.3.0.0.nupkg.sha512"
+    }
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "ID": "28b1bc8d-06e1-4bda-8311-f36e8d4f9915",
+  "ActionKeyword": "cpp",
+  "Name": "CPPreference",
+  "Description": "Search cppreference.com efficiently",
+  "Author": "Peter Schussheim, Jonas de Bruin",
+  "Version": "1.1.0",
+  "Language": "csharp",
+  "Website": "https://github.com/peterschussheim/CPPreference-flow-plugin",
+  "IcoPath": "icon.png",
+  "ExecuteFileName": "Flow.Launcher.Plugin.CPPreference.dll"
+}

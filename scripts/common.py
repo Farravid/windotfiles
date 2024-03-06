@@ -1,5 +1,6 @@
 import subprocess
 import os
+import inquirer
 from pathlib import Path
 
 #########################################
@@ -18,6 +19,51 @@ WINDOTFILES_ASSETS : Path = Path.home() / "windotfiles/assets/"
 APPDATA_ROAMING : Path = os.environ['appdata']
 APPDATA_LOCAL : Path = os.environ['LocalAppData']
 PROGRAM_FILES : Path = Path(os.environ['programfiles'])
+
+#########################################
+# PROGRAMS
+#########################################
+REQUIRED_WINGET_PROGRAMS = [
+        "glzr-io.glazewm",
+        "Git.Git",
+        "Github.GitLFS",
+        "DEVCOM.JetBrainsMonoNerdFont -v \"2.3.3\" -e",
+        "Microsoft.WindowsTerminal",
+        "Flow-Launcher.Flow-Launcher",
+        "Microsoft.NuGet",
+        "JanDeDobbeleer.OhMyPosh",
+        "neofetch"]
+
+OPTIONAL_WINGET_PROGRAMS = [
+        "Clement.bottom",
+        "DygmaLabs.Bazecor",
+        "Spotify.Spotify",
+        "Spicetify.Spicetify",
+        "Google.Chrome",
+        "GitHub.GitHubDesktop",
+        "Discord.Discord",
+        "Obsidian.Obsidian",
+        "Neovim.Neovim",
+        "OBSProject.OBSProject",
+        "Microsoft.DirectX",
+        "Nvidia.GeForceExperience",
+        "voidtools.Everything",
+        "Microsoft.VisualStudioCode",
+        "Microsoft.VisualStudio.2022.BuildTools",
+        "Microsoft.VisualStudio.2022.Community",
+        "Rustlang.Rustup"]
+
+#########################################
+# TYPES
+#########################################
+class EInstaller():
+    """
+    Enum class for providing an easier way to select the installer of a package/library/extension
+    """
+    WINGET = "winget install --accept-source-agreements --accept-package-agreements "
+    WINGET_UPDGRADE = "winget upgrade "
+    PIP = "pip install "
+    CODE = "code --install-extension "
 
 #########################################
 # FUNCTIONS
@@ -58,6 +104,43 @@ def launch_command(command: str, app_name: str = "", show_output: bool = False, 
     else:
         if use_popen: subprocess.Popen(command, shell=True, stdout=subprocess.DEVNULL)
         else: subprocess.run(command, shell=True, stdout=subprocess.DEVNULL)
+
+def install_pckgs(installer: EInstaller, pkg_names: list, commands: str = ""):
+    """
+    Installs the specified packages using the specified installer.
+
+    Args:
+        installer (EInstaller): The installer to use (winget, pip, or code).
+        pkg_names (list): The names of the packages to install.
+        commands (str, optional): Additional commands to pass to the installer.
+    """
+    for pkg_name in pkg_names:
+        print(f"\n === Installing " + PURPLE + pkg_name + NC + " with " + installer + " === \n")
+        launch_command(installer + pkg_name + commands, "", True)
+
+
+def install_optional_pckgs(installer: EInstaller, pkg_names: list, commands: str = ""):
+    """
+    Installs or uninstalls the specified optional packages using the specified installer.
+
+    Args:
+        installer (EInstaller): The installer to use (winget, pip, or code).
+        pkg_names (list): The names of the packages to install or uninstall.
+        commands (str, optional): Additional commands to pass to the installer.
+    """
+    for pkg_name in pkg_names:
+
+        message = f'Do you want to {"" if installer == EInstaller.PIP else "in"}stall ' + PURPLE + pkg_name + NC + ' ?'
+        question = [
+            inquirer.List(
+                "choice", message, ["Yes", "No"],
+            ),
+        ]
+
+        answer = inquirer.prompt(question)
+
+        if answer["choice"] == "Yes":
+            install_pckgs(installer, [pkg_name], commands)
 
 def change_win_color_mode(to_dark: bool = True) -> None:
     """

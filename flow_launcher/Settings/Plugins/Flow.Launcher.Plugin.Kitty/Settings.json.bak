@@ -1,0 +1,7 @@
+{
+  "AddKittyExeToResults": true,
+  "IsKittyPortable": false,
+  "OpenKittySessionFullscreen": false,
+  "PuttyInsteadOfKitty": false,
+  "KittyExePath": null
+}

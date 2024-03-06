@@ -1,0 +1,22 @@
+{
+  "Shell": 3,
+  "ReplaceWinR": false,
+  "CloseShellAfterPress": false,
+  "LeaveShellOpen": false,
+  "RunAsAdministrator": true,
+  "ShowOnlyMostUsedCMDs": false,
+  "ShowOnlyMostUsedCMDsNumber": 5,
+  "CommandHistory": {
+    "windotfiles": 1,
+    "btm": 2,
+    "glazewm": 1,
+    "start /b glazewm": 14,
+    "change_audio_output": 1,
+    "cwindotfiles": 4,
+    "start /b code": 1,
+    "code": 1,
+    "code $env:USERPROFILE\\windotfiles": 1,
+    "ls": 1,
+    "windotifles \u0026\u0026 python scripts\\startup.py": 1
+  }
+}

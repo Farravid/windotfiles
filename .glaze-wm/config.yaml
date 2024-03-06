@@ -98,18 +98,18 @@ bar:
       label_vertical: "⮁"
       margin: "0 6"
       padding: "0 8"
-    - type: "binding mode"
-      margin: 0 6
-      padding: 0 8
-      border_width: 0 0 5
-      border_radius: 1
-      border_color: *color_5
   components_center:
     - type: "workspaces"
       font_size: "18px"
       focused_workspace_background: *color_1
       focused_workspace_foreground: *color_5
   components_right:
+    - type: "binding mode"
+      margin: 0 6
+      padding: 0 8
+      border_width: 0 0 5
+      border_radius: 1
+      border_color: *color_5
     - type: "clock"
       margin: 0 6
       padding: 0 8
@@ -170,9 +170,9 @@ window_rules:
   - command: "set floating"
     match_process_name: "Everything"
   - command: "move to workspace 1"
-    match_process_name: "/UnrealEditor|rider64|Godot/"
+    match_process_name: "/UnrealEditor|rider64|Godot|Code/"
   - command: "move to workspace 2"
-    match_process_name: "/Slack|GitHubDesktop|p4v/"
+    match_process_name: "/Slack|GitHubDesktop|p4v|chrome/"
   - command: "move to workspace 3"
     match_process_name: "/Discord|Spotify/"
 
@@ -335,10 +335,6 @@ keybindings:
   ################################################################################################
   ## David's section
   ################################################################################################
-  
-  # Launching faster file browser (Everything)
-  - command: exec %ProgramFiles%/Everything/Everything.exe
-    binding: "Alt+Shift+E"
 
     # Launching default file browser (OneCommander)
   - command: exec %ProgramFiles%/OneCommander/OneCommander.exe
@@ -347,11 +343,6 @@ keybindings:
   # Launching google chrome
   - command: exec %ProgramFiles%/Google/Chrome/Application/chrome.exe
     binding: "Alt+Shift+G"
-
-  # DAVID: Mode system mode
-  # TODO
-  - command: "binding mode (l󰌾)(e󰗼)(s󰤄)(r󰑖)(shitfs󰐥)"
-    binding: "Alt+0"
 
   # Change the default sound output device to the next one. Function available in Pwsh profile
   - command: exec pwsh -Command change_audio_output

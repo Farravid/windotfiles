@@ -1,0 +1,35 @@
+{
+  "MaxResult": 100,
+  "QuickAccessLinks": [
+    {
+      "Path": "D:\\FRG\\cw_David-pc_Main\\Cottonwood\\Source\\Cottonwood\\Private\\Animation\\Components\\CwAnimComponent_MeshRotation.cpp",
+      "Type": 2
+    }
+  ],
+  "IndexSearchExcludedSubdirectoryPaths": [],
+  "EditorPath": "",
+  "FolderEditorPath": "",
+  "ShellPath": "cmd",
+  "UseLocationAsWorkingDir": false,
+  "ShowWindowsContextMenu": true,
+  "DefaultOpenFolderInFileManager": false,
+  "SearchActionKeyword": "*",
+  "SearchActionKeywordEnabled": true,
+  "FileContentSearchActionKeyword": "doc:",
+  "FileContentSearchKeywordEnabled": true,
+  "PathSearchActionKeyword": "*",
+  "PathSearchKeywordEnabled": false,
+  "IndexSearchActionKeyword": "*",
+  "IndexSearchKeywordEnabled": false,
+  "QuickAccessActionKeyword": "*",
+  "QuickAccessKeywordEnabled": false,
+  "WarnWindowsSearchServiceOff": true,
+  "IndexSearchEngine": 1,
+  "PathEnumerationEngine": 1,
+  "ContentSearchEngine": 1,
+  "EverythingInstalledPath": "C:\\Program Files\\Everything",
+  "SortOption": 1,
+  "EnableEverythingContentSearch": false,
+  "EverythingEnabled": true,
+  "EverythingSearchFullPath": false
+}

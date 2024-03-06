@@ -52,11 +52,13 @@ def launch_default_apps():
     common.launch_command("start /b " + str(Path(discord_folder + "/Discord.exe")), "Discord")
 
 
-def launch_c_setup():
+def launch_windotfiles_setup():
     """
-    This function is not implemented yet.
+    This function launches the VSCode with windotfiles, a terminal and the GitHub Desktop app.
     """
-    pass
+    common.launch_command("start /b wt", "Windows Terminal")
+    common.launch_command("pwsh -Command cwindotfiles", "Windotfiles in VSCode")
+    common.launch_command("start /b " + str(common.APPDATA_LOCAL / Path("GitHubDesktop/GitHubDesktop.exe")), "Github Desktop")
 
 def launch_frg_setup():
     """
@@ -84,7 +86,7 @@ def main():
     options = [
         inquirer.List('choice',
                       message="Select a setup to display:",
-                      choices = ["FRG", "C++", "Godot", "None"],
+                      choices = ["FRG", "Windotfiles", "Godot", "None"],
 
                       )
     ]
@@ -96,9 +98,9 @@ def main():
         launch_default_apps()
 
     match answer['choice']:
-        case 'C++'  : launch_c_setup()
-        case 'Godot': launch_godot_setup()
-        case 'FRG': launch_frg_setup()
+        case 'Windotfiles'  : launch_windotfiles_setup()
+        case 'Godot'        : launch_godot_setup()
+        case 'FRG'          : launch_frg_setup()
 
 if __name__ == "__main__":
     common.launch_glazewm()
