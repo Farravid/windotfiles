@@ -1,20 +1,20 @@
 #$
-define: &color_16 '#c9c8c8'
-define: &color_15 '#a09da6'
-define: &color_14 '#6c86aa'
-define: &color_13 '#7b90aa'
-define: &color_12 '#c7ad9f'
-define: &color_11 '#c38f77'
-define: &color_10 '#c4bebd'
-define: &color_9 '#5d5b5b'
-define: &color_8 '#c9c8c8'
-define: &color_7 '#a09da6'
-define: &color_6 '#6c86aa'
-define: &color_5 '#7b90aa'
-define: &color_4 '#c7ad9f'
-define: &color_3 '#c38f77'
-define: &color_2 '#c4bebd'
-define: &color_1 '#272525'
+define: &color_16 '#c7c4c3'
+define: &color_15 '#beb6bb'
+define: &color_14 '#a08da0'
+define: &color_13 '#647bac'
+define: &color_12 '#829fc4'
+define: &color_11 '#c6aa96'
+define: &color_10 '#af7256'
+define: &color_9 '#59504c'
+define: &color_8 '#c7c4c3'
+define: &color_7 '#beb6bb'
+define: &color_6 '#a08da0'
+define: &color_5 '#647bac'
+define: &color_4 '#829fc4'
+define: &color_3 '#c6aa96'
+define: &color_2 '#af7256'
+define: &color_1 '#221611'
 #&
 ########################################################
 # DAVID'S COLOR PALETTE
@@ -59,7 +59,7 @@ gaps:
 focus_borders:
   active:
     enabled: true
-    color: *color_5
+    color: *color_2
 
   inactive:
     enabled: false

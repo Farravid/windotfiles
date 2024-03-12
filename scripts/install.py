@@ -36,7 +36,7 @@ def install_pywal():
     """
     common.install_pckgs(common.EInstaller.PIP, ["pywal", "colorz", "colorthief", "haishoku"])
     print(f"\n === Importing and running" + common.PURPLE + " winwal " + common.NC + "module to the powershell 7 === \n")
-    subprocess.run("pwsh -Command update-winwal " + str(common.WINDOTFILES_ASSETS) + "\dunes.png", text=True)
+    subprocess.run("pwsh -Command update-winwal " + str(common.WINDOTFILES_ASSETS) + "\snow.jpg", text=True)
 
 
 def create_sym_links(symlink_file: str, system_path: str = ""):
@@ -81,8 +81,9 @@ def main():
     # Discord: colors and themes
     # remove onedrive and pre-installed spotify bro and proper install fro spotify
     # CI/CD github 
-    # I'd love to fix dygma
     # Fix Windows terminal not closing on startup
+    # Fix terminal not closing after launching cwindotfiles and so
+    # Create and show somehow shortcuts for used programms such as Glaze, VSCode, Rider etc....
 
     common.install_pckgs(common.EInstaller.WINGET, common.REQUIRED_WINGET_PROGRAMS)
     

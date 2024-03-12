@@ -227,7 +227,7 @@ This command, for now, supports updating the color scheme of the following softw
 - `Windows Terminal`
 - `GlazeWM`
 - `VSCode` (`dlasagno.wal-theme` plugin must be installed)
-- `Dygma Keyboard` (disabled by now)
+- `Dygma Keyboard`
 
 In order to use it, run the following command:
 ```shell

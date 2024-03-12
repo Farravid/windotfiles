@@ -1,5 +1,5 @@
 import os
-import subprocess
+from pathlib import Path
 import sys
 import logging
 
@@ -48,7 +48,7 @@ def update_winwal():
         f"pwsh -Command Update-WalTheme -Backend colorz -Image {os.path.abspath(sys.argv[1])}",
         "Update-WalTheme to update color schemes with the given wallpaper",
     )
-    #update_dygma_winwal()
+    update_dygma_winwal()
 
 
 def main():
@@ -61,4 +61,8 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    wallpaper_path = Path(os.path.abspath(sys.argv[1]))
+    if wallpaper_path.exists():
+        main()
+    else:
+        logging.error(f"{wallpaper_path} does not exist")
