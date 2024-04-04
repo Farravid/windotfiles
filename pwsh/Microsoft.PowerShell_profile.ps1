@@ -53,9 +53,6 @@ function cp_windotfiles_to_fl
 # Move and show the windotfiles folder
 function windotfiles {Set-Location -Path $env:USERPROFILE\windotfiles && Get-ChildItem -Force }
 
-# Open the windotfiles folder in Visual Studio Code
-function cwindotfiles { code $env:USERPROFILE\windotfiles }
-
 # Move and show the downloads folder
 function down {Set-Location -Path $env:USERPROFILE\Downloads && Get-ChildItem -Force }
 
@@ -68,12 +65,22 @@ Set-Alias -Name godot -Value $env:USERPROFILE\Documents\GitHub\ProjectoAmador\sc
 # Adb for godot
 function adbg {adb logcat -s godot}
 
-# Open the windotfiles folder in Visual Studio Code
-function cgodot { code $env:USERPROFILE\Documents\GitHub\ProjectoAmador }
-
 # Update the terminal, glaze and dygma color scheme based on the given wallpaper
 # It also sets the given wallpaper
 function update-winwal ([string]$wallpaper) { python $env:USERPROFILE\windotfiles\scripts\colors\update_winwal.py $wallpaper }
 
 # Updat the windotfiles packages
 function update-windotfiles { python $env:USERPROFILE\windotfiles\scripts\update.py }
+
+###############################
+# VISUAL CODE FOLDERS
+###############################
+
+# Open the windotfiles folder in Visual Studio Code
+function cwindotfiles { Start-Process code $env:USERPROFILE\windotfiles -WindowStyle Hidden }
+
+# Open the windotfiles folder in Visual Studio Code
+function cgodot { Start-Process code $env:USERPROFILE\Documents\GitHub\ProjectoAmador -WindowStyle Hidden }
+
+# Open the farrapiler folder in Visual Studio Code
+function cfarrapiler { Start-Process code $env:USERPROFILE\Documents\GitHub\farrapiler -WindowStyle Hidden }

@@ -22,6 +22,7 @@ import glob
 import common
 import subprocess
 from pathlib import Path
+import ctypes
 
 PURPLE = '\033[0;35m'
 NC = '\033[0m'
@@ -76,6 +77,14 @@ def launch_godot_setup():
     common.launch_command("pwsh -Command godot", "Godot (Suipe)")
     common.launch_command("start /b " + str(common.APPDATA_LOCAL / Path("GitHubDesktop/GitHubDesktop.exe")), "Github Desktop")
 
+def launch_farrapiler():
+    """
+    This function launches the VSCode with windotfiles, a terminal and the GitHub Desktop app.
+    """
+    common.launch_command("start /b wt", "Windows Terminal")
+    common.launch_command("pwsh -Command cfarrapiler", "Farrapiler in VSCode")
+    common.launch_command("start /b " + str(common.APPDATA_LOCAL / Path("GitHubDesktop/GitHubDesktop.exe")), "Github Desktop")
+    common.launch_command("start /b " + str(common.APPDATA_LOCAL / Path("Programs/obsidian/Obsidian.exe")), "Obsidian")
 
 def main():
     """
@@ -83,10 +92,13 @@ def main():
     library to prompt the user for a choice, and then calls the appropriate 
     function based on the choice.
     """
+   
+    ctypes.windll.kernel32.SetConsoleTitleW("Startup")
+
     options = [
         inquirer.List('choice',
                       message="Select a setup to display:",
-                      choices = ["FRG", "Windotfiles", "Godot", "None"],
+                      choices = ["FRG", "Windotfiles", "Godot", "Farrapiler", "None"],
 
                       )
     ]
@@ -101,6 +113,7 @@ def main():
         case 'Windotfiles'  : launch_windotfiles_setup()
         case 'Godot'        : launch_godot_setup()
         case 'FRG'          : launch_frg_setup()
+        case 'Farrapiler'   : launch_farrapiler()
 
 if __name__ == "__main__":
     common.launch_glazewm()

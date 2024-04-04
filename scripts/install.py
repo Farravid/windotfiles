@@ -82,8 +82,8 @@ def main():
     # remove onedrive and pre-installed spotify bro and proper install fro spotify
     # CI/CD github 
     # Fix Windows terminal not closing on startup
-    # Fix terminal not closing after launching cwindotfiles and so
     # Create and show somehow shortcuts for used programms such as Glaze, VSCode, Rider etc....
+    # Change shortcuts code to match Rider's 
 
     common.install_pckgs(common.EInstaller.WINGET, common.REQUIRED_WINGET_PROGRAMS)
     

@@ -1,20 +1,20 @@
 #$
-define: &color_16 '#c7c4c3'
-define: &color_15 '#beb6bb'
-define: &color_14 '#a08da0'
-define: &color_13 '#647bac'
-define: &color_12 '#829fc4'
-define: &color_11 '#c6aa96'
-define: &color_10 '#af7256'
-define: &color_9 '#59504c'
-define: &color_8 '#c7c4c3'
-define: &color_7 '#beb6bb'
-define: &color_6 '#a08da0'
-define: &color_5 '#647bac'
-define: &color_4 '#829fc4'
-define: &color_3 '#c6aa96'
-define: &color_2 '#af7256'
-define: &color_1 '#221611'
+define: &color_16 '#c7c4c2'
+define: &color_15 '#ab7230'
+define: &color_14 '#aa7a47'
+define: &color_13 '#c68d5f'
+define: &color_12 '#c68451'
+define: &color_11 '#aa5929'
+define: &color_10 '#aa6245'
+define: &color_9 '#584e49'
+define: &color_8 '#c7c4c2'
+define: &color_7 '#ab7230'
+define: &color_6 '#aa7a47'
+define: &color_5 '#c68d5f'
+define: &color_4 '#c68451'
+define: &color_3 '#aa5929'
+define: &color_2 '#aa6245'
+define: &color_1 '#21130d'
 #&
 ########################################################
 # DAVID'S COLOR PALETTE
@@ -168,15 +168,13 @@ window_rules:
   ## David's section
   ################################################################################################
   - command: "set floating"
-    match_process_name: "Everything"
+    match_title: "Startup"
   - command: "move to workspace 1"
-    match_process_name: "/UnrealEditor|rider64|Godot|Code/"
+    match_process_name: "/UnrealEditor|rider64|Godot|Code|Obsidian/"
   - command: "move to workspace 2"
     match_process_name: "/Slack|GitHubDesktop|p4v|chrome/"
   - command: "move to workspace 3"
     match_process_name: "/Discord|Spotify/"
-
-#define: &system_mode "(l) 󰌾, (e) 󰗼, (s) 󰤄, (r) 󰑖, (Shift+s) "
 
 binding_modes:
   - name: "resize"
@@ -193,31 +191,6 @@ binding_modes:
       # Press enter/escape to return to default keybindings.
       - command: "binding mode none"
         bindings: ["Escape", "Enter"]
-
-  ################################################################################################
-  ## David's section
-  ################################################################################################
-  - name: "(l󰌾)(e󰗼)(s󰤄)(r󰑖)(shitfs󰐥)"
-    keybindings:
-    # Log out the computer
-    - command: "exec shutdown /l"
-      bindings: ["E"]
-    # Suspend the computer
-    - command: "exec rundll32.exe powrprof.dll, SetSuspendState Sleep"
-      bindings: ["S"]
-    # Hibernate the computer
-    - command: "exec rundll32.exe powrprof.dll,SetSuspendState Hibernate"
-      bindings: ["H"]
-    # Restart the computer
-    - command: "exec shutdown /r /t 0"
-      bindings: ["R"]
-    # Shutdown the computer
-    - command: "exec shutdown /s /t 0"
-      bindings: ["Shift+S"]
-    # Exit the system action mode
-    - command: "binding mode none"
-      bindings: ["Escape"]
-
 
 keybindings:
   # Shift focus in a given direction.
