@@ -1,20 +1,20 @@
 #$
-define: &color_16 '#c7c4c2'
-define: &color_15 '#ab7230'
-define: &color_14 '#aa7a47'
-define: &color_13 '#c68d5f'
-define: &color_12 '#c68451'
-define: &color_11 '#aa5929'
-define: &color_10 '#aa6245'
-define: &color_9 '#584e49'
-define: &color_8 '#c7c4c2'
-define: &color_7 '#ab7230'
-define: &color_6 '#aa7a47'
-define: &color_5 '#c68d5f'
-define: &color_4 '#c68451'
-define: &color_3 '#aa5929'
-define: &color_2 '#aa6245'
-define: &color_1 '#21130d'
+define: &color_16 '#c9c8c7'
+define: &color_15 '#c698b8'
+define: &color_14 '#bf8cb1'
+define: &color_13 '#b57faa'
+define: &color_12 '#7082a9'
+define: &color_11 '#8baa9c'
+define: &color_10 '#c6c1a1'
+define: &color_9 '#5d5c57'
+define: &color_8 '#c9c8c7'
+define: &color_7 '#c698b8'
+define: &color_6 '#bf8cb1'
+define: &color_5 '#b57faa'
+define: &color_4 '#7082a9'
+define: &color_3 '#8baa9c'
+define: &color_2 '#c6c1a1'
+define: &color_1 '#272620'
 #&
 ########################################################
 # DAVID'S COLOR PALETTE
@@ -74,7 +74,7 @@ bar:
   font_family: "JetBrainsMono NF Bold"
   font_size: "15px"
   padding: "1px 6px"
-  offset_x: "1800"
+  offset_x: "100"
   offset_y: "10"
   border_radius: "5"
   component_separator:
@@ -168,7 +168,7 @@ window_rules:
   ## David's section
   ################################################################################################
   - command: "set floating"
-    match_title: "Startup"
+    match_title: "/Startup|Windotfiles GUI/"
   - command: "move to workspace 1"
     match_process_name: "/UnrealEditor|rider64|Godot|Code|Obsidian/"
   - command: "move to workspace 2"

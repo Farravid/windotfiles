@@ -24,6 +24,7 @@ PROGRAM_FILES : Path = Path(os.environ['programfiles'])
 # PROGRAMS
 #########################################
 REQUIRED_WINGET_PROGRAMS = [
+        "Microsoft.PowerShell",
         "glzr-io.glazewm",
         "Git.Git",
         "Github.GitLFS",
@@ -36,6 +37,7 @@ REQUIRED_WINGET_PROGRAMS = [
 
 OPTIONAL_WINGET_PROGRAMS = [
         "Clement.bottom",
+        "flameshot",
         "DygmaLabs.Bazecor",
         "Spotify.Spotify",
         "Spicetify.Spicetify",
