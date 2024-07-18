@@ -38,6 +38,7 @@ REQUIRED_WINGET_PROGRAMS = [
 OPTIONAL_WINGET_PROGRAMS = [
         "Clement.bottom",
         "flameshot",
+        "KDE.Okular",
         "DygmaLabs.Bazecor",
         "Spotify.Spotify",
         "Spicetify.Spicetify",
@@ -51,6 +52,7 @@ OPTIONAL_WINGET_PROGRAMS = [
         "Nvidia.GeForceExperience",
         "voidtools.Everything",
         "Microsoft.VisualStudioCode",
+        "Kitware.CMake",
         "Microsoft.VisualStudio.2022.BuildTools",
         "Microsoft.VisualStudio.2022.Community",
         "Rustlang.Rustup"]

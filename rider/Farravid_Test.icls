@@ -1,0 +1,45 @@
+<scheme name="CustomTheme" version="142" parent_scheme="Default">
+    <option name="BACKGROUND" value="#272620"/>
+    <option name="FOREGROUND" value="#c9c8c7"/>
+    <option name="CARET_COLOR" value="#5d5c57"/>
+    <option name="CARET_ROW_COLOR" value="#c9c8c7"/>
+    <option name="SELECTION_BACKGROUND" value="#b57faa"/>
+    <option name="SELECTION_FOREGROUND" value="#272620"/>
+    <attributes>
+        <option name="TEXT" baseAttributes="DEFAULT_TEXT">
+            <value>
+                <option name="FOREGROUND" value="#c9c8c7" />
+            </value>
+        </option>
+        <option name="KEYWORD" baseAttributes="DEFAULT_TEXT">
+            <value>
+                <option name="FOREGROUND" value="#c698b8" />
+            </value>
+        </option>
+        <option name="STRING" baseAttributes="DEFAULT_TEXT">
+            <value>
+                <option name="FOREGROUND" value="#b57faa" />
+            </value>
+        </option>
+        <option name="NUMBER" baseAttributes="DEFAULT_TEXT">
+            <value>
+                <option name="FOREGROUND" value="#7082a9" />
+            </value>
+        </option>
+        <option name="COMMENT" baseAttributes="DEFAULT_TEXT">
+            <value>
+                <option name="FOREGROUND" value="#8baa9c" />
+            </value>
+        </option>
+        <option name="CLASS_NAME" baseAttributes="DEFAULT_TEXT">
+            <value>
+                <option name="FOREGROUND" value="#bf8cb1" />
+            </value>
+        </option>
+        <option name="METHOD_NAME" baseAttributes="DEFAULT_TEXT">
+            <value>
+                <option name="FOREGROUND" value="#c698b8" />
+            </value>
+        </option>
+    </attributes>
+</scheme>

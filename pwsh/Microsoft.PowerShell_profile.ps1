@@ -72,6 +72,9 @@ function update-winwal ([string]$wallpaper) { python $env:USERPROFILE\windotfile
 # Updat the windotfiles packages
 function update-windotfiles { python $env:USERPROFILE\windotfiles\scripts\update.py }
 
+#Launch the startup script
+function startup { python $env:USERPROFILE\windotfiles\scripts\startup.py }
+
 ###############################
 # VISUAL CODE FOLDERS
 ###############################
@@ -84,3 +87,6 @@ function cgodot { Start-Process code $env:USERPROFILE\Documents\GitHub\ProjectoA
 
 # Open the farrapiler folder in Visual Studio Code
 function cfarrapiler { Start-Process code $env:USERPROFILE\Documents\GitHub\farrapiler -WindowStyle Hidden }
+
+# Open the HPC folder in Visual Studio Code
+function chpc { Start-Process code \\wsl.localhost\Manjaro\home\Farravid\repos\HPC -WindowStyle Hidden }

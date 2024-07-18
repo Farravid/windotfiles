@@ -38,6 +38,11 @@ def install_pywal():
     print(f"\n === Importing and running" + common.PURPLE + " winwal " + common.NC + "module to the powershell 7 === \n")
     subprocess.run("pwsh -Command update-winwal " + str(common.WINDOTFILES_ASSETS) + "\snow.jpg", text=True)
 
+def install_wsl():
+    print(f"\n === Installing " + common.PURPLE + " Windows Subsystem for Linux (WSL) " + common.NC + "=== \n")
+    subprocess.run("pwsh -Command wsl.exe --install", text=True)
+    # Add manjaro and extract it and all the shit
+
 
 def create_sym_links(symlink_file: str, system_path: str = ""):
     """
@@ -83,7 +88,7 @@ def main():
     # CI/CD github 
     # Fix Windows terminal not closing on startup
     # Create and show somehow shortcuts for used programms such as Glaze, VSCode, Rider etc....
-    # Change shortcuts code to match Rider's 
+    # Make FLameshot work with shortcut
 
     common.install_pckgs(common.EInstaller.WINGET, common.REQUIRED_WINGET_PROGRAMS)
     
@@ -91,6 +96,7 @@ def main():
     create_sym_links("pwsh/Microsoft.PowerShell_profile.ps1", result.stdout.strip())
     create_sym_links("wt/settings.json", str(common.APPDATA_LOCAL) + "\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState\settings.json")
     create_sym_links(".glaze-wm/config.yaml")
+    create_sym_links("flameshot/flameshot.ini", str(common.APPDATA_ROAMING) + "\\flameshot\\flameshot.ini")
 
     common.reload_powershell()
 
@@ -98,14 +104,18 @@ def main():
     common.launch_command("pwsh -Command cp_windotfiles_to_fl") 
 
     install_pywal()
+    install_wsl()
 
     common.install_optional_pckgs(common.EInstaller.WINGET, common.OPTIONAL_WINGET_PROGRAMS)
 
-    create_sym_links("vscode/settings.json", str(common.APPDATA_ROAMING) + "\Code\\User\settings.json")
+    create_sym_links("vscode/settings.json", str(common.APPDATA_ROAMING) + "\Code\\User\\settings.json")
+    create_sym_links("vscode/keybindings.json", str(common.APPDATA_ROAMING) + "\Code\\User\\keybindings.json")
+
 
     common.install_optional_pckgs(common.EInstaller.CODE, [
         "s-nlf-fh.glassit",
         "ms-vscode.cpptools",
+        "ms-vscode.cmake-tools",
         "naumovs.color-highlight",
         "donjayamanne.python-extension-pack",
         "1YiB.rust-bundle",

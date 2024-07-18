@@ -170,9 +170,9 @@ window_rules:
   - command: "set floating"
     match_title: "/Startup|Windotfiles GUI/"
   - command: "move to workspace 1"
-    match_process_name: "/UnrealEditor|rider64|Godot|Code|Obsidian/"
+    match_process_name: "/UnrealEditor|rider64|Godot|Code|okular/"
   - command: "move to workspace 2"
-    match_process_name: "/Slack|GitHubDesktop|p4v|chrome/"
+    match_process_name: "/Slack|GitHubDesktop|p4v|chrome|Obsidian/"
   - command: "move to workspace 3"
     match_process_name: "/Discord|Spotify/"
 
