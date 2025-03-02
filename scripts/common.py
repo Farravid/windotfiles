@@ -25,12 +25,15 @@ PROGRAM_FILES : Path = Path(os.environ['programfiles'])
 #########################################
 REQUIRED_WINGET_PROGRAMS = [
         "Microsoft.PowerShell",
-        "glzr-io.glazewm",
+        "alacritty",
+        "nushell"
+        "glazewm",
+        "zebar"
         "Git.Git",
         "Github.GitLFS",
         "DEVCOM.JetBrainsMonoNerdFont -v \"2.3.3\" -e",
-        "Microsoft.WindowsTerminal",
         "Flow-Launcher.Flow-Launcher",
+        "voidtools.Everything",
         "Microsoft.NuGet",
         "JanDeDobbeleer.OhMyPosh",
         "neofetch"]
@@ -50,7 +53,6 @@ OPTIONAL_WINGET_PROGRAMS = [
         "OBSProject.OBSProject",
         "Microsoft.DirectX",
         "Nvidia.GeForceExperience",
-        "voidtools.Everything",
         "Microsoft.VisualStudioCode",
         "Kitware.CMake",
         "Microsoft.VisualStudio.2022.BuildTools",

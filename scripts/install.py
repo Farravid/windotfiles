@@ -36,12 +36,11 @@ def install_pywal():
     """
     common.install_pckgs(common.EInstaller.PIP, ["pywal", "colorz", "colorthief", "haishoku"])
     print(f"\n === Importing and running" + common.PURPLE + " winwal " + common.NC + "module to the powershell 7 === \n")
-    subprocess.run("pwsh -Command update-winwal " + str(common.WINDOTFILES_ASSETS) + "\snow.jpg", text=True)
+    subprocess.run("pwsh -Command update-winwal " + str(common.WINDOTFILES_ASSETS) + "\spaceship.jpg", text=True)
 
 def install_wsl():
     print(f"\n === Installing " + common.PURPLE + " Windows Subsystem for Linux (WSL) " + common.NC + "=== \n")
-    subprocess.run("pwsh -Command wsl.exe --install", text=True)
-    # Add manjaro and extract it and all the shit
+    subprocess.run("pwsh -Command wsl --install", text=True)
 
 
 def create_sym_links(symlink_file: str, system_path: str = ""):
@@ -52,12 +51,14 @@ def create_sym_links(symlink_file: str, system_path: str = ""):
         symlink_file (str): The name of the file or folder to create the link to.
         system_path (str, optional): The path of the system folder to create the link in.
     """
-    print(f"Symlinking {common.PURPLE + symlink_file + common.NC + ' file'}")
+    #TODO: This function is not working AS EXPECTED about detecting files
 
     system_file_path = Path(system_path) if system_path else common.HOME / symlink_file
     dotfiles_file_path = common.WINDOTFILES / symlink_file
 
     assert dotfiles_file_path.is_file() or dotfiles_file_path.is_dir(), "Trying to symlink an invalid dotfiles file/folder!"
+
+    #os.remove(system_file_path)
 
     if system_file_path.is_file():
         os.remove(system_file_path)
@@ -65,6 +66,8 @@ def create_sym_links(symlink_file: str, system_path: str = ""):
         path_parent_folder = system_file_path.parent
         if not path_parent_folder.is_dir():
             os.mkdir(path_parent_folder)
+
+    print(f"Symlinking {common.PURPLE + symlink_file + common.NC + ' to ' + common.PURPLE + str(system_file_path) + common.NC}")
 
     os.symlink(dotfiles_file_path, system_file_path)
 
@@ -75,12 +78,11 @@ def main():
     """
     input("Pre-installation ready, press enter to continue with the setup. >")
 
-    common.change_win_color_mode()
-    prepare_powershell()
+    #common.change_win_color_mode()
+    #prepare_powershell()
 
     #TODO: 
     # OneCommander: Colors
-    # RIDER: Colors
     # Flow launcher: Colors
     # Spicetify (text): setup and colors
     # Discord: colors and themes
@@ -89,49 +91,50 @@ def main():
     # Fix Windows terminal not closing on startup
     # Create and show somehow shortcuts for used programms such as Glaze, VSCode, Rider etc....
     # Make FLameshot work with shortcut
+    # Pretty neofetch con winfetch or similar
 
-    common.install_pckgs(common.EInstaller.WINGET, common.REQUIRED_WINGET_PROGRAMS)
+    #common.install_pckgs(common.EInstaller.WINGET, common.REQUIRED_WINGET_PROGRAMS)
     
-    result = subprocess.run('pwsh -Command $PROFILE', shell=True, capture_output=True, text=True)
-    create_sym_links("pwsh/Microsoft.PowerShell_profile.ps1", result.stdout.strip())
-    create_sym_links("wt/settings.json", str(common.APPDATA_LOCAL) + "\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState\settings.json")
-    create_sym_links(".glaze-wm/config.yaml")
-    create_sym_links("flameshot/flameshot.ini", str(common.APPDATA_ROAMING) + "\\flameshot\\flameshot.ini")
+    # create_sym_links(".config/wezterm.lua", str(common.HOME) + "\\.config\\wezterm\\wezterm.lua")
+    # create_sym_links(".config/nushell/config.nu", str(common.APPDATA_ROAMING) + "\\nushell\\config.nu")
+    # create_sym_links(".config/nushell/env.nu", str(common.APPDATA_ROAMING) + "\\nushell\env.nu")
+    # create_sym_links(".config/glazewm/config.yaml", str(common.HOME) + "\\.glzr\\glazewm\\config.yaml")
+    # create_sym_links(".config/flameshot.ini", str(common.APPDATA_ROAMING) + "\\flameshot\\flameshot.ini")
 
-    common.reload_powershell()
+    # common.reload_powershell()
 
-    # Copying flow_launcher windotfiles settings to the computer installation.
-    common.launch_command("pwsh -Command cp_windotfiles_to_fl") 
+    # # Copying flow_launcher windotfiles settings to the computer installation.
+    # common.launch_command("pwsh -Command cp_windotfiles_to_fl") 
 
-    install_pywal()
-    install_wsl()
+    #install_pywal()
+    #install_wsl()
 
-    common.install_optional_pckgs(common.EInstaller.WINGET, common.OPTIONAL_WINGET_PROGRAMS)
+    #common.install_optional_pckgs(common.EInstaller.WINGET, common.OPTIONAL_WINGET_PROGRAMS)
 
-    create_sym_links("vscode/settings.json", str(common.APPDATA_ROAMING) + "\Code\\User\\settings.json")
-    create_sym_links("vscode/keybindings.json", str(common.APPDATA_ROAMING) + "\Code\\User\\keybindings.json")
+    # create_sym_links("vscode/settings.json", str(common.APPDATA_ROAMING) + "\Code\\User\\settings.json")
+    # create_sym_links("vscode/keybindings.json", str(common.APPDATA_ROAMING) + "\Code\\User\\keybindings.json")
 
 
-    common.install_optional_pckgs(common.EInstaller.CODE, [
-        "s-nlf-fh.glassit",
-        "ms-vscode.cpptools",
-        "ms-vscode.cmake-tools",
-        "naumovs.color-highlight",
-        "donjayamanne.python-extension-pack",
-        "1YiB.rust-bundle",
-        "dlasagno.wal-theme",
-        "ms-vscode.powershell",
-        "eamodio.gitlens",
-        "wayou.vscode-todo-highlight",
-        "vscode-icons-team.vscode-icons",
-        "TabNine.tabnine-vscode",
-        "yzhang.markdown-all-in-one"], " --force")
+    # common.install_optional_pckgs(common.EInstaller.CODE, [
+    #     "s-nlf-fh.glassit",
+    #     "ms-vscode.cpptools",
+    #     "ms-vscode.cmake-tools",
+    #     "naumovs.color-highlight",
+    #     "donjayamanne.python-extension-pack",
+    #     "1YiB.rust-bundle",
+    #     "dlasagno.wal-theme",
+    #     "ms-vscode.powershell",
+    #     "eamodio.gitlens",
+    #     "wayou.vscode-todo-highlight",
+    #     "vscode-icons-team.vscode-icons",
+    #     "TabNine.tabnine-vscode",
+    #     "yzhang.markdown-all-in-one"], " --force")
 
-    #TODO: Is this reload necessary?
-    common.reload_powershell()
-    common.launch_glazewm()
+    # #TODO: Is this reload necessary?
+    # common.reload_powershell()
+    # common.launch_glazewm()
 
-    input("Press enter to close the window. >")
+    # input("Press enter to close the window. >")
 
 
 if __name__ == "__main__":

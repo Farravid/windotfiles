@@ -3,7 +3,7 @@ import common_colors
 
 def main():
     colors_path = Path.home() / ".cache/wal/colors"
-    glaze_config_paht = Path.home() / "windotfiles/.glaze-wm/config.yaml"
+    glaze_config_paht = Path.home() / "windotfiles/.config/glazewm/config.yaml"
 
     common_colors.erase(glaze_config_paht, "#$", "#&")
 

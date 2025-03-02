@@ -70,32 +70,12 @@ def launch_frg_setup():
     common.launch_command(str(common.PROGRAM_FILES) + "\\JetBrains\JetBrains Rider 2023.3.3\\bin\\rider64.exe", "Rider", False, True)
     
 
-# def launch_godot_setup():
-#     """
-#     This function launches the Godot game engine and the GitHub Desktop app.
-#     """
-#     common.launch_command("pwsh -Command godot", "Godot (Suipe)")
-#     common.launch_command("start /b " + str(common.APPDATA_LOCAL / Path("GitHubDesktop/GitHubDesktop.exe")), "Github Desktop")
-
-# def launch_farrapiler():
-#     """
-#     This function launches the VSCode with windotfiles, a terminal and the GitHub Desktop app.
-#     """
-#     common.launch_command("start /b wt", "Windows Terminal")
-#     common.launch_command("pwsh -Command cfarrapiler", "Farrapiler in VSCode")
-#     common.launch_command("start /b " + str(common.APPDATA_LOCAL / Path("GitHubDesktop/GitHubDesktop.exe")), "Github Desktop")
-#     common.launch_command("start /b " + str(common.APPDATA_LOCAL / Path("Programs/obsidian/Obsidian.exe")), "Obsidian")
-
-def launch_buxton():
-    common.launch_command(str(common.PROGRAM_FILES) + "\\JetBrains\JetBrains Rider 2023.3.3\\bin\\rider64.exe", "Rider", False, True)
+def launch_godot_setup():
+    """
+    This function launches the Godot game engine and the GitHub Desktop app.
+    """
+    common.launch_command("pwsh -Command godot", "Godot (Suipe)")
     common.launch_command("start /b " + str(common.APPDATA_LOCAL / Path("GitHubDesktop/GitHubDesktop.exe")), "Github Desktop")
-
-def launch_chp_setup():
-    common.launch_command("start /b wt wsl", "Windows Terminal with WSL")
-    common.launch_command("pwsh -Command chpc", "C++ High Performance in VSCode")
-    common.launch_command("start /b " + str(common.APPDATA_LOCAL / Path("GitHubDesktop/GitHubDesktop.exe")), "Github Desktop")
-    common.launch_command("start /b " + str(common.APPDATA_LOCAL / Path("Programs/obsidian/Obsidian.exe")), "Obsidian")
-    common.launch_command("start /b " + str(common.APPDATA_LOCAL / Path("Okular/bin/okular.exe")), "Okular")
 
 
 def main():
@@ -110,7 +90,7 @@ def main():
     options = [
         inquirer.List('choice',
                       message="Select a setup to display:",
-                      choices = ["FRG", "C++HP", "Windotfiles", "Buxton", "None"],
+                      choices = ["FRG", "Suipe", "Windotfiles", "None"],
 
                       )
     ]
@@ -123,9 +103,8 @@ def main():
 
     match answer['choice']:
         case 'Windotfiles'  : launch_windotfiles_setup()
-        case 'Buxton'       : launch_buxton()
+        case 'Suipe'        : launch_godot_setup()
         case 'FRG'          : launch_frg_setup()
-        case 'C++HP'          : launch_chp_setup()
 
 if __name__ == "__main__":
     common.launch_glazewm()

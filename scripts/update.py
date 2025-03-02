@@ -15,8 +15,7 @@ def main():
     """
 
     common.install_pckgs(common.EInstaller.WINGET_UPDGRADE, common.REQUIRED_WINGET_PROGRAMS)
-    common.install_pckgs(common.EInstaller.WINGET_UPDGRADE, common.OPTIONAL_WINGET_PROGRAMS)
-    common.install_pckgs(common.EInstaller.WINGET_UPDGRADE, ["Microsoft.PowerShell"])
+    common.install_optional_pckgs(common.EInstaller.WINGET_UPDGRADE, common.OPTIONAL_WINGET_PROGRAMS)
     common.launch_command("code --update-extensions", "update for VSCode extensions", True)
 
     input("Press enter to close the window. >")
