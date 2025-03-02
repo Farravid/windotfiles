@@ -81,17 +81,18 @@ def main():
     #common.change_win_color_mode()
     #prepare_powershell()
 
-    #TODO: 
+    #TODO:
+    # Move buttery task and glazewm to startup
+    # Zebar
+    # winwal for wezterm and nushell
+    # Fix Windows terminal not closing on startup
+    # Make FLameshot work with shortcut
     # OneCommander: Colors
     # Flow launcher: Colors
     # Spicetify (text): setup and colors
     # Discord: colors and themes
-    # remove onedrive and pre-installed spotify bro and proper install fro spotify
-    # CI/CD github 
-    # Fix Windows terminal not closing on startup
+    # remove spotify bro and proper install fro spotify
     # Create and show somehow shortcuts for used programms such as Glaze, VSCode, Rider etc....
-    # Make FLameshot work with shortcut
-    # Pretty neofetch con winfetch or similar
 
     #common.install_pckgs(common.EInstaller.WINGET, common.REQUIRED_WINGET_PROGRAMS)
     
@@ -99,10 +100,14 @@ def main():
     # create_sym_links(".config/nushell/config.nu", str(common.APPDATA_ROAMING) + "\\nushell\\config.nu")
     # create_sym_links(".config/nushell/env.nu", str(common.APPDATA_ROAMING) + "\\nushell\env.nu")
     # create_sym_links(".config/glazewm/config.yaml", str(common.HOME) + "\\.glzr\\glazewm\\config.yaml")
+    #create_sym_links(".config/alacritty.toml", str(common.APPDATA_ROAMING) + "\\alacritty\\alacritty.toml")
+    create_sym_links(".config/fastfetch/config.jsonc")
+
     # create_sym_links(".config/flameshot.ini", str(common.APPDATA_ROAMING) + "\\flameshot\\flameshot.ini")
 
     # common.reload_powershell()
 
+    # TODO: Here move buttery task and glazewm
     # # Copying flow_launcher windotfiles settings to the computer installation.
     # common.launch_command("pwsh -Command cp_windotfiles_to_fl") 
 

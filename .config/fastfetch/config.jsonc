@@ -1,0 +1,76 @@
+{
+  "$schema": "https://github.com/fastfetch-cli/fastfetch/raw/dev/doc/json_schema.json",
+  "logo": {
+    "type": "iterm",
+    "source": "%USERPROFILE%/windotfiles/assets/neofetch.png",
+    "width": 30,
+    "padding": {
+      "top": 1,
+      "left": 5,
+      "right": 5
+    }
+  },
+  "display": {
+    "constants": [
+        "██ "
+    ]
+  },
+  "modules": [
+      "break",
+      "break",
+      {
+        "key": " ",
+        "type": "title",
+        "format": "{user-name}@{host-name}"
+      },
+      "separator",
+      {
+          "key": "{$1}Distro",
+          "keyColor": "black",
+          "type": "os"
+      },
+      {
+          "key": "{$1}Terminal",
+          "keyColor": "blink_",
+          "type": "terminal"
+      },
+      {
+          "key": "{$1}Shell",
+          "keyColor": "blue",
+          "type": "shell"
+      },
+      {
+          "key": "{$1}Packages",
+          "keyColor": "bright_",
+          "type": "packages"
+      },
+      {
+          "key": "{$1}Terminal Font",
+          "keyColor": "cyan",
+          "type": "terminalfont"
+      },
+      {
+          "key": "{$1}CPU",
+          "keyColor": "default",
+          "type": "cpu"
+      },
+      {
+          "key": "{$1}Memory",
+          "keyColor": "dim_",
+          "type": "memory"
+      },
+      {
+        "key": "{$1}Locale",
+        "keyColor": "green",
+        "type": "locale"
+      },
+      {
+        "key": "{$1}Date",
+        "keyColor": "hidden_",
+        "type": "datetime"
+      },
+      "break",
+      "break",
+      "break"
+    ]
+}

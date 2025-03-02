@@ -25,7 +25,7 @@ PROGRAM_FILES : Path = Path(os.environ['programfiles'])
 #########################################
 REQUIRED_WINGET_PROGRAMS = [
         "Microsoft.PowerShell",
-        "alacritty",
+        "wezterm",
         "nushell"
         "glazewm",
         "zebar"
@@ -36,7 +36,7 @@ REQUIRED_WINGET_PROGRAMS = [
         "voidtools.Everything",
         "Microsoft.NuGet",
         "JanDeDobbeleer.OhMyPosh",
-        "neofetch"]
+        "fastfetch"]
 
 OPTIONAL_WINGET_PROGRAMS = [
         "Clement.bottom",

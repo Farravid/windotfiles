@@ -20,3 +20,6 @@
 source ~/.oh-my-posh.nu
 
 alias windotfiles = cd $env.USERPROFILE
+
+# Fix jumping when pressing any key
+$env.config.shell_integration.osc133 = false

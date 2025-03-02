@@ -33,7 +33,7 @@ def display_decorator():
     This function uses the neofetch command to display system information, and 
     then prints a decorative banner.
     """
-    subprocess.Popen("neofetch", shell=True)
+    subprocess.Popen("fastfetch", shell=True)
     time.sleep(0.5)
     print(f"{PURPLE}" * 60 + NC)
     print("== Default apps ==")
@@ -108,5 +108,6 @@ def main():
 
 if __name__ == "__main__":
     common.launch_glazewm()
+    common.launch_command("start /b " + str(common.WINDOTFILES / Path("vendor/buttery-taskbar2/buttery-taskbar.exe")))
     display_decorator()
     main()
