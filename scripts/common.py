@@ -69,7 +69,7 @@ class EInstaller():
     """
     WINGET = "winget install --accept-source-agreements --accept-package-agreements "
     WINGET_UPDGRADE = "winget upgrade "
-    PIP = "pip install "
+    PIP = "python -m pip install "
     CODE = "code --install-extension "
 
 #########################################

@@ -20,5 +20,7 @@ def main():
 
     input("Press enter to close the window. >")
 
+    # Update python too?
+
 if __name__ == "__main__":
     main()

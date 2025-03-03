@@ -19,7 +19,24 @@
 
 source ~/.oh-my-posh.nu
 
-alias windotfiles = cd $env.USERPROFILE
+##########################################################
+# CONFIG
+##########################################################
+$env.config.buffer_editor = "code"
+$env.config.show_banner = false
+
+##########################################################
+# ALIASES
+##########################################################
+
+alias windotfiles = cd $"($env.USERPROFILE)/windotfiles/" ; ls
+
+def update-winwal [wallpaper : string] {
+    let full_path = ($wallpaper | path expand)
+    python $"($env.USERPROFILE)\\windotfiles\\scripts\\colors\\update_winwal.py ($full_path)"
+}
 
 # Fix jumping when pressing any key
 $env.config.shell_integration.osc133 = false
+
+fastfetch

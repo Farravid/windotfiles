@@ -36,7 +36,7 @@ def install_pywal():
     """
     common.install_pckgs(common.EInstaller.PIP, ["pywal", "colorz", "colorthief", "haishoku"])
     print(f"\n === Importing and running" + common.PURPLE + " winwal " + common.NC + "module to the powershell 7 === \n")
-    subprocess.run("pwsh -Command update-winwal " + str(common.WINDOTFILES_ASSETS) + "\spaceship.jpg", text=True)
+    subprocess.run("pwsh -Command update-winwal " + str(common.WINDOTFILES_ASSETS) + "\\spaceship.jpg", text=True)
 
 def install_wsl():
     print(f"\n === Installing " + common.PURPLE + " Windows Subsystem for Linux (WSL) " + common.NC + "=== \n")
@@ -93,7 +93,8 @@ def main():
     #TODO:
     # Workspaces movement for others
     # Zebar
-    # winwal for wezterm and nushell
+    # Would be awesome to have a file like variables. something to have general data shared across different stuff like oh my posh theme, shell etc...
+    # we can simplify the colors and winwal stuff in just one file probably
     # we need the shortcuts on nushell rather than powershell
     # We need to be able to move windows pressing alt pls
     # OneCommander: Colors
@@ -106,7 +107,8 @@ def main():
 
     #common.install_pckgs(common.EInstaller.WINGET, common.REQUIRED_WINGET_PROGRAMS)
     
-    # create_sym_links(".config/wezterm.lua", str(common.HOME) + "\\.config\\wezterm\\wezterm.lua")
+    #create_sym_links(".config/wezterm.lua", str(common.HOME) + "\\.config\\wezterm\\wezterm.lua")
+    create_sym_links(".config/wezterm/winwal.toml", str(common.HOME) + "\\.config\\wezterm\\colors\\winwal.toml")
     # create_sym_links(".config/nushell/config.nu", str(common.APPDATA_ROAMING) + "\\nushell\\config.nu")
     # create_sym_links(".config/nushell/env.nu", str(common.APPDATA_ROAMING) + "\\nushell\env.nu")
     # create_sym_links(".config/glazewm/config.yaml", str(common.HOME) + "\\.glzr\\glazewm\\config.yaml")
@@ -117,7 +119,7 @@ def main():
 
     # common.reload_powershell()
 
-    copy_startup_script_to_startup_directory()
+    #copy_startup_script_to_startup_directory()
     # # Copying flow_launcher windotfiles settings to the computer installation.
     # common.launch_command("pwsh -Command cp_windotfiles_to_fl") 
 
@@ -153,8 +155,8 @@ def main():
 
 
 if __name__ == "__main__":
-    if not pyuac.isUserAdmin():
-        logging.error("You should launch the install.bat script as admin!")
-        input("Press enter to close the window. >")
-    else:
+    # if not pyuac.isUserAdmin():
+    #     logging.error("You should launch the install.bat script as admin!")
+    #     input("Press enter to close the window. >")
+    # else:
         main()

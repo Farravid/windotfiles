@@ -11,8 +11,7 @@ config.font_size = 13
 
 config.hide_tab_bar_if_only_one_tab = true
 
--- For example, changing the color scheme:
-config.color_scheme = 'AdventureTime'
+config.color_scheme = 'winwal'
 
 config.default_prog = {'nu'}
 -- config.default_prog = { 'pwsh.exe', '-l' }
