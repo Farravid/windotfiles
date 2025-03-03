@@ -1,5 +1,7 @@
 -- Pull in the wezterm API
 local wezterm = require 'wezterm'
+local home = wezterm.home_dir
+wezterm.add_to_config_reload_watch_list(home.."/windotfiles/.config/wezterm/winwal.toml");
 
 -- This will hold the configuration.
 local config = wezterm.config_builder()
@@ -9,10 +11,10 @@ local config = wezterm.config_builder()
 config.font = wezterm.font('JetBrainsMonoNL NF')
 config.font_size = 13
 
+config.automatically_reload_config = true
 config.hide_tab_bar_if_only_one_tab = true
 
 config.color_scheme = 'winwal'
-
 config.default_prog = {'nu'}
 -- config.default_prog = { 'pwsh.exe', '-l' }
 

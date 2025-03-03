@@ -37,11 +37,12 @@ REQUIRED_WINGET_PROGRAMS = [
         "voidtools.Everything",
         "Microsoft.NuGet",
         "JanDeDobbeleer.OhMyPosh",
-        "fastfetch"]
+        "fastfetch",
+        "ImageMagick.ImageMagick",
+        "flameshot"]
 
 OPTIONAL_WINGET_PROGRAMS = [
         "Clement.bottom",
-        "flameshot",
         "KDE.Okular",
         "DygmaLabs.Bazecor",
         "Spotify.Spotify",
@@ -69,7 +70,7 @@ class EInstaller():
     """
     WINGET = "winget install --accept-source-agreements --accept-package-agreements "
     WINGET_UPDGRADE = "winget upgrade "
-    PIP = "python -m pip install "
+    PIP = "pip install "
     CODE = "code --install-extension "
 
 #########################################
@@ -163,22 +164,6 @@ def change_win_color_mode(to_dark: bool = True) -> None:
     """
     theme_value = "0" if to_dark else "1"
     launch_command(
-        f"pwsh -Command New-ItemProperty -Path HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Themes\Personalize -Name SystemUsesLightTheme -Value {theme_value} -Type Dword -Force; New-ItemProperty -Path HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Themes\Personalize -Name AppsUseLightTheme -Value {theme_value} -Type Dword -Force",
+        f"pwsh -Command New-ItemProperty -Path HKCU:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Themes\\Personalize -Name SystemUsesLightTheme -Value {theme_value} -Type Dword -Force; New-ItemProperty -Path HKCU:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Themes\\Personalize -Name AppsUseLightTheme -Value {theme_value} -Type Dword -Force",
         app_name="a change to the windows color mode",
     )
-
-def launch_glazewm():
-    """
-    Launches Glazewm, a lightweight and fast window manager for Windows.
-
-    This function first imports the Glazewm color scheme from the
-    import_winwal_glaze_colors.py script located in the "colors" folder
-    in the Windotfiles repository. It then launches Glazewm using the
-    "start" command.
-
-    Returns:
-        None
-    """
-    glaze_colors_script_path = WINDOTFILES_SCRIPTS / "colors/import_winwal_glaze_colors.py"
-    launch_command("python " + str(glaze_colors_script_path))
-    launch_command("start glazewm")

@@ -48,10 +48,10 @@ def launch_default_apps():
     """
     #common.launch_command("glazewm command move --workspace 1")
     common.launch_command("start /b chrome.exe", "Google Chrome")
-    # common.launch_command("start /b " + str(common.APPDATA_ROAMING / Path("Spotify/Spotify.exe")), "Spotify")
+    common.launch_command("start /b " + str(common.APPDATA_ROAMING / Path("Spotify/Spotify.exe")), "Spotify")
 
-    # discord_folder = next((d for d in glob.glob(os.path.join(str(common.APPDATA_LOCAL / Path("Discord")), 'app*')) if os.path.isdir(d)), None)
-    # common.launch_command("start /b " + str(Path(discord_folder + "/Discord.exe")), "Discord")
+    discord_folder = next((d for d in glob.glob(os.path.join(str(common.APPDATA_LOCAL / Path("Discord")), 'app*')) if os.path.isdir(d)), None)
+    common.launch_command("start /b " + str(Path(discord_folder + "/Discord.exe")), "Discord")
 
 
 def launch_windotfiles_setup():
@@ -108,8 +108,9 @@ def main():
         case 'FRG'          : launch_frg_setup()
 
 if __name__ == "__main__":
-    common.launch_glazewm()
+    common.launch_command("start glazewm")
     common.launch_command("start /b " + str(common.WINDOTFILES / Path("vendor/buttery-taskbar2/buttery-taskbar.exe")))
     common.launch_command("glazewm command set-floating && glazewm command size --width 900 --height 900")
     display_decorator()
     main()
+    common.launch_command("start /b zebar")

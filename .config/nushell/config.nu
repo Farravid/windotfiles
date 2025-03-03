@@ -32,8 +32,7 @@ $env.config.show_banner = false
 alias windotfiles = cd $"($env.USERPROFILE)/windotfiles/" ; ls
 
 def update-winwal [wallpaper : string] {
-    let full_path = ($wallpaper | path expand)
-    python $"($env.USERPROFILE)\\windotfiles\\scripts\\colors\\update_winwal.py ($full_path)"
+    python -- $"($env.USERPROFILE)/windotfiles/scripts/update_winwal_colors.py" $"($wallpaper)"
 }
 
 # Fix jumping when pressing any key

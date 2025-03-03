@@ -65,10 +65,6 @@ Set-Alias -Name godot -Value $env:USERPROFILE\Documents\GitHub\ProjectoAmador\sc
 # Adb for godot
 function adbg {adb logcat -s godot}
 
-# Update the terminal, glaze and dygma color scheme based on the given wallpaper
-# It also sets the given wallpaper
-function update-winwal ([string]$wallpaper) { python $env:USERPROFILE\windotfiles\scripts\colors\update_winwal.py $wallpaper }
-
 # Updat the windotfiles packages
 function update-windotfiles { python $env:USERPROFILE\windotfiles\scripts\update.py }
 

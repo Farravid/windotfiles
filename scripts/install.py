@@ -58,7 +58,7 @@ def create_sym_links(symlink_file: str, system_path: str = ""):
 
     assert dotfiles_file_path.is_file() or dotfiles_file_path.is_dir(), "Trying to symlink an invalid dotfiles file/folder!"
 
-    #os.remove(system_file_path)
+    os.remove(system_file_path)
 
     if system_file_path.is_file():
         os.remove(system_file_path)
@@ -107,8 +107,8 @@ def main():
 
     #common.install_pckgs(common.EInstaller.WINGET, common.REQUIRED_WINGET_PROGRAMS)
     
-    #create_sym_links(".config/wezterm.lua", str(common.HOME) + "\\.config\\wezterm\\wezterm.lua")
-    create_sym_links(".config/wezterm/winwal.toml", str(common.HOME) + "\\.config\\wezterm\\colors\\winwal.toml")
+    create_sym_links(".config/wezterm/wezterm.lua", str(common.HOME) + "\\.config\\wezterm\\wezterm.lua")
+    #create_sym_links(".config/wezterm/winwal.toml", str(common.HOME) + "\\.config\\wezterm\\colors\\winwal.toml")
     # create_sym_links(".config/nushell/config.nu", str(common.APPDATA_ROAMING) + "\\nushell\\config.nu")
     # create_sym_links(".config/nushell/env.nu", str(common.APPDATA_ROAMING) + "\\nushell\env.nu")
     # create_sym_links(".config/glazewm/config.yaml", str(common.HOME) + "\\.glzr\\glazewm\\config.yaml")
@@ -149,7 +149,7 @@ def main():
 
     # #TODO: Is this reload necessary?
     # common.reload_powershell()
-    # common.launch_glazewm()
+    # common.launch_command("start glazewm")
 
     # input("Press enter to close the window. >")
 

@@ -17,4 +17,4 @@
 # You can remove these comments if you want or leave
 # them for future reference.
 
-oh-my-posh init nu --config $"($env.USERPROFILE)/.cache/wal/posh-wal-clean-detailed.omp.json"
+oh-my-posh init nu --config $"($env.USERPROFILE)/.cache/wal/posh-wal-atomic.omp.json"
