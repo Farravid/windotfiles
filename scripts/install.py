@@ -71,6 +71,15 @@ def create_sym_links(symlink_file: str, system_path: str = ""):
 
     os.symlink(dotfiles_file_path, system_file_path)
 
+def copy_startup_script_to_startup_directory():
+    """
+    This function copies the 'startup.bat' script to the Windows startup directory.
+    The script is located in the same directory as the current script.
+    """
+    startup_path = '"' + str(common.APPDATA_ROAMING) + "\\Microsoft\\Windows\\Start Menu\\Programs\\Startup" + '"'
+
+    common.launch_command("copy startup.bat " + startup_path)
+
 
 def main():
     """
@@ -82,12 +91,13 @@ def main():
     #prepare_powershell()
 
     #TODO:
-    # Move buttery task and glazewm to startup
+    # Workspaces movement for others
     # Zebar
     # winwal for wezterm and nushell
-    # Fix Windows terminal not closing on startup
-    # Make FLameshot work with shortcut
+    # we need the shortcuts on nushell rather than powershell
+    # We need to be able to move windows pressing alt pls
     # OneCommander: Colors
+    # Investigate settings windows System > For developers
     # Flow launcher: Colors
     # Spicetify (text): setup and colors
     # Discord: colors and themes
@@ -101,13 +111,13 @@ def main():
     # create_sym_links(".config/nushell/env.nu", str(common.APPDATA_ROAMING) + "\\nushell\env.nu")
     # create_sym_links(".config/glazewm/config.yaml", str(common.HOME) + "\\.glzr\\glazewm\\config.yaml")
     #create_sym_links(".config/alacritty.toml", str(common.APPDATA_ROAMING) + "\\alacritty\\alacritty.toml")
-    create_sym_links(".config/fastfetch/config.jsonc")
+    #create_sym_links(".config/fastfetch/config.jsonc")
 
     # create_sym_links(".config/flameshot.ini", str(common.APPDATA_ROAMING) + "\\flameshot\\flameshot.ini")
 
     # common.reload_powershell()
 
-    # TODO: Here move buttery task and glazewm
+    copy_startup_script_to_startup_directory()
     # # Copying flow_launcher windotfiles settings to the computer installation.
     # common.launch_command("pwsh -Command cp_windotfiles_to_fl") 
 

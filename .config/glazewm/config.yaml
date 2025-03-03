@@ -1,20 +1,20 @@
 #$
-define: &color_16 '#c7c4c3'
-define: &color_15 '#869fa2'
-define: &color_14 '#b0a657'
-define: &color_13 '#c6911d'
-define: &color_12 '#aa7b38'
-define: &color_11 '#ab5022'
-define: &color_10 '#aa6955'
-define: &color_9 '#584e4b'
-define: &color_8 '#c7c4c3'
-define: &color_7 '#869fa2'
-define: &color_6 '#b0a657'
-define: &color_5 '#c6911d'
-define: &color_4 '#aa7b38'
-define: &color_3 '#ab5022'
-define: &color_2 '#aa6955'
-define: &color_1 '#211410'
+define: &color_16 '#c9c5c4'
+define: &color_15 '#aa7c7d'
+define: &color_14 '#a68da2'
+define: &color_13 '#8a8aaa'
+define: &color_12 '#6e7caa'
+define: &color_11 '#7884aa'
+define: &color_10 '#c67967'
+define: &color_9 '#5d514e'
+define: &color_8 '#c9c5c4'
+define: &color_7 '#aa7c7d'
+define: &color_6 '#a68da2'
+define: &color_5 '#8a8aaa'
+define: &color_4 '#6e7caa'
+define: &color_3 '#7884aa'
+define: &color_2 '#c67967'
+define: &color_1 '#271814'
 #&
 # TODO: Make it work the colors
 ########################################################
@@ -134,7 +134,7 @@ window_behavior:
       centered: true
 
       # Whether to show floating windows as always on top.
-      shown_on_top: false
+      shown_on_top: true
 
     fullscreen:
       # Maximize the window if possible. If the window doesn't have a
@@ -176,6 +176,7 @@ window_rules:
   ################################################################################################
   ## David's section begins
   ################################################################################################
+      
   # TODO: Maybe I don't need this anymore since it can be done in the startup?
   # - command:
   # - command: ['set-floating']
@@ -376,7 +377,7 @@ keybindings:
   # Change the default sound output device to the next one. Function available in Pwsh profile
   - commands: ['shell-exec pwsh -Command change_audio_output']
     bindings: ['alt+a']
-
+    
   ################################################################################################
   ## David's section ends
   ################################################################################################

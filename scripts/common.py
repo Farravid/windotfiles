@@ -25,6 +25,7 @@ PROGRAM_FILES : Path = Path(os.environ['programfiles'])
 #########################################
 REQUIRED_WINGET_PROGRAMS = [
         "Microsoft.PowerShell",
+        "Microsoft.WindowsTerminal",
         "wezterm",
         "nushell"
         "glazewm",

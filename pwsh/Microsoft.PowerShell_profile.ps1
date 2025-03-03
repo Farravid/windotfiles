@@ -1,6 +1,5 @@
-#oh-my-posh init pwsh --config "$HOME/.cache/wal/posh-wal-clean.omp.json" | Invoke-Expression
-Invoke-Expression (&starship init powershell)
-# Import-Module $env:USERPROFILE\windotfiles\\vendor\winwal\winwal.psm1
+oh-my-posh init pwsh --config "$HOME/.cache/wal/posh-wal-clean.omp.json" | Invoke-Expression
+Import-Module $env:USERPROFILE\windotfiles\\vendor\winwal\winwal.psm1
 
 ###############################
 # FUNCTIONS

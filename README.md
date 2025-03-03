@@ -99,7 +99,7 @@ These dependencies will be instaled when you run the installation script.
   *  🔠 `JetBrainsMonoNerdFont` ➡️ Windotfiles use this font
   * 🍃 `Flow Launcher` ➡️ Application launcher. Similar to Rofi
   *  🏬 `GitLFS` ➡️ Windotfiles use Git LFS
-  * 🎨 `neofetch` ➡️ This is just for style not gonna lie
+  * 🎨 `fastfetch` ➡️ This is just for style not gonna lie
   * 🧈 `Buttery Taskbar 2` ➡️ Allows to hide the taskbar forever (This is an .exe in the vendor's folder)
 </details>
 

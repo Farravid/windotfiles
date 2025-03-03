@@ -46,17 +46,14 @@ def update_winwal():
     """
     common.launch_command(
         f"pwsh -Command Update-WalTheme -Backend colorz -Image {os.path.abspath(sys.argv[1])}",
-        "Update-WalTheme to update color schemes with the given wallpaper",
+        "Update-WalTheme to update color schemes with the given wallpaper", True
     )
     update_dygma_winwal()
 
 
 def main():
     update_winwal()
-    common.launch_command(
-        f"pwsh -Command Stop-Process -Name GlazeWM -Force", "a reload for GlazeWM"
-    )
-    common.launch_glazewm()
+    common.launch_command("glazewm command wm-redraw", "a reload for GlazeWM")
     logging.warning("In order to fully update the winwal colors you may need to restart the Windows Terminal")
 
 

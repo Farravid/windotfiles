@@ -37,7 +37,7 @@ def display_decorator():
     time.sleep(0.5)
     print(f"{PURPLE}" * 60 + NC)
     print("== Default apps ==")
-    print("[WS1] Google Chrome")
+    print("[WS2] Google Chrome")
     print("[WS3] Spotify, Discord")
     print(f"{PURPLE}" * 60 + NC)
 
@@ -46,18 +46,19 @@ def launch_default_apps():
     """
     This function launches the default apps for each workspace.
     """
+    #common.launch_command("glazewm command move --workspace 1")
     common.launch_command("start /b chrome.exe", "Google Chrome")
-    common.launch_command("start /b " + str(common.APPDATA_ROAMING / Path("Spotify/Spotify.exe")), "Spotify")
+    # common.launch_command("start /b " + str(common.APPDATA_ROAMING / Path("Spotify/Spotify.exe")), "Spotify")
 
-    discord_folder = next((d for d in glob.glob(os.path.join(str(common.APPDATA_LOCAL / Path("Discord")), 'app*')) if os.path.isdir(d)), None)
-    common.launch_command("start /b " + str(Path(discord_folder + "/Discord.exe")), "Discord")
+    # discord_folder = next((d for d in glob.glob(os.path.join(str(common.APPDATA_LOCAL / Path("Discord")), 'app*')) if os.path.isdir(d)), None)
+    # common.launch_command("start /b " + str(Path(discord_folder + "/Discord.exe")), "Discord")
 
 
 def launch_windotfiles_setup():
     """
     This function launches the VSCode with windotfiles, a terminal and the GitHub Desktop app.
     """
-    common.launch_command("start /b wt", "Windows Terminal")
+    common.launch_command("start /b wezterm-gui", "Windows Terminal")
     common.launch_command("pwsh -Command cwindotfiles", "Windotfiles in VSCode")
     common.launch_command("start /b " + str(common.APPDATA_LOCAL / Path("GitHubDesktop/GitHubDesktop.exe")), "Github Desktop")
 
@@ -109,5 +110,6 @@ def main():
 if __name__ == "__main__":
     common.launch_glazewm()
     common.launch_command("start /b " + str(common.WINDOTFILES / Path("vendor/buttery-taskbar2/buttery-taskbar.exe")))
+    common.launch_command("glazewm command set-floating && glazewm command size --width 900 --height 900")
     display_decorator()
     main()
