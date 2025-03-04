@@ -23,6 +23,13 @@ PROGRAM_FILES : Path = Path(os.environ['programfiles'])
 #########################################
 # PROGRAMS
 #########################################
+REQUIRED_SCOOP_PROGRAMS = [
+    "sudo",
+    "7zip",
+    "grep",
+    "touch"
+]
+
 REQUIRED_WINGET_PROGRAMS = [
         "Python"
         "Microsoft.PowerShell",
@@ -71,6 +78,7 @@ class EInstaller():
     Enum class for providing an easier way to select the installer of a package/library/extension
     """
     WINGET = "winget install --accept-source-agreements --accept-package-agreements "
+    SCOOP = "scoop install "
     WINGET_UPDGRADE = "winget upgrade "
     PIP = "pip install "
     CODE = "code --install-extension "

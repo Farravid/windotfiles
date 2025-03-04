@@ -69,18 +69,22 @@ def line_prepender(filename: str, line: str) -> None:
 
 #########################################
 # IMPORTERS
-#########################################
+######################################### 
 
-def import_dygma():
+def get_color_lines():
     colors_path = Path.home() / ".cache/wal/colors"
-    dygma_main = Path.home() / "windotfiles/dygma/dygma_api/src/main.rs"
-
-    erase(dygma_main, "//$", "//&")
 
     file_read = open(colors_path, "r", encoding="utf8")
-
     color_lines = file_read.readlines()
     file_read.close()
+
+    return color_lines
+
+def import_dygma():
+    dygma_main = Path.home() / "windotfiles/dygma/dygma_api/src/main.rs"
+    erase(dygma_main, "//$", "//&")
+
+    color_lines = get_color_lines()
     
     palette : str = "const COLOR_PALETTE : &str = \""
     line_prepender(dygma_main, "//&")
@@ -93,32 +97,29 @@ def import_dygma():
     line_prepender(dygma_main, palette)
     line_prepender(dygma_main, "//$")
 
-def import_glazewm():
-    colors_path = Path.home() / ".cache/wal/colors"
-    glaze_config_paht = Path.home() / "windotfiles/.config/glazewm/config.yaml"
+def import_zebar():
+    zebar_colors = Path.home() / "windotfiles/.config/glazewm/zebar/config.yaml"
+    color_lines = get_color_lines()
 
-    erase(glaze_config_paht, "#$", "#&")
+    with open(zebar_colors, "r", encoding="utf8") as file:
+        content = file.readlines()
 
-    file_read = open(colors_path, "r", encoding="utf8")
+    # Replace the line if it contains the search string
+    content = ["      --rp-text: " + color_lines[1][:-1]+ ";" + "\n" if "--rp-text:" in line else line for line in content]
+    content = ["      --rp-love: " + color_lines[2][:-1]+ ";" + "\n" if "--rp-love:" in line else line for line in content]
+    content = ["      --rp-gold: " + color_lines[3][:-1]+ ";" + "\n" if "--rp-gold:" in line else line for line in content]
+    content = ["      --rp-rose: " + color_lines[4][:-1]+ ";" + "\n" if "--rp-rose:" in line else line for line in content]
+    content = ["      --rp-pine: " + color_lines[5][:-1]+ ";" + "\n" if "--rp-pine:" in line else line for line in content]
+    content = ["      --rp-foam: " + color_lines[6][:-1]+ ";" + "\n" if "--rp-foam:" in line else line for line in content]
+    content = ["      --rp-iris: " + color_lines[7][:-1]+ ";" + "\n" if "--rp-iris:" in line else line for line in content]
 
-    color_lines = file_read.readlines()
-    file_read.close()
-    
-    count = 1
-    line_prepender(glaze_config_paht, "#&")
-    for l in color_lines:
-        line_to_write = "define: &color_" + str(count) + " '" + l[:-1] + "'\n"
-        count+=1 
-        line_prepender(glaze_config_paht, line_to_write)
-    line_prepender(glaze_config_paht, "#$")
+    # Write the modified content back to the file
+    with open(zebar_colors, "w", encoding="utf8") as file:
+        file.writelines(content)
 
 def import_wezterm():
-    colors_path = Path.home() / ".cache/wal/colors"
     wezterm_colors = Path.home() / "windotfiles/.config/wezterm/winwal.toml"
-
-    file_read = open(colors_path, "r", encoding="utf8")
-    color_lines = file_read.readlines()
-    file_read.close()
+    color_lines = get_color_lines()
 
     # Cleaning up the file
     open(wezterm_colors, 'w').close()
@@ -163,6 +164,7 @@ def update_winwal():
         f"pwsh -Command Update-WalTheme -Backend colorz -Image {wallpaper_path}",
         "Update-WalTheme to update color schemes with the given wallpaper", True
     )
+    import_zebar()
     import_dygma()
     import_wezterm()
 

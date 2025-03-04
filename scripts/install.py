@@ -24,11 +24,6 @@ def prepare_powershell():
     """
     print(f"\n === Installing the last version of module" + common.PURPLE + " PSReadLine " + common.NC + " === \n")
     subprocess.run("pwsh -Command Install-Module PSReadLine -force", shell=True)
-    print(f"\n === Setting the execution policy for powershell scripts for this user to " + common.PURPLE + " RemoteSigned " + common.NC + " === \n")
-    subprocess.run("pwsh -Command Set-ExecutionPolicy RemoteSigned -Scope CurrentUser", shell=True, text=True)
-    print("\n === Importing the " + common.PURPLE + " start-dotfiles.xml " + common.NC + " task to the Task Scheduler === \n")
-    subprocess.run(["pwsh", "-Command", f"Register-ScheduledTask -Xml (Get-Content '{common.WINDOTFILES}\\tasks\\start-dotfiles.xml' | Out-String) -TaskName 'start-dotfiles'"], shell=True)
-    common.launch_command("pwsh -Command Install-Module -Name AudioDeviceCmdlets -Force -Verbose", "installation of AudioDeviceCmdlets module")
 
 def install_pywal():
     """
@@ -41,7 +36,6 @@ def install_pywal():
 def install_wsl():
     print(f"\n === Installing " + common.PURPLE + " Windows Subsystem for Linux (WSL) " + common.NC + "=== \n")
     subprocess.run("pwsh -Command wsl --install", text=True)
-
 
 def create_sym_links(symlink_file: str, system_path: str = ""):
     """
@@ -89,9 +83,12 @@ def main():
 
     #common.change_win_color_mode()
     #prepare_powershell()
+    #common.launch_command("pwsh -Command Invoke-RestMethod -Uri https://get.scoop.sh | Invoke-Expression", "install for Scoop")    
 
     #TODO:
+    # Use scoop and use export JSON file instead of here
     # Zebar
+    # Would be awesome to create a rust gui program to create your own startup stuff
     # Move certain programas to a specifc workspace on startup? Can I do it without the rules?
     # Would be awesome to have a file like variables. something to have general data shared across different stuff like oh my posh theme, shell etc...
     # we need the shortcuts on nushell rather than powershell
@@ -103,6 +100,10 @@ def main():
     # remove spotify bro and proper install fro spotify
     # Create and show somehow shortcuts for used programms such as Glaze, VSCode, Rider etc....
 
+    # result = subprocess.run('pwsh -Command $PROFILE', shell=True, capture_output=True, text=True)
+    # create_sym_links(".config/Microsoft.PowerShell_profile.ps1", result.stdout.strip())
+    # create_sym_links(".config/wt/settings.json", str(common.APPDATA_LOCAL) + "\\Packages\\Microsoft.WindowsTerminal_8wekyb3d8bbwe\\LocalState\\settings.json")
+
     #common.install_pckgs(common.EInstaller.WINGET, common.REQUIRED_WINGET_PROGRAMS)
     
     #create_sym_links(".config/wezterm/wezterm.lua", str(common.HOME) + "\\.config\\wezterm\\wezterm.lua")
@@ -110,7 +111,7 @@ def main():
     # create_sym_links(".config/nushell/config.nu", str(common.APPDATA_ROAMING) + "\\nushell\\config.nu")
     # create_sym_links(".config/nushell/env.nu", str(common.APPDATA_ROAMING) + "\\nushell\env.nu")
     #create_sym_links(".config/glazewm/config.yaml", str(common.HOME) + "\\.glzr\\glazewm\\config.yaml")
-    create_sym_links(".config/glazewm/zebar/config.yaml", str(common.HOME) + "\\.glzr\\zebar\\config.yaml")
+    #create_sym_links(".config/glazewm/zebar/config.yaml", str(common.HOME) + "\\.glzr\\zebar\\config.yaml")
     #create_sym_links(".config/alacritty.toml", str(common.APPDATA_ROAMING) + "\\alacritty\\alacritty.toml")
     #create_sym_links(".config/fastfetch/config.jsonc")
 

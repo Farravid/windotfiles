@@ -29,7 +29,8 @@ $env.config.show_banner = false
 # ALIASES
 ##########################################################
 
-alias windotfiles = cd $"($env.USERPROFILE)/windotfiles/" ; ls
+alias windotfiles = cd $"($env.USERPROFILE)/windotfiles/"
+alias show_path = echo $env.PATH
 
 def update-winwal [wallpaper : string] {
     python -- $"($env.USERPROFILE)/windotfiles/scripts/update_winwal_colors.py" $"($wallpaper)"
