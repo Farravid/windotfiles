@@ -34,7 +34,7 @@ general:
   shutdown_commands: ['shell-exec taskkill /IM zebar.exe /F']
 
   # Commands to run after the WM config is reloaded.
-  config_reload_commands: []
+  config_reload_commands: ['shell-exec --hide-window powershell -command "taskkill /IM zebar.exe /F; zebar open bar"']
 
   # Whether to automatically focus windows underneath the cursor.
   focus_follows_cursor: false
