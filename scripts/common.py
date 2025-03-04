@@ -24,12 +24,13 @@ PROGRAM_FILES : Path = Path(os.environ['programfiles'])
 # PROGRAMS
 #########################################
 REQUIRED_WINGET_PROGRAMS = [
+        "Python"
         "Microsoft.PowerShell",
         "Microsoft.WindowsTerminal",
         "wezterm",
         "nushell"
         "glazewm",
-        "zebar"
+        "glzr-io.zebar -v \"1.8.1\" -e",
         "Git.Git",
         "Github.GitLFS",
         "DEVCOM.JetBrainsMonoNerdFont -v \"2.3.3\" -e",
@@ -39,7 +40,8 @@ REQUIRED_WINGET_PROGRAMS = [
         "JanDeDobbeleer.OhMyPosh",
         "fastfetch",
         "ImageMagick.ImageMagick",
-        "flameshot"]
+        "flameshot",
+        "AltSnap"]
 
 OPTIONAL_WINGET_PROGRAMS = [
         "Clement.bottom",

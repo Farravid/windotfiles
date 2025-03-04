@@ -15,12 +15,11 @@ def main():
     """
 
     common.install_pckgs(common.EInstaller.WINGET_UPDGRADE, common.REQUIRED_WINGET_PROGRAMS)
+    common.launch_command("python -m pip install --upgrade pip", "Upgrading pip", True)
     common.install_optional_pckgs(common.EInstaller.WINGET_UPDGRADE, common.OPTIONAL_WINGET_PROGRAMS)
     common.launch_command("code --update-extensions", "update for VSCode extensions", True)
 
     input("Press enter to close the window. >")
-
-    # Update python too?
 
 if __name__ == "__main__":
     main()

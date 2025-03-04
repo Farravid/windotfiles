@@ -172,7 +172,7 @@ def update_winwal():
     )
 
     neofetch_image_path = str(common.WINDOTFILES_ASSETS) + "\\neofetch.png" 
-    common.launch_command(f"magick {wallpaper_path} -gravity Center -crop 1200x1200+0+0 +repage {neofetch_image_path}", "an update for fastfetch image")
+    common.launch_command(f"magick {wallpaper_path} -gravity Center -crop 1200x1100+0+0 +repage {neofetch_image_path}", "an update for fastfetch image")
     common.launch_command("glazewm command wm-redraw", "a reload for GlazeWM")
 
 def main():

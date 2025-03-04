@@ -91,12 +91,10 @@ def main():
     #prepare_powershell()
 
     #TODO:
-    # Workspaces movement for others
     # Zebar
+    # Move certain programas to a specifc workspace on startup? Can I do it without the rules?
     # Would be awesome to have a file like variables. something to have general data shared across different stuff like oh my posh theme, shell etc...
-    # we can simplify the colors and winwal stuff in just one file probably
     # we need the shortcuts on nushell rather than powershell
-    # We need to be able to move windows pressing alt pls
     # OneCommander: Colors
     # Investigate settings windows System > For developers
     # Flow launcher: Colors
@@ -107,11 +105,12 @@ def main():
 
     #common.install_pckgs(common.EInstaller.WINGET, common.REQUIRED_WINGET_PROGRAMS)
     
-    create_sym_links(".config/wezterm/wezterm.lua", str(common.HOME) + "\\.config\\wezterm\\wezterm.lua")
+    #create_sym_links(".config/wezterm/wezterm.lua", str(common.HOME) + "\\.config\\wezterm\\wezterm.lua")
     #create_sym_links(".config/wezterm/winwal.toml", str(common.HOME) + "\\.config\\wezterm\\colors\\winwal.toml")
     # create_sym_links(".config/nushell/config.nu", str(common.APPDATA_ROAMING) + "\\nushell\\config.nu")
     # create_sym_links(".config/nushell/env.nu", str(common.APPDATA_ROAMING) + "\\nushell\env.nu")
-    # create_sym_links(".config/glazewm/config.yaml", str(common.HOME) + "\\.glzr\\glazewm\\config.yaml")
+    #create_sym_links(".config/glazewm/config.yaml", str(common.HOME) + "\\.glzr\\glazewm\\config.yaml")
+    create_sym_links(".config/glazewm/zebar/config.yaml", str(common.HOME) + "\\.glzr\\zebar\\config.yaml")
     #create_sym_links(".config/alacritty.toml", str(common.APPDATA_ROAMING) + "\\alacritty\\alacritty.toml")
     #create_sym_links(".config/fastfetch/config.jsonc")
 

@@ -34,7 +34,7 @@ def display_decorator():
     then prints a decorative banner.
     """
     subprocess.Popen("fastfetch", shell=True)
-    time.sleep(0.5)
+    time.sleep(1.5)
     print(f"{PURPLE}" * 60 + NC)
     print("== Default apps ==")
     print("[WS2] Google Chrome")
@@ -68,7 +68,7 @@ def launch_frg_setup():
     """
     common.launch_command(str(common.PROGRAM_FILES) + "\\Slack\\Slack.exe", "Slack", False, True)
     common.launch_command(str(common.PROGRAM_FILES) + "\\Perforce\\p4v.exe", "Perforce", False, True)
-    common.launch_command(str(common.PROGRAM_FILES) + "\\JetBrains\JetBrains Rider 2023.3.3\\bin\\rider64.exe", "Rider", False, True)
+    common.launch_command(str(common.PROGRAM_FILES) + "\\JetBrains\\JetBrains Rider 2023.3.3\\bin\\rider64.exe", "Rider", False, True)
     
 
 def launch_godot_setup():
@@ -113,4 +113,4 @@ if __name__ == "__main__":
     common.launch_command("glazewm command set-floating && glazewm command size --width 900 --height 900")
     display_decorator()
     main()
-    common.launch_command("start /b zebar")
+    subprocess.Popen(["zebar", "open", "bar"], creationflags=subprocess.CREATE_NO_WINDOW)
