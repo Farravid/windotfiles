@@ -1,8 +1,10 @@
 <div align="center">
   <h1>windotfiles</h1>
-  <img src="https://img.shields.io/badge/Windows%2011-%230079d5.svg?style=for-the-badge&logo=Windows%2011&logoColor=white"</img>
-  <img src="https://img.shields.io/badge/Windows%20Terminal-%234D4D4D.svg?style=for-the-badge&logo=windows-terminal&logoColor=white"</img>
-  <img src="https://img.shields.io/badge/PowerShell-%235391FE.svg?style=for-the-badge&logo=powershell&logoColor=white"</img>
+  <img src="https://custom-icon-badges.demolab.com/badge/Windows%2011-0078D6?style=for-the-badge&logo=windows11&logoColor=white"</img>
+  <img alt="Static Badge" src="https://img.shields.io/badge/glazewm-A9225C?style=for-the-badge&logoColor=white">
+  <img alt="Static Badge" src="https://img.shields.io/badge/zebar-654FF0?style=for-the-badge&logoColor=white">
+  <img alt="Static Badge" src="https://img.shields.io/badge/wezterm-4E49EE?style=for-the-badge&logo=wezterm&logoColor=white">
+  <img alt="Static Badge" src="https://img.shields.io/badge/nushell-4E9A06?style=for-the-badge&logo=nushell&logoColor=white">
   <img src="https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54"</img>
   <p></p>  
 
