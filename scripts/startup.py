@@ -99,6 +99,8 @@ def main():
     answer = inquirer.prompt(options)
     show_default_apps = inquirer.confirm("Do you want to launch default apps with this setup?", default=True)
 
+    subprocess.Popen(["zebar", "open", "bar"], creationflags=subprocess.CREATE_NO_WINDOW)
+
     if show_default_apps:
         launch_default_apps()
 
@@ -113,4 +115,3 @@ if __name__ == "__main__":
     common.launch_command("glazewm command set-floating && glazewm command size --width 900 --height 900")
     display_decorator()
     main()
-    subprocess.Popen(["zebar", "open", "bar"], creationflags=subprocess.CREATE_NO_WINDOW)

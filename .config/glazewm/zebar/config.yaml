@@ -17,13 +17,13 @@ window/bar:
     :root {
       --rp-base: #191724;
       --rp-base-alpha-bg: #191724dd;
-      --rp-text: #c6c1a1;
-      --rp-love: #8baa9c;
-      --rp-gold: #7082a9;
-      --rp-rose: #b57faa;
-      --rp-pine: #bf8cb1;
-      --rp-foam: #c698b8;
-      --rp-iris: #c9c8c7;
+      --rp-text: #aa8887;
+      --rp-love: #ae5e4b;
+      --rp-gold: #aa4813;
+      --rp-rose: #2583aa;
+      --rp-pine: #648aaa;
+      --rp-foam: #9a93ae;
+      --rp-iris: #c7c6c5;
 
       --text: var(--rp-text);
       --bg: var(--rp-base-alpha-bg);

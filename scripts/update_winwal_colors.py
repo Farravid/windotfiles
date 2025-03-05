@@ -1,8 +1,9 @@
 import os
 import ctypes
 import subprocess
-import sys
-import logging
+import shlex
+import tkinter as tk
+from tkinter import filedialog
 from pathlib import Path
 from PIL import ImageColor
 import common
@@ -149,12 +150,10 @@ def import_wezterm():
 ## Actual winwal update
 ####################################################################
 
-def update_winwal():
+def update_winwal(wallpaper_path, is_fastfetch_photo):
     """
     Update the color scheme and apply it to the currently active terminal.
     """
-
-    wallpaper_path = os.path.abspath(sys.argv[1])
 
     # Apply the wallpaper using Windows API for persistence
     ctypes.windll.user32.SystemParametersInfoW(20, 0, wallpaper_path, 3)
@@ -164,6 +163,7 @@ def update_winwal():
         f"pwsh -Command Update-WalTheme -Backend colorz -Image {wallpaper_path}",
         "Update-WalTheme to update color schemes with the given wallpaper", True
     )
+
     import_zebar()
     import_dygma()
     import_wezterm()
@@ -173,17 +173,25 @@ def update_winwal():
         "rust script for applying colors to dygma",
     )
 
-    neofetch_image_path = str(common.WINDOTFILES_ASSETS) + "\\neofetch.png" 
-    common.launch_command(f"magick {wallpaper_path} -gravity Center -crop 1200x1100+0+0 +repage {neofetch_image_path}", "an update for fastfetch image")
+    neofetch_image_path = str(common.WINDOTFILES_ASSETS) + "\\neofetch.png"
+    if is_fastfetch_photo:
+        common.launch_command(f"pwsh -Command cp {wallpaper_path} {neofetch_image_path}", "", True)
+    else: 
+        common.launch_command(f"magick {wallpaper_path} -gravity Center -crop 1200x1100+0+0 +repage {neofetch_image_path}", "an update for fastfetch image")
+
     common.launch_command("glazewm command wm-reload-config", "a reload for GlazeWM and Zebar")
 
-def main():
-    update_winwal()
-    subprocess.Popen("fastfetch", shell=True)
+def main():        
+    root = tk.Tk()
+    root.withdraw()
+    
+    file_path = filedialog.askopenfilename(title="Select an Image", filetypes=[("Image Files", "*.png;*.jpg;*.jpeg;*.bmp;*.gif")])
+
+    if file_path:
+        safe_path = shlex.quote(file_path)
+        fastfetch = tk.messagebox.askyesno("Fastfetch", "Set as fastfetch photo?")
+        update_winwal(safe_path, fastfetch)
+        subprocess.Popen("fastfetch", shell=True)
 
 if __name__ == "__main__":
-    wallpaper_path = Path(os.path.abspath(sys.argv[1]))
-    if wallpaper_path.exists():
-        main()
-    else:
-        logging.error(f"{wallpaper_path} does not exist")
+    main()

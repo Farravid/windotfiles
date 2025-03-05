@@ -87,8 +87,6 @@ def main():
 
     #TODO:
     # Use scoop and use export JSON file instead of here
-    # Zebar
-    # Would be awesome to create a rust gui program to create your own startup stuff
     # Move certain programas to a specifc workspace on startup? Can I do it without the rules?
     # Would be awesome to have a file like variables. something to have general data shared across different stuff like oh my posh theme, shell etc...
     # we need the shortcuts on nushell rather than powershell
@@ -99,6 +97,8 @@ def main():
     # Discord: colors and themes
     # remove spotify bro and proper install fro spotify
     # Create and show somehow shortcuts for used programms such as Glaze, VSCode, Rider etc....
+    # Would be awesome to create a rust gui program to create your own startup stuff
+
 
     # result = subprocess.run('pwsh -Command $PROFILE', shell=True, capture_output=True, text=True)
     # create_sym_links(".config/Microsoft.PowerShell_profile.ps1", result.stdout.strip())
