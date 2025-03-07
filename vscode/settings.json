@@ -1,6 +1,6 @@
 {
     "editor.fontFamily": "JetBrainsMono NF",
-    "glassit.alpha": 240,
+    "glassit.alpha": 225,
     "editor.fontSize": 13,
     "editor.wordWrap": "on",
     "workbench.iconTheme": "vscode-icons",
@@ -14,4 +14,10 @@
     "security.allowedUNCHosts": [
         "wsl.localhost"
     ],
+    "workbench.colorTheme": "Wal Bordered",
+    "workbench.colorCustomizations": {
+        
+    },
+    "window.menuBarVisibility": "compact",
+    "window.commandCenter": false
 }

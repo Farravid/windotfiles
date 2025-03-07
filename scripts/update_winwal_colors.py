@@ -6,6 +6,7 @@ import tkinter as tk
 from tkinter import filedialog
 from pathlib import Path
 from PIL import ImageColor
+from colorsys import rgb_to_hsv, hsv_to_rgb
 import common
 
 #########################################
@@ -80,6 +81,34 @@ def get_color_lines():
     file_read.close()
 
     return color_lines
+
+def brighten_color(hex_color, factor=1.3):
+    """
+    Takes a hex color and returns a brighter version.
+    factor > 1 increases brightness, factor < 1 decreases it.
+    """
+    hex_color = hex_color.lstrip("#")
+    r, g, b = tuple(int(hex_color[i:i+2], 16) / 255.0 for i in (0, 2, 4))
+    h, s, v = rgb_to_hsv(r, g, b)
+    v = min(1.0, v * factor)  # Increase brightness but keep within valid range
+    r, g, b = hsv_to_rgb(h, s, v)
+    return f"#{int(r * 255):02x}{int(g * 255):02x}{int(b * 255):02x}"
+
+def import_winwal_brights():
+    colors_path = Path.home() / ".cache/wal/colors"
+    with open(colors_path, "r") as f:
+        colors = [line.strip() for line in f.readlines() if line.strip()]
+    
+    if len(colors) != 16:
+        raise ValueError("Expected 16 colors in the file")
+    
+    ansi_colors = colors[:8]
+    bright_colors = [colors[8]] + [brighten_color(color, 1.5) for color in colors[9:]]
+
+    with open(colors_path, "w") as f:
+        for color in ansi_colors + bright_colors:
+            f.write(color + "\n")
+
 
 def import_dygma():
     dygma_main = Path.home() / "windotfiles/dygma/dygma_api/src/main.rs"
@@ -163,7 +192,8 @@ def update_winwal(wallpaper_path, is_fastfetch_photo):
         f"pwsh -Command Update-WalTheme -Backend colorz -Image {wallpaper_path}",
         "Update-WalTheme to update color schemes with the given wallpaper", True
     )
-
+    
+    import_winwal_brights()
     import_zebar()
     import_dygma()
     import_wezterm()

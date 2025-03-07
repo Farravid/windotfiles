@@ -45,6 +45,7 @@ def create_sym_links(symlink_file: str, system_path: str = ""):
         symlink_file (str): The name of the file or folder to create the link to.
         system_path (str, optional): The path of the system folder to create the link in.
     """
+    
     #TODO: This function is not working AS EXPECTED about detecting files
 
     system_file_path = Path(system_path) if system_path else common.HOME / symlink_file
@@ -86,15 +87,13 @@ def main():
     #common.launch_command("pwsh -Command Invoke-RestMethod -Uri https://get.scoop.sh | Invoke-Expression", "install for Scoop")    
 
     #TODO:
-    # Improve the colors for visual code to make it bright working fine
     # Use scoop and use export JSON file instead of here
-    # Would be awesome to have a file like variables. something to have general data shared across different stuff like oh my posh theme, shell etc...
     # we need the shortcuts on nushell rather than powershell
     # OneCommander: Colors
     # Investigate settings windows System > For developers
     # Flow launcher: Colors
-    # Spicetify (text): setup and colors
-    # Discord: colors and themes
+    # Wait a bit or event driven moving workspaces
+    # Fix install.py
     # remove spotify bro and proper install fro spotify
     # Create and show somehow shortcuts for used programms such as Glaze, VSCode, Rider etc....
     # Would be awesome to create a rust gui program to create your own startup stuff

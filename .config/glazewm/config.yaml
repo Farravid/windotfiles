@@ -237,8 +237,8 @@ keybindings:
     bindings: ['alt+q']
 
   # Kill GlazeWM process safely.
-  - commands: ['wm-exit']
-    bindings: ['alt+shift+e']
+  # - commands: ['wm-exit']
+  #   bindings: ['alt+shift+e']
 
   # Re-evaluate configuration file.
   - commands: ['wm-reload-config']

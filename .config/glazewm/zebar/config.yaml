@@ -282,4 +282,4 @@ window/bar:
       styles: |
         padding-right: 6px;
       template: |
-        {{ date.toFormat(date.now, 't') }}
+        {{ date.toFormat(date.now, 'LLL dd t') }}

@@ -25,43 +25,35 @@
       },
       "separator",
       {
-          "key": "{#31}{$1}Distro",
-          "keyColor": "black",
+          "key": "{#39}{$1}Distro",
           "type": "os"
       },
       {
-          "key": "{#32}{$1}Terminal",
-          "keyColor": "blink_",
+          "key": "{#31}{$1}Terminal",
           "type": "terminal"
       },
       {
           "key": "{#32}{$1}Shell",
-          "keyColor": "blue",
           "type": "shell"
       },
       {
           "key": "{#33}{$1}Terminal Font",
-          "keyColor": "cyan",
           "type": "terminalfont"
       },
       {
           "key": "{#34}{$1}CPU",
-          "keyColor": "default",
           "type": "cpu"
       },
       {
           "key": "{#35}{$1}Memory",
-          "keyColor": "dim_",
           "type": "memory"
       },
       {
         "key": "{#36}{$1}Locale",
-        "keyColor": "green",
         "type": "locale"
       },
       {
         "key": "{#37}{$1}Date",
-        "keyColor": "hidden_",
         "type": "datetime"
       },
       "break",
