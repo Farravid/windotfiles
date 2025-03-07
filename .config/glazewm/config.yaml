@@ -9,7 +9,7 @@ general:
   shutdown_commands: ['shell-exec taskkill /IM zebar.exe /F']
 
   # Commands to run after the WM config is reloaded.
-  config_reload_commands: ['shell-exec --hide-window powershell -command "taskkill /IM zebar.exe /F; zebar open bar"']
+  config_reload_commands: ['shell-exec --hide-window powershell -command "taskkill /IM zebar.exe /F; %USERPROFILE%\\windotfiles\\.config\\glazewm\\zebar\\start.bat"']
 
   # Whether to automatically focus windows underneath the cursor.
   focus_follows_cursor: false
@@ -147,26 +147,6 @@ window_rules:
         window_title: { regex: '.*? - Peek' }
       - window_process: { equals: 'Lively' }
         window_class: { regex: 'HwndWrapper' }
-
-  ################################################################################################
-  ## David's section begins
-  ################################################################################################
-      
-  # TODO: Maybe I don't need this anymore since it can be done in the startup?
-  # - command:
-  # - command: ['set-floating']
-  #   math
-  #   match_title: "/Startup|Flow.Launcher/"
-  # - command: "move to workspace 1"
-  #   match_process_name: "/UnrealEditor|rider64|Godot|Code|okular/"
-  # - command: "move to workspace 2"
-  #   match_process_name: "/Slack|GitHubDesktop|p4v|chrome|Obsidian/"
-  # - command: "move to workspace 3"
-  #   match_process_name: "/Discord|Spotify/"
-
-  ################################################################################################
-  ## David's section ends
-  ################################################################################################
 
 binding_modes:
   # When enabled, the focused window can be resized via arrow keys or HJKL.

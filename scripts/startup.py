@@ -20,6 +20,7 @@ import inquirer
 import os
 import glob
 import common
+import json
 import subprocess
 from pathlib import Path
 import ctypes
@@ -27,6 +28,52 @@ import ctypes
 PURPLE = '\033[0;35m'
 NC = '\033[0m'
 
+def get_window_id(process_name: str):
+    """
+    This function retrieves the window ID of a specific process running on the system.
+    It uses the 'glazewm query windows' command to obtain a list of all running windows,
+    then iterates through the list to find the window with the matching process name.
+
+    Parameters:
+    process_name (str): The name of the process for which to retrieve the window ID.
+
+    Returns:
+    int | None: The window ID of the specified process, or None if no matching process is found.
+    """
+    try:
+        result = subprocess.run(["glazewm", "query", "windows"], capture_output=True, text=True, check=True)
+        data = json.loads(result.stdout)
+
+        windows = data.get("data", {}).get("windows", [])
+
+        for window in windows:
+            if window.get("processName") == process_name:
+                return window.get("id")
+
+        return None
+    except Exception as e:
+        print(f"Error: {e}")
+        return None
+    
+def move_window_to_workspace(process_name, workspace):
+    """
+    Move a window associated with a specific process to a designated workspace.
+
+    This function attempts to move a window identified by its process name to a specified
+    workspace using the glazewm window manager. It first retrieves the window ID for the
+    given process name and then uses glazewm commands to move the window.
+
+    Parameters:
+    process_name (str): The name of the process whose window should be moved.
+    workspace (int): The number of the workspace to which the window should be moved.
+    """
+
+    window_id = get_window_id(process_name)
+    try:
+        subprocess.run(["glazewm", "command", "--id", window_id, "move", "--workspace", str(workspace)], check=True)
+        print(f"Moved window {window_id} to workspace {workspace}")
+    except Exception as e:
+        print(f"Error moving window: {e}")
 
 def display_decorator():
     """
@@ -40,7 +87,6 @@ def display_decorator():
     print("[WS2] Google Chrome")
     print("[WS3] Spotify, Discord")
     print(f"{PURPLE}" * 60 + NC)
-
 
 def launch_default_apps():
     """
@@ -78,6 +124,19 @@ def launch_godot_setup():
     common.launch_command("pwsh -Command godot", "Godot (Suipe)")
     common.launch_command("start /b " + str(common.APPDATA_LOCAL / Path("GitHubDesktop/GitHubDesktop.exe")), "Github Desktop")
 
+def move_windows_to_workspaces():
+    move_window_to_workspace("wezterm-gui", 1)
+    move_window_to_workspace("Godot_v4", 1)
+    move_window_to_workspace("rider64", 1)
+    move_window_to_workspace("Code", 1)
+    move_window_to_workspace("p4v", 2)
+    move_window_to_workspace("GitHubDesktop", 2)
+    move_window_to_workspace("chrome", 2)
+    move_window_to_workspace("Slack", 2)
+    move_window_to_workspace("Spotify", 3)
+    move_window_to_workspace("Discord", 3)
+    move_window_to_workspace("ProtonVPN", 4)
+
 
 def main():
     """
@@ -99,7 +158,9 @@ def main():
     answer = inquirer.prompt(options)
     show_default_apps = inquirer.confirm("Do you want to launch default apps with this setup?", default=True)
 
-    subprocess.Popen(["zebar", "open", "bar"], creationflags=subprocess.CREATE_NO_WINDOW)
+    common.launch_command(str(common.WINDOTFILES / Path(".config/glazewm/zebar/start.bat")), " Zebar")
+    ## Test if no windows is necessary for the above command
+    #subprocess.Popen(["zebar", "open", "bar"], creationflags=subprocess.CREATE_NO_WINDOW)
 
     if show_default_apps:
         launch_default_apps()
@@ -108,6 +169,9 @@ def main():
         case 'Windotfiles'  : launch_windotfiles_setup()
         case 'Suipe'        : launch_godot_setup()
         case 'FRG'          : launch_frg_setup()
+    
+    time.sleep(1)
+    move_windows_to_workspaces()
 
 if __name__ == "__main__":
     common.launch_command("start glazewm")
@@ -115,3 +179,4 @@ if __name__ == "__main__":
     common.launch_command("glazewm command set-floating && glazewm command size --width 900 --height 900")
     display_decorator()
     main()
+

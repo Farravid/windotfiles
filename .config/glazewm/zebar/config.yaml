@@ -3,7 +3,7 @@ global:
 
 window/bar:
   providers: ["self"]
-  width: 5120
+  width: "{{ self.args.MONITOR_WIDTH }}"
   height: "60" #This one is a bit funky, if you are using scaling, adjust accordingly
   position_x: "{{ self.args.MONITOR_X }}"
   position_y: "{{ self.args.MONITOR_Y }}"

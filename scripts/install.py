@@ -86,8 +86,8 @@ def main():
     #common.launch_command("pwsh -Command Invoke-RestMethod -Uri https://get.scoop.sh | Invoke-Expression", "install for Scoop")    
 
     #TODO:
+    # Improve the colors for visual code to make it bright working fine
     # Use scoop and use export JSON file instead of here
-    # Move certain programas to a specifc workspace on startup? Can I do it without the rules?
     # Would be awesome to have a file like variables. something to have general data shared across different stuff like oh my posh theme, shell etc...
     # we need the shortcuts on nushell rather than powershell
     # OneCommander: Colors
