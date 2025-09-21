@@ -97,7 +97,7 @@ Windotfiles won't work if you don't run the script as admin
 
 ## 6. Configure the Task Scheduler
 
-> [!INFO]
+> [!WARNING]
 Adding the `start-dotfiles` task to the **Task Scheduler** is optional but recommended for faster inits.
 Using the startup folder will be slower and less user friendly.
 
