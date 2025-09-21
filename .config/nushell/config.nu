@@ -18,7 +18,6 @@
 # them for future reference.
 
 oh-my-posh init nu --config $"($env.USERPROFILE)/.cache/wal/posh-wal-atomic.omp.json"
-source ~/.oh-my-posh.nu
 
 ##########################################################
 # CONFIG

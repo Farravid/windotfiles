@@ -24,6 +24,7 @@ def prepare_powershell():
     """
     print(f"\n === Installing the last version of module" + common.PURPLE + " PSReadLine " + common.NC + " === \n")
     subprocess.run("pwsh -Command Install-Module PSReadLine -force", shell=True)
+    subprocess.run("pwsh -Command Install-Module AudioDeviceCmdlets -force", shell=True)
 
 def install_pywal():
     """
@@ -31,7 +32,7 @@ def install_pywal():
     """
     common.install_pckgs(common.EInstaller.PIP, ["pywal", "colorz", "colorthief", "haishoku"])
     print(f"\n === Importing and running" + common.PURPLE + " winwal " + common.NC + "module to the powershell 7 === \n")
-    subprocess.run("pwsh -Command update-winwal " + str(common.WINDOTFILES_ASSETS) + "\\spaceship.jpg", text=True)
+    common.launch_command('python %USERPROFILE%/windotfiles/scripts/update_winwal_colors.py')
     
 def create_sym_links(symlink_file: str, system_file_path: str):
     """
@@ -77,34 +78,36 @@ def main():
     """
     The main function of the script.
     """
-    #input("Pre-installation ready, press enter to continue with the setup. >")
+    input("Pre-installation ready, press enter to continue with the setup. >")
 
-    #common.change_win_color_mode()
-    #prepare_powershell()
-
-    #result = subprocess.run('pwsh -Command $PROFILE', shell=True, capture_output=True, text=True)
-    #create_sym_links(".config/Microsoft.PowerShell_profile.ps1", result.stdout.strip())
-    #create_sym_links(".config/wt/settings.json", str(common.APPDATA_LOCAL) + "\\Packages\\Microsoft.WindowsTerminal_8wekyb3d8bbwe\\LocalState\\settings.json")
-
-    #common.install_pckgs(common.EInstaller.WINGET, common.REQUIRED_WINGET_PROGRAMS)
-    
-    create_sym_links(".config/wezterm/wezterm.lua", str(common.HOME) + "\\.config\\wezterm\\wezterm.lua")
-    create_sym_links(".config/wezterm/winwal.toml", str(common.HOME) + "\\.config\\wezterm\\colors\\winwal.toml")
-    create_sym_links(".config/glazewm/config.yaml", str(common.HOME) + "\\.glzr\\glazewm\\config.yaml")
-    create_sym_links(".config/glazewm/zebar/settings.json", str(common.HOME) + "\\.glzr\\zebar\\settings.json")
-    create_sym_links(".config/nushell/config.nu", str(common.APPDATA_ROAMING) + "\\nushell\\config.nu")
-    create_sym_links(".config/flowlauncher/Settings.json", str(common.APPDATA_ROAMING) + "\\FlowLauncher\\Settings\\Settings.json")
-    create_sym_links(".config/flameshot.ini", str(common.APPDATA_ROAMING) + "\\flameshot\\flameshot.ini")
-    create_sym_links(".config/fastfetch/config.jsonc", str(common.HOME) + "\\.config\\fastfetch\\config.jsonc")
-
-    #common.reload_powershell()
+    # common.change_win_color_mode()
+    # prepare_powershell()
+    # common.reload_powershell()
+    # 
+    # #common.install_pckgs(common.EInstaller.WINGET, common.REQUIRED_WINGET_PROGRAMS)
+    # common.reload_powershell()
+    # 
+    # result = subprocess.run('pwsh -Command $PROFILE', shell=True, capture_output=True, text=True)
+    # create_sym_links(".config/Microsoft.PowerShell_profile.ps1", result.stdout.strip())
+    # create_sym_links(".config/wt/settings.json", str(common.APPDATA_LOCAL) + "\\Packages\\Microsoft.WindowsTerminal_8wekyb3d8bbwe\\LocalState\\settings.json")
+    # create_sym_links(".config/wezterm/wezterm.lua", str(common.HOME) + "\\.config\\wezterm\\wezterm.lua")
+    # create_sym_links(".config/wezterm/winwal.toml", str(common.HOME) + "\\.config\\wezterm\\colors\\winwal.toml")
+    # create_sym_links(".config/glazewm/config.yaml", str(common.HOME) + "\\.glzr\\glazewm\\config.yaml")
+    # create_sym_links(".config/glazewm/zebar/settings.json", str(common.HOME) + "\\.glzr\\zebar\\settings.json")
+    # create_sym_links(".config/nushell/config.nu", str(common.APPDATA_ROAMING) + "\\nushell\\config.nu")
+    # create_sym_links(".config/flowlauncher/Settings.json", str(common.APPDATA_ROAMING) + "\\FlowLauncher\\Settings\\Settings.json")
+    # create_sym_links(".config/flameshot.ini", str(common.APPDATA_ROAMING) + "\\flameshot\\flameshot.ini")
+    # create_sym_links(".config/fastfetch/config.jsonc", str(common.HOME) + "\\.config\\fastfetch\\config.jsonc")
+    # 
+    # common.reload_powershell()
 
     # TODO: copy_startup_script_to_startup_directory() or add task to task scheduler for fast stuff
 
-    #install_pywal()
-
+    install_pywal()
     #common.install_optional_pckgs(common.EInstaller.WINGET, common.OPTIONAL_WINGET_PROGRAMS)
-    #common.launch_command("start glazewm")
+    common.reload_powershell()
+
+    common.launch_command("glazewm")
     
     input("Press enter to close the window. >")
 

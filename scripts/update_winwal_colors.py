@@ -170,7 +170,7 @@ def main():
     root = tk.Tk()
     root.withdraw()
     
-    file_path = filedialog.askopenfilename(title="Select an Image", filetypes=[("Image Files", "*.png;*.jpg;*.jpeg;*.bmp;*.gif")])
+    file_path = filedialog.askopenfilename(title="Select an Image, you can select it from windotfiles assets", filetypes=[("Image Files", "*.png;*.jpg;*.jpeg;*.bmp;*.gif")])
 
     if file_path:
         safe_path = shlex.quote(file_path)
