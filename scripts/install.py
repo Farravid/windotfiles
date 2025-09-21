@@ -33,7 +33,7 @@ def install_pywal():
     print(f"\n === Importing and running" + common.PURPLE + " winwal " + common.NC + "module to the powershell 7 === \n")
     subprocess.run("pwsh -Command update-winwal " + str(common.WINDOTFILES_ASSETS) + "\\spaceship.jpg", text=True)
     
-def create_sym_links(symlink_file: str, system_path: str = ""):
+def create_sym_links(symlink_file: str, system_file_path: str):
     """
     Creates a symbolic link to the specified file or folder.
 
@@ -41,26 +41,16 @@ def create_sym_links(symlink_file: str, system_path: str = ""):
         symlink_file (str): The name of the file or folder to create the link to.
         system_path (str, optional): The path of the system folder to create the link in.
     """
-    
-    #TODO: This function is not working AS EXPECTED about detecting files
-
-    system_file_path = Path(system_path) if system_path else common.HOME / symlink_file
+    system_file_path = Path(system_file_path)
     dotfiles_file_path = common.WINDOTFILES / symlink_file
 
-    assert dotfiles_file_path.is_file() or dotfiles_file_path.is_dir(), "Trying to symlink an invalid dotfiles file/folder!"
+    assert dotfiles_file_path.is_file(), "Trying to symlink an invalid dotfiles file!"
 
-    os.remove(system_file_path)
-
-    if system_file_path.is_file():
-        os.remove(system_file_path)
-    else:
-        path_parent_folder = system_file_path.parent
-        if not path_parent_folder.is_dir():
-            os.mkdir(path_parent_folder)
-
+    if system_file_path.exists(): os.remove(system_file_path)
+    else: os.makedirs(system_file_path.parent, exist_ok=True)
+        
     print(f"Symlinking {common.PURPLE + symlink_file + common.NC + ' to ' + common.PURPLE + str(system_file_path) + common.NC}")
-
-    os.symlink(dotfiles_file_path, system_file_path)
+    os.symlink(dotfiles_file_path, system_file_path)    
 
 def copy_startup_script_to_startup_directory():
     """
@@ -87,31 +77,31 @@ def main():
     """
     The main function of the script.
     """
-    input("Pre-installation ready, press enter to continue with the setup. >")
+    #input("Pre-installation ready, press enter to continue with the setup. >")
 
     #common.change_win_color_mode()
     #prepare_powershell()
 
-    result = subprocess.run('pwsh -Command $PROFILE', shell=True, capture_output=True, text=True)
+    #result = subprocess.run('pwsh -Command $PROFILE', shell=True, capture_output=True, text=True)
     #create_sym_links(".config/Microsoft.PowerShell_profile.ps1", result.stdout.strip())
     #create_sym_links(".config/wt/settings.json", str(common.APPDATA_LOCAL) + "\\Packages\\Microsoft.WindowsTerminal_8wekyb3d8bbwe\\LocalState\\settings.json")
 
     #common.install_pckgs(common.EInstaller.WINGET, common.REQUIRED_WINGET_PROGRAMS)
     
-    #create_sym_links(".config/wezterm/wezterm.lua", str(common.HOME) + "\\.config\\wezterm\\wezterm.lua")
-    #create_sym_links(".config/wezterm/winwal.toml", str(common.HOME) + "\\.config\\wezterm\\colors\\winwal.toml")
-    #create_sym_links(".config/glazewm/config.yaml", str(common.HOME) + "\\.glzr\\glazewm\\config.yaml")
-    #create_sym_links(".config/glazewm/zebar/settings.json", str(common.HOME) + "\\.glzr\\zebar\\settings.json")
+    create_sym_links(".config/wezterm/wezterm.lua", str(common.HOME) + "\\.config\\wezterm\\wezterm.lua")
+    create_sym_links(".config/wezterm/winwal.toml", str(common.HOME) + "\\.config\\wezterm\\colors\\winwal.toml")
+    create_sym_links(".config/glazewm/config.yaml", str(common.HOME) + "\\.glzr\\glazewm\\config.yaml")
+    create_sym_links(".config/glazewm/zebar/settings.json", str(common.HOME) + "\\.glzr\\zebar\\settings.json")
     create_sym_links(".config/nushell/config.nu", str(common.APPDATA_ROAMING) + "\\nushell\\config.nu")
     create_sym_links(".config/flowlauncher/Settings.json", str(common.APPDATA_ROAMING) + "\\FlowLauncher\\Settings\\Settings.json")
     create_sym_links(".config/flameshot.ini", str(common.APPDATA_ROAMING) + "\\flameshot\\flameshot.ini")
-    create_sym_links(".config/fastfetch/config.jsonc")
+    create_sym_links(".config/fastfetch/config.jsonc", str(common.HOME) + "\\.config\\fastfetch\\config.jsonc")
 
-    common.reload_powershell()
+    #common.reload_powershell()
 
     # TODO: copy_startup_script_to_startup_directory() or add task to task scheduler for fast stuff
 
-    install_pywal()
+    #install_pywal()
 
     #common.install_optional_pckgs(common.EInstaller.WINGET, common.OPTIONAL_WINGET_PROGRAMS)
     #common.launch_command("start glazewm")

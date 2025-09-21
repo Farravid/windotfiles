@@ -24,7 +24,6 @@ PROGRAM_FILES : Path = Path(os.environ['programfiles'])
 # PROGRAMS
 #########################################
 REQUIRED_WINGET_PROGRAMS = [
-        "Microsoft.WindowsTerminal",
         "wezterm",
         "nushell",
         "glazewm",

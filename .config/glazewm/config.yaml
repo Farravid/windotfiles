@@ -323,7 +323,7 @@ keybindings:
   ################################################################################################
 
   # Launching default file browser (OneCommander)
-  - commands: ['shell-exec %ProgramFiles%/OneCommander/OneCommander.exe']
+  - commands: ['shell-exec explorer.exe']
     bindings: ['alt+e']
 
   # Launching google chrome
