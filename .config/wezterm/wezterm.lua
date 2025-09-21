@@ -8,7 +8,7 @@ local config = wezterm.config_builder()
 
 -- This is where you actually apply your config choices
 
-config.font = wezterm.font('JetBrainsMonoNL NF')
+config.font = wezterm.font('JetBrainsMono Nerd Font')
 config.font_size = 13
 
 config.automatically_reload_config = true

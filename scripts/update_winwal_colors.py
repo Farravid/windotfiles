@@ -108,45 +108,7 @@ def import_winwal_brights():
     with open(colors_path, "w") as f:
         for color in ansi_colors + bright_colors:
             f.write(color + "\n")
-
-
-def import_dygma():
-    dygma_main = Path.home() / "windotfiles/dygma/dygma_api/src/main.rs"
-    erase(dygma_main, "//$", "//&")
-
-    color_lines = get_color_lines()
-    
-    palette : str = "const COLOR_PALETTE : &str = \""
-    line_prepender(dygma_main, "//&")
-    for l in color_lines:
-        line_to_write = str(ImageColor.getrgb(l[:-1]) + (100,))
-        line_to_write = line_to_write.replace("(", "").replace(")", "").replace(",", "")
-        palette += line_to_write + " "
-    
-    palette = palette[:-1] + "\";"
-    line_prepender(dygma_main, palette)
-    line_prepender(dygma_main, "//$")
-
-def import_zebar():
-    zebar_colors = Path.home() / "windotfiles/.config/glazewm/zebar/config.yaml"
-    color_lines = get_color_lines()
-
-    with open(zebar_colors, "r", encoding="utf8") as file:
-        content = file.readlines()
-
-    # Replace the line if it contains the search string
-    content = ["      --rp-text: " + color_lines[1][:-1]+ ";" + "\n" if "--rp-text:" in line else line for line in content]
-    content = ["      --rp-love: " + color_lines[2][:-1]+ ";" + "\n" if "--rp-love:" in line else line for line in content]
-    content = ["      --rp-gold: " + color_lines[3][:-1]+ ";" + "\n" if "--rp-gold:" in line else line for line in content]
-    content = ["      --rp-rose: " + color_lines[4][:-1]+ ";" + "\n" if "--rp-rose:" in line else line for line in content]
-    content = ["      --rp-pine: " + color_lines[5][:-1]+ ";" + "\n" if "--rp-pine:" in line else line for line in content]
-    content = ["      --rp-foam: " + color_lines[6][:-1]+ ";" + "\n" if "--rp-foam:" in line else line for line in content]
-    content = ["      --rp-iris: " + color_lines[7][:-1]+ ";" + "\n" if "--rp-iris:" in line else line for line in content]
-
-    # Write the modified content back to the file
-    with open(zebar_colors, "w", encoding="utf8") as file:
-        file.writelines(content)
-
+            
 def import_wezterm():
     wezterm_colors = Path.home() / "windotfiles/.config/wezterm/winwal.toml"
     color_lines = get_color_lines()
@@ -194,14 +156,7 @@ def update_winwal(wallpaper_path, is_fastfetch_photo):
     )
     
     import_winwal_brights()
-    import_zebar()
-    import_dygma()
     import_wezterm()
-
-    common.launch_command(
-        f"pwsh -Command cargo run --manifest-path $env:USERPROFILE\\windotfiles\\dygma\\dygma_api\\Cargo.toml --release",
-        "rust script for applying colors to dygma",
-    )
 
     neofetch_image_path = str(common.WINDOTFILES_ASSETS) + "\\neofetch.png"
     if is_fastfetch_photo:

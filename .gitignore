@@ -5,5 +5,8 @@ target/
 **/*.rs.bk
 *.pdb
 
+# JetBrains
+.idea/
+
 # Python
 __pycache__/

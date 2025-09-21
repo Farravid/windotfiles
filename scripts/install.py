@@ -32,11 +32,7 @@ def install_pywal():
     common.install_pckgs(common.EInstaller.PIP, ["pywal", "colorz", "colorthief", "haishoku"])
     print(f"\n === Importing and running" + common.PURPLE + " winwal " + common.NC + "module to the powershell 7 === \n")
     subprocess.run("pwsh -Command update-winwal " + str(common.WINDOTFILES_ASSETS) + "\\spaceship.jpg", text=True)
-
-def install_wsl():
-    print(f"\n === Installing " + common.PURPLE + " Windows Subsystem for Linux (WSL) " + common.NC + "=== \n")
-    subprocess.run("pwsh -Command wsl --install", text=True)
-
+    
 def create_sym_links(symlink_file: str, system_path: str = ""):
     """
     Creates a symbolic link to the specified file or folder.
@@ -75,6 +71,17 @@ def copy_startup_script_to_startup_directory():
 
     common.launch_command("copy startup.bat " + startup_path)
 
+#TODO:
+# we need the shortcuts on nushell rather than powershell
+# set monitor and standby to never: powercfg -change -monitor-timeout-ac 0
+#  david  powercfg -change -standby-timeout-ac 0
+# disable print screen key to open screen capture for flameshot:
+# Set-ItemProperty -Path "HKCU:\Control Panel\Keyboard" -Name "PrintScreenKeyForSnippingEnabled" -Value 0
+# Investigate settings windows System > For developers
+# Wait a bit or event driven moving workspaces
+# Zebar themes download and colors
+# Create and show somehow shortcuts for used programms such as Glaze, Rider etc....
+# Would be awesome to create a rust gui program to create your own startup stuff
 
 def main():
     """
@@ -84,73 +91,32 @@ def main():
 
     #common.change_win_color_mode()
     #prepare_powershell()
-    #common.launch_command("pwsh -Command Invoke-RestMethod -Uri https://get.scoop.sh | Invoke-Expression", "install for Scoop")    
 
-    #TODO:
-    # Use scoop and use export JSON file instead of here
-    # we need the shortcuts on nushell rather than powershell
-    # OneCommander: Colors
-    # Investigate settings windows System > For developers
-    # Flow launcher: Colors
-    # Wait a bit or event driven moving workspaces
-    # Fix install.py
-    # remove spotify bro and proper install fro spotify
-    # Create and show somehow shortcuts for used programms such as Glaze, VSCode, Rider etc....
-    # Would be awesome to create a rust gui program to create your own startup stuff
-
-
-    # result = subprocess.run('pwsh -Command $PROFILE', shell=True, capture_output=True, text=True)
-    # create_sym_links(".config/Microsoft.PowerShell_profile.ps1", result.stdout.strip())
-    # create_sym_links(".config/wt/settings.json", str(common.APPDATA_LOCAL) + "\\Packages\\Microsoft.WindowsTerminal_8wekyb3d8bbwe\\LocalState\\settings.json")
+    result = subprocess.run('pwsh -Command $PROFILE', shell=True, capture_output=True, text=True)
+    #create_sym_links(".config/Microsoft.PowerShell_profile.ps1", result.stdout.strip())
+    #create_sym_links(".config/wt/settings.json", str(common.APPDATA_LOCAL) + "\\Packages\\Microsoft.WindowsTerminal_8wekyb3d8bbwe\\LocalState\\settings.json")
 
     #common.install_pckgs(common.EInstaller.WINGET, common.REQUIRED_WINGET_PROGRAMS)
     
     #create_sym_links(".config/wezterm/wezterm.lua", str(common.HOME) + "\\.config\\wezterm\\wezterm.lua")
     #create_sym_links(".config/wezterm/winwal.toml", str(common.HOME) + "\\.config\\wezterm\\colors\\winwal.toml")
-    # create_sym_links(".config/nushell/config.nu", str(common.APPDATA_ROAMING) + "\\nushell\\config.nu")
-    # create_sym_links(".config/nushell/env.nu", str(common.APPDATA_ROAMING) + "\\nushell\env.nu")
     #create_sym_links(".config/glazewm/config.yaml", str(common.HOME) + "\\.glzr\\glazewm\\config.yaml")
-    #create_sym_links(".config/glazewm/zebar/config.yaml", str(common.HOME) + "\\.glzr\\zebar\\config.yaml")
-    #create_sym_links(".config/alacritty.toml", str(common.APPDATA_ROAMING) + "\\alacritty\\alacritty.toml")
-    #create_sym_links(".config/fastfetch/config.jsonc")
+    #create_sym_links(".config/glazewm/zebar/settings.json", str(common.HOME) + "\\.glzr\\zebar\\settings.json")
+    create_sym_links(".config/nushell/config.nu", str(common.APPDATA_ROAMING) + "\\nushell\\config.nu")
+    create_sym_links(".config/flowlauncher/Settings.json", str(common.APPDATA_ROAMING) + "\\FlowLauncher\\Settings\\Settings.json")
+    create_sym_links(".config/flameshot.ini", str(common.APPDATA_ROAMING) + "\\flameshot\\flameshot.ini")
+    create_sym_links(".config/fastfetch/config.jsonc")
 
-    # create_sym_links(".config/flameshot.ini", str(common.APPDATA_ROAMING) + "\\flameshot\\flameshot.ini")
+    common.reload_powershell()
 
-    # common.reload_powershell()
+    # TODO: copy_startup_script_to_startup_directory() or add task to task scheduler for fast stuff
 
-    #copy_startup_script_to_startup_directory()
-    # # Copying flow_launcher windotfiles settings to the computer installation.
-    # common.launch_command("pwsh -Command cp_windotfiles_to_fl") 
-
-    #install_pywal()
-    #install_wsl()
+    install_pywal()
 
     #common.install_optional_pckgs(common.EInstaller.WINGET, common.OPTIONAL_WINGET_PROGRAMS)
-
-    # create_sym_links("vscode/settings.json", str(common.APPDATA_ROAMING) + "\Code\\User\\settings.json")
-    # create_sym_links("vscode/keybindings.json", str(common.APPDATA_ROAMING) + "\Code\\User\\keybindings.json")
-
-
-    # common.install_optional_pckgs(common.EInstaller.CODE, [
-    #     "s-nlf-fh.glassit",
-    #     "ms-vscode.cpptools",
-    #     "ms-vscode.cmake-tools",
-    #     "naumovs.color-highlight",
-    #     "donjayamanne.python-extension-pack",
-    #     "1YiB.rust-bundle",
-    #     "dlasagno.wal-theme",
-    #     "ms-vscode.powershell",
-    #     "eamodio.gitlens",
-    #     "wayou.vscode-todo-highlight",
-    #     "vscode-icons-team.vscode-icons",
-    #     "TabNine.tabnine-vscode",
-    #     "yzhang.markdown-all-in-one"], " --force")
-
-    # #TODO: Is this reload necessary?
-    # common.reload_powershell()
-    # common.launch_command("start glazewm")
-
-    # input("Press enter to close the window. >")
+    #common.launch_command("start glazewm")
+    
+    input("Press enter to close the window. >")
 
 
 if __name__ == "__main__":

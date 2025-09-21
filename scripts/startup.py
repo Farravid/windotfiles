@@ -96,8 +96,8 @@ def launch_default_apps():
     common.launch_command("start /b chrome.exe", "Google Chrome")
     common.launch_command("start /b " + str(common.APPDATA_ROAMING / Path("Spotify/Spotify.exe")), "Spotify")
 
-    discord_folder = next((d for d in glob.glob(os.path.join(str(common.APPDATA_LOCAL / Path("Discord")), 'app*')) if os.path.isdir(d)), None)
-    common.launch_command("start /b " + str(Path(discord_folder + "/Discord.exe")), "Discord")
+    # discord_folder = next((d for d in glob.glob(os.path.join(str(common.APPDATA_LOCAL / Path("Discord")), 'app*')) if os.path.isdir(d)), None)
+    # common.launch_command("start /b " + str(Path(discord_folder + "/Discord.exe")), "Discord")
 
 
 def launch_windotfiles_setup():
@@ -105,23 +105,8 @@ def launch_windotfiles_setup():
     This function launches the VSCode with windotfiles, a terminal and the GitHub Desktop app.
     """
     common.launch_command("start /b wezterm-gui", "Windows Terminal")
-    common.launch_command("pwsh -Command cwindotfiles", "Windotfiles in VSCode")
-    common.launch_command("start /b " + str(common.APPDATA_LOCAL / Path("GitHubDesktop/GitHubDesktop.exe")), "Github Desktop")
-
-def launch_frg_setup():
-    """
-    This function launches the setup for working. Slack, Perforce, Unreal...
-    """
-    common.launch_command(str(common.PROGRAM_FILES) + "\\Slack\\Slack.exe", "Slack", False, True)
-    common.launch_command(str(common.PROGRAM_FILES) + "\\Perforce\\p4v.exe", "Perforce", False, True)
-    common.launch_command(str(common.PROGRAM_FILES) + "\\JetBrains\\JetBrains Rider 2023.3.3\\bin\\rider64.exe", "Rider", False, True)
-    
-
-def launch_godot_setup():
-    """
-    This function launches the Godot game engine and the GitHub Desktop app.
-    """
-    common.launch_command("pwsh -Command godot", "Godot (Suipe)")
+    #TODO: Launch rider instead
+    #common.launch_command("pwsh -Command cwindotfiles", "Windotfiles in VSCode")
     common.launch_command("start /b " + str(common.APPDATA_LOCAL / Path("GitHubDesktop/GitHubDesktop.exe")), "Github Desktop")
 
 def move_windows_to_workspaces():
@@ -137,7 +122,6 @@ def move_windows_to_workspaces():
     move_window_to_workspace("Discord", 3)
     move_window_to_workspace("ProtonVPN", 4)
 
-
 def main():
     """
     This function is the main entry point of the script. It uses the inquirer 
@@ -150,27 +134,25 @@ def main():
     options = [
         inquirer.List('choice',
                       message="Select a setup to display:",
-                      choices = ["FRG", "Suipe", "Windotfiles", "None"],
+                      choices = ["Windotfiles", "None"],
 
                       )
     ]
 
     answer = inquirer.prompt(options)
-    show_default_apps = inquirer.confirm("Do you want to launch default apps with this setup?", default=True)
-
-    common.launch_command(str(common.WINDOTFILES / Path(".config/glazewm/zebar/start.bat")), " Zebar")
-    ## Test if no windows is necessary for the above command
-    #subprocess.Popen(["zebar", "open", "bar"], creationflags=subprocess.CREATE_NO_WINDOW)
+    show_default_apps = inquirer.confirm("Do you want to launch default apps with this setup (Default=Yes)?", default=True)
+    update = inquirer.confirm("Do you want to update the windotfiles (Default=No)?", default=False)
 
     if show_default_apps:
         launch_default_apps()
+        
+    if update:
+        common.launch_command('python %USERPROFILE%/windotfiles/scripts/update.py')
 
     match answer['choice']:
         case 'Windotfiles'  : launch_windotfiles_setup()
-        case 'Suipe'        : launch_godot_setup()
-        case 'FRG'          : launch_frg_setup()
     
-    time.sleep(1)
+    time.sleep(10)
     move_windows_to_workspaces()
 
 if __name__ == "__main__":

@@ -48,6 +48,8 @@
 > [!WARNING]
  💀 Working in Windows is hard 💀
 
+TODO: We want to set requisites for this respository like from winget python! and maybe powershell
+
 As you may know, at least for developers, Linux tends to be easier than Windows but Windows is the standard, at least for the videogames industry.\
 Tired of setting up Windows again and again on different machines or fresh installs I have decided to create a permanent way of keeping my changes and my setup.
 
@@ -96,11 +98,10 @@ These dependencies will be instaled when you run the installation script.
   * 🐍 `pip install pywal colorz colorthief haishoku` ➡️ Libraries for changing the color scheme with winwal (pywal)
   * 🪟 `GlazeWM` ➡️ Windows Tiling Manager for Windows similar to i3
   *  ⌨️ `PowerShell 7` ➡️ Main shell
-  *  ⌨️ `Windows Terminal` ➡️ Main terminal emulator
+  *  ⌨️ `Wezterm` ➡️ Main terminal emulator
   *  ⌨️ `Oh My Posh` ➡️ Prompt theme engine for any shell
   *  🔠 `JetBrainsMonoNerdFont` ➡️ Windotfiles use this font
   * 🍃 `Flow Launcher` ➡️ Application launcher. Similar to Rofi
-  *  🏬 `GitLFS` ➡️ Windotfiles use Git LFS
   * 🎨 `fastfetch` ➡️ This is just for style not gonna lie
   * 🧈 `Buttery Taskbar 2` ➡️ Allows to hide the taskbar forever (This is an .exe in the vendor's folder)
 </details>

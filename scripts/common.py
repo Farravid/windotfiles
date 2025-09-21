@@ -23,52 +23,35 @@ PROGRAM_FILES : Path = Path(os.environ['programfiles'])
 #########################################
 # PROGRAMS
 #########################################
-REQUIRED_SCOOP_PROGRAMS = [
-    "sudo",
-    "7zip",
-    "grep",
-    "touch"
-]
-
 REQUIRED_WINGET_PROGRAMS = [
-        "Python"
-        "Microsoft.PowerShell",
         "Microsoft.WindowsTerminal",
         "wezterm",
-        "nushell"
+        "nushell",
         "glazewm",
-        "glzr-io.zebar -v \"1.8.1\" -e",
+        "glzr-io.zebar",
         "Git.Git",
         "Github.GitLFS",
-        "DEVCOM.JetBrainsMonoNerdFont -v \"2.3.3\" -e",
+        "DEVCOM.JetBrainsMonoNerdFont",
         "Flow-Launcher.Flow-Launcher",
         "voidtools.Everything",
-        "Microsoft.NuGet",
         "JanDeDobbeleer.OhMyPosh",
         "fastfetch",
         "ImageMagick.ImageMagick",
-        "flameshot",
-        "AltSnap"]
+        "flameshot"]
 
 OPTIONAL_WINGET_PROGRAMS = [
+        "JetBrains.Rider",
         "Clement.bottom",
         "KDE.Okular",
         "DygmaLabs.Bazecor",
         "Spotify.Spotify",
-        "Spicetify.Spicetify",
         "Google.Chrome",
         "GitHub.GitHubDesktop",
         "Discord.Discord",
         "Obsidian.Obsidian",
-        "Neovim.Neovim",
         "OBSProject.OBSProject",
         "Microsoft.DirectX",
-        "Nvidia.GeForceExperience",
-        "Microsoft.VisualStudioCode",
-        "Kitware.CMake",
-        "Microsoft.VisualStudio.2022.BuildTools",
-        "Microsoft.VisualStudio.2022.Community",
-        "Rustlang.Rustup"]
+        "Nvidia.GeForceExperience"]
 
 #########################################
 # TYPES
@@ -78,10 +61,8 @@ class EInstaller():
     Enum class for providing an easier way to select the installer of a package/library/extension
     """
     WINGET = "winget install --accept-source-agreements --accept-package-agreements "
-    SCOOP = "scoop install "
     WINGET_UPDGRADE = "winget upgrade "
     PIP = "pip install "
-    CODE = "code --install-extension "
 
 #########################################
 # FUNCTIONS

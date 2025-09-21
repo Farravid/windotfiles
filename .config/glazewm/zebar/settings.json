@@ -1,0 +1,10 @@
+{
+  "$schema": "https://github.com/glzr-io/zebar/raw/v3.1.1/resources/settings-schema.json",
+  "startupConfigs": [
+    {
+      "pack": "mushfikurr.overline-zebar",
+      "widget": "main",
+      "preset": "default"
+    }
+  ]
+}

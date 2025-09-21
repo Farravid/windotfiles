@@ -120,7 +120,7 @@
     "defaults": {
       "elevate": true,
       "font": {
-        "face": "JetBrainsMono NF",
+        "face": "JetBrainsMono Nerd Font",
         "weight": "bold"
       },
       "opacity": 85,
@@ -130,7 +130,7 @@
       },
       "useAcrylic": true,
       "colorScheme": "wal",
-      "cursorColor": "#c7c6c5"
+      "cursorColor": "#c7c5c4"
     },
     "list": [
       {
@@ -285,24 +285,24 @@
     },
     {
       "name": "wal",
-      "black": "#211b1a",
-      "red": "#aa8887",
-      "green": "#ae5e4b",
-      "yellow": "#aa4813",
-      "blue": "#2583aa",
-      "purple": "#648aaa",
-      "cyan": "#9a93ae",
-      "white": "#c7c6c5",
-      "brightBlack": "#585453",
-      "brightRed": "#aa8887",
-      "brightGreen": "#ae5e4b",
-      "brightYellow": "#aa4813",
-      "brightBlue": "#2583aa",
-      "brightPurple": "#648aaa",
-      "brightCyan": "#9a93ae",
-      "brightWhite": "#c7c6c5",
-      "background": "#211b1a",
-      "foreground": "#c7c6c5"
+      "black": "#221716",
+      "red": "#af7872",
+      "green": "#c67a65",
+      "yellow": "#6e82aa",
+      "blue": "#858aaa",
+      "purple": "#a291a7",
+      "cyan": "#aa878e",
+      "white": "#c7c5c4",
+      "brightBlack": "#595150",
+      "brightRed": "#af7872",
+      "brightGreen": "#c67a65",
+      "brightYellow": "#6e82aa",
+      "brightBlue": "#858aaa",
+      "brightPurple": "#a291a7",
+      "brightCyan": "#aa878e",
+      "brightWhite": "#c7c5c4",
+      "background": "#221716",
+      "foreground": "#c7c5c4"
     }
   ],
   "showTabsInTitlebar": true,

@@ -2,14 +2,15 @@ general:
   # Commands to run when the WM has started. This is useful for running a
   # script or launching another application.
   # Example: The below command launches Zebar.
-  startup_commands: []
+  startup_commands: ['shell-exec zebar.exe']
 
   # Commands to run just before the WM is shutdown.
   # Example: The below command kills Zebar.
-  shutdown_commands: ['shell-exec taskkill /IM zebar.exe /F']
+  shutdown_commands: ['shell-exec taskkill /IM "zebar.exe" /F']
 
+  # TODO: This is not working, fuck
   # Commands to run after the WM config is reloaded.
-  config_reload_commands: ['shell-exec --hide-window powershell -command "taskkill /IM zebar.exe /F; %USERPROFILE%\\windotfiles\\.config\\glazewm\\zebar\\start.bat"']
+  config_reload_commands: ['shell-exec taskkill zebar.exe; shell-exec zebar.exe']
 
   # Whether to automatically focus windows underneath the cursor.
   focus_follows_cursor: false

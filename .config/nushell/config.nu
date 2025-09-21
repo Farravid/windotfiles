@@ -17,6 +17,7 @@
 # You can remove these comments if you want or leave
 # them for future reference.
 
+oh-my-posh init nu --config $"($env.USERPROFILE)/.cache/wal/posh-wal-atomic.omp.json"
 source ~/.oh-my-posh.nu
 
 ##########################################################
@@ -30,11 +31,16 @@ $env.config.show_banner = false
 ##########################################################
 
 alias windotfiles = cd $"($env.USERPROFILE)/windotfiles/"
+alias update-windotfiles = python -- $"($env.USERPROFILE)/windotfiles/scripts/update.py"
+alias update-winwal = python -- $"($env.USERPROFILE)/windotfiles/scripts/update_winwal_colors.py"
+alias windotfiles-startup = python -- $"($env.USERPROFILE)/windotfiles/scripts/startup.py"
+alias doc = cd $"($env.USERPROFILE)/Documents/"
+alias down = cd $"($env.USERPROFILE)/Downloads/"
 alias show_path = echo $env.PATH
 
-def update-winwal [] {
-    python -- $"($env.USERPROFILE)/windotfiles/scripts/update_winwal_colors.py"
-}
+##########################################################
+# OTHER
+##########################################################
 
 # Fix jumping when pressing any key
 $env.config.shell_integration.osc133 = false
