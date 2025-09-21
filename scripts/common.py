@@ -40,6 +40,7 @@ REQUIRED_WINGET_PROGRAMS = [
 
 OPTIONAL_WINGET_PROGRAMS = [
         "JetBrains.Rider",
+        "ProtonVPN",
         "Clement.bottom",
         "KDE.Okular",
         "DygmaLabs.Bazecor",

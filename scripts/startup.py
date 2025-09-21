@@ -92,12 +92,8 @@ def launch_default_apps():
     """
     This function launches the default apps for each workspace.
     """
-    #common.launch_command("glazewm command move --workspace 1")
     common.launch_command("start /b chrome.exe", "Google Chrome")
     common.launch_command("start /b " + str(common.APPDATA_ROAMING / Path("Spotify/Spotify.exe")), "Spotify")
-
-    # discord_folder = next((d for d in glob.glob(os.path.join(str(common.APPDATA_LOCAL / Path("Discord")), 'app*')) if os.path.isdir(d)), None)
-    # common.launch_command("start /b " + str(Path(discord_folder + "/Discord.exe")), "Discord")
 
 
 def launch_windotfiles_setup():
@@ -105,9 +101,9 @@ def launch_windotfiles_setup():
     This function launches the VSCode with windotfiles, a terminal and the GitHub Desktop app.
     """
     common.launch_command("start /b wezterm-gui", "Windows Terminal")
-    #TODO: Launch rider instead
-    #common.launch_command("pwsh -Command cwindotfiles", "Windotfiles in VSCode")
+    common.launch_command("start /b rider64.exe %USERPROFILE%/windotfiles", "Windotfiles in Rider")
     common.launch_command("start /b " + str(common.APPDATA_LOCAL / Path("GitHubDesktop/GitHubDesktop.exe")), "Github Desktop")
+    time.sleep(5)
 
 def move_windows_to_workspaces():
     move_window_to_workspace("wezterm-gui", 1)
@@ -128,7 +124,6 @@ def main():
     library to prompt the user for a choice, and then calls the appropriate 
     function based on the choice.
     """
-   
     ctypes.windll.kernel32.SetConsoleTitleW("Startup")
 
     options = [
@@ -145,14 +140,14 @@ def main():
 
     if show_default_apps:
         launch_default_apps()
+        time.sleep(5)
         
     if update:
-        common.launch_command('python %USERPROFILE%/windotfiles/scripts/update.py')
+        common.launch_command('python %USERPROFILE%/windotfiles/scripts/update.py', "Updating windotfiles", True)
 
     match answer['choice']:
         case 'Windotfiles'  : launch_windotfiles_setup()
     
-    time.sleep(10)
     move_windows_to_workspaces()
 
 if __name__ == "__main__":
