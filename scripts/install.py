@@ -13,6 +13,7 @@ Note: This script requires an internet connection and may prompt you to accept E
 import os
 import subprocess
 import logging
+import shutil
 import pyuac
 from pathlib import Path
 import common
@@ -24,7 +25,14 @@ def prepare_powershell():
     """
     print(f"\n === Installing the last version of module" + common.PURPLE + " PSReadLine " + common.NC + " === \n")
     subprocess.run("pwsh -Command Install-Module PSReadLine -force", shell=True)
+    print(f"\n === Installing the last version of module" + common.PURPLE + " AudioDeviceCmdlets " + common.NC + " === \n")
     subprocess.run("pwsh -Command Install-Module AudioDeviceCmdlets -force", shell=True)
+
+def set_windows_options():
+    print(f"\n === Battery options: Set to never sleep never hibernate === \n")
+    subprocess.run("pwsh -Command powercfg -change -standby-timeout-ac 0", shell=True)
+    subprocess.run("pwsh -Command powercfg -change -monitor-timeout-ac 0", shell=True)    
+    pass
 
 def install_pywal():
     """
@@ -51,26 +59,14 @@ def create_sym_links(symlink_file: str, system_file_path: str):
     else: os.makedirs(system_file_path.parent, exist_ok=True)
         
     print(f"Symlinking {common.PURPLE + symlink_file + common.NC + ' to ' + common.PURPLE + str(system_file_path) + common.NC}")
-    os.symlink(dotfiles_file_path, system_file_path)    
+    os.symlink(dotfiles_file_path, system_file_path)
 
-def copy_startup_script_to_startup_directory():
-    """
-    This function copies the 'startup.bat' script to the Windows startup directory.
-    The script is located in the same directory as the current script.
-    """
-    startup_path = '"' + str(common.APPDATA_ROAMING) + "\\Microsoft\\Windows\\Start Menu\\Programs\\Startup" + '"'
-
-    common.launch_command("copy startup.bat " + startup_path)
+def copy_zebar_widgets():
+    shutil.rmtree(str(common.APPDATA_ROAMING) + "\\zebar\\downloads\\mushfikurr.overline-zebar@1.0.0", ignore_errors=True)
+    shutil.copytree(str(common.WINDOTFILES) + "\\.config\\glazewm\\zebar\\mushfikurr.overline-zebar@1.0.0", str(common.APPDATA_ROAMING) + "\\zebar\\downloads\\mushfikurr.overline-zebar@1.0.0")
 
 #TODO:
-# set monitor and standby to never: powercfg -change -monitor-timeout-ac 0
-#  david  powercfg -change -standby-timeout-ac 0
-# disable print screen key to open screen capture for flameshot:
-# Set-ItemProperty -Path "HKCU:\Control Panel\Keyboard" -Name "PrintScreenKeyForSnippingEnabled" -Value 0
 # Investigate settings windows System > For developers
-# Wait a bit or event driven moving workspaces
-# Zebar themes download and colors
-# Create and show somehow shortcuts for used programms such as Glaze, Rider etc....
 
 def main():
     """
@@ -79,10 +75,11 @@ def main():
     input("Pre-installation ready, press enter to continue with the setup. >")
 
     common.change_win_color_mode()
+    set_windows_options()
     prepare_powershell()
     common.reload_powershell()
 
-    #common.install_pckgs(common.EInstaller.WINGET, common.REQUIRED_WINGET_PROGRAMS)
+    common.install_pckgs(common.EInstaller.WINGET, common.REQUIRED_WINGET_PROGRAMS)
     common.reload_powershell()
 
     result = subprocess.run('pwsh -Command $PROFILE', shell=True, capture_output=True, text=True)
@@ -96,6 +93,7 @@ def main():
     create_sym_links(".config/flowlauncher/Settings.json", str(common.APPDATA_ROAMING) + "\\FlowLauncher\\Settings\\Settings.json")
     create_sym_links(".config/flameshot.ini", str(common.APPDATA_ROAMING) + "\\flameshot\\flameshot.ini")
     create_sym_links(".config/fastfetch/config.jsonc", str(common.HOME) + "\\.config\\fastfetch\\config.jsonc")
+    copy_zebar_widgets()
 
     common.reload_powershell()
 
@@ -106,7 +104,6 @@ def main():
     common.launch_command("glazewm")
     
     input("Press enter to close the window. >")
-
 
 if __name__ == "__main__":
     if not pyuac.isUserAdmin():

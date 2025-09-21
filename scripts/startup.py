@@ -17,8 +17,6 @@ willingness to use non-ASCII characters in strings.
 
 import time
 import inquirer
-import os
-import glob
 import common
 import json
 import subprocess
