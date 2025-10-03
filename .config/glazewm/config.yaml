@@ -8,9 +8,8 @@ general:
   # Example: The below command kills Zebar.
   shutdown_commands: ['shell-exec taskkill /IM "zebar.exe" /F']
 
-  # TODO: This is not working, fuck
   # Commands to run after the WM config is reloaded.
-  config_reload_commands: ['shell-exec taskkill zebar.exe; shell-exec zebar.exe']
+  config_reload_commands: ['shell-exec zebar.exe']
 
   # Whether to automatically focus windows underneath the cursor.
   focus_follows_cursor: false
@@ -136,6 +135,9 @@ window_rules:
     match:
       # Ignores any Zebar windows.
       - window_process: { equals: 'zebar' }
+        
+      # Ignores any Zebar windows.
+      - window_process: { equals: 'League of Legends' }
 
       # Ignores picture-in-picture windows for browsers.
       - window_title: { regex: '[Pp]icture.in.[Pp]icture' }
