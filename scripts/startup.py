@@ -82,7 +82,7 @@ def display_decorator():
     time.sleep(1.5)
     print(f"{PURPLE}" * 60 + NC)
     print("== Default apps ==")
-    print("[WS2] Google Chrome")
+    print("[WS2] Brave")
     print("[WS3] Spotify, Discord")
     print(f"{PURPLE}" * 60 + NC)
 
@@ -90,7 +90,7 @@ def launch_default_apps():
     """
     This function launches the default apps for each workspace.
     """
-    common.launch_command("start /b chrome.exe", "Google Chrome")
+    common.launch_command("start /b brave.exe", "Brave")
     common.launch_command("start /b " + str(common.APPDATA_ROAMING / Path("Spotify/Spotify.exe")), "Spotify")
 
 
@@ -110,7 +110,7 @@ def move_windows_to_workspaces():
     move_window_to_workspace("Code", 1)
     move_window_to_workspace("p4v", 2)
     move_window_to_workspace("GitHubDesktop", 2)
-    move_window_to_workspace("chrome", 2)
+    move_window_to_workspace("brave", 2)
     move_window_to_workspace("Slack", 2)
     move_window_to_workspace("Spotify", 3)
     move_window_to_workspace("Discord", 3)

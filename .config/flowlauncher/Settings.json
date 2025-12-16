@@ -23,7 +23,7 @@
   "Theme": "Darker Glass",
   "UseDropShadowEffect": true,
   "BackdropType": 1,
-  "ReleaseNotesVersion": "2.0.1",
+  "ReleaseNotesVersion": "2.0.3",
   "WindowHeightSize": 42,
   "ItemHeightSize": 58,
   "QueryBoxFontSize": 16,
@@ -53,10 +53,10 @@
   "TimeFormat": "hh:mm tt",
   "DateFormat": "MM\u0027/\u0027dd ddd",
   "FirstLaunch": false,
-  "SettingWindowWidth": 2530,
+  "SettingWindowWidth": 1680,
   "SettingWindowHeight": 1360,
   "SettingWindowTop": 60,
-  "SettingWindowLeft": 2570,
+  "SettingWindowLeft": 1720,
   "SettingWindowState": 0,
   "ShowPlaceholder": true,
   "PlaceholderText": "",
@@ -97,7 +97,7 @@
       "Editable": true
     }
   ],
-  "CustomBrowserIndex": 0,
+  "CustomBrowserIndex": 4,
   "CustomBrowserList": [
     {
       "Name": "Default",
@@ -130,6 +130,14 @@
       "EnablePrivate": false,
       "OpenInTab": true,
       "Editable": false
+    },
+    {
+      "Name": "Brave",
+      "Path": "brave",
+      "PrivateArg": "-incognito",
+      "EnablePrivate": false,
+      "OpenInTab": true,
+      "Editable": true
     }
   ],
   "EnableDialogJump": true,
@@ -156,7 +164,7 @@
   "CustomWindowTop": 0,
   "KeepMaxResults": false,
   "MaxResultsToShow": 10,
-  "ActivateTimes": 91,
+  "ActivateTimes": 451,
   "CustomPluginHotkeys": [],
   "CustomShortcuts": [],
   "DontPromptUpdateMsg": false,

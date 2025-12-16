@@ -141,7 +141,7 @@ def import_wezterm():
 ## Actual winwal update
 ####################################################################
 
-def update_winwal(wallpaper_path, is_fastfetch_photo):
+def update_winwal(wallpaper_path):
     """
     Update the color scheme and apply it to the currently active terminal.
     """
@@ -159,10 +159,7 @@ def update_winwal(wallpaper_path, is_fastfetch_photo):
     import_wezterm()
 
     neofetch_image_path = str(common.WINDOTFILES_ASSETS) + "\\neofetch.png"
-    if is_fastfetch_photo:
-        common.launch_command(f"pwsh -Command cp {wallpaper_path} {neofetch_image_path}", "", True)
-    else: 
-        common.launch_command(f"magick {wallpaper_path} -gravity Center -crop 1200x1100+0+0 +repage {neofetch_image_path}", "an update for fastfetch image")
+    common.launch_command(f"magick {wallpaper_path} -gravity Center -crop 1200x1100+0+0 +repage {neofetch_image_path}", "an update for fastfetch image")
 
     common.launch_command("glazewm command wm-reload-config", "a reload for GlazeWM and Zebar")
 
@@ -174,8 +171,7 @@ def main():
 
     if file_path:
         safe_path = shlex.quote(file_path)
-        fastfetch = tk.messagebox.askyesno("Fastfetch", "Set as fastfetch photo?")
-        update_winwal(safe_path, fastfetch)
+        update_winwal(safe_path)
         subprocess.Popen("fastfetch", shell=True)
 
 if __name__ == "__main__":

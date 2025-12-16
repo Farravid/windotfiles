@@ -10,10 +10,6 @@
       "id": "User.copy.644BA8F2"
     },
     {
-      "command": "paste",
-      "id": "User.paste"
-    },
-    {
       "command": {
         "action": "moveFocus",
         "direction": "right"
@@ -21,12 +17,12 @@
       "id": "User.moveFocus.87C324ED"
     },
     {
-      "command": {
-        "action": "splitPane",
-        "split": "auto",
-        "splitMode": "duplicate"
-      },
-      "id": "User.splitPane.A6751878"
+      "command": "paste",
+      "id": "User.paste"
+    },
+    {
+      "command": "find",
+      "id": "User.find"
     },
     {
       "command": {
@@ -36,8 +32,12 @@
       "id": "User.moveFocus.F747588A"
     },
     {
-      "command": "find",
-      "id": "User.find"
+      "command": {
+        "action": "splitPane",
+        "split": "auto",
+        "splitMode": "duplicate"
+      },
+      "id": "User.splitPane.A6751878"
     },
     {
       "command": "closePane",
@@ -74,6 +74,10 @@
       "keys": "ctrl+c"
     },
     {
+      "id": "User.closeTab.0",
+      "keys": "ctrl+shift+q"
+    },
+    {
       "id": "User.paste",
       "keys": "ctrl+v"
     },
@@ -82,20 +86,16 @@
       "keys": "ctrl+shift+f"
     },
     {
-      "id": "User.closeTab.0",
-      "keys": "ctrl+shift+q"
-    },
-    {
-      "id": "User.splitPane.A6751878",
-      "keys": "alt+shift+d"
+      "id": "User.moveFocus.2A0DA8E0",
+      "keys": "ctrl+shift+left"
     },
     {
       "id": "User.moveFocus.87C324ED",
       "keys": "ctrl+shift+right"
     },
     {
-      "id": "User.moveFocus.2A0DA8E0",
-      "keys": "ctrl+shift+left"
+      "id": "User.splitPane.A6751878",
+      "keys": "alt+shift+d"
     },
     {
       "id": "User.closePane",
@@ -130,7 +130,7 @@
       },
       "useAcrylic": true,
       "colorScheme": "wal",
-      "cursorColor": "#c9c5c4"
+      "cursorColor": "#c3c7c6"
     },
     "list": [
       {
@@ -233,6 +233,18 @@
         "hidden": false,
         "name": "Nushell",
         "source": "nu"
+      },
+      {
+        "guid": "{12b6d2df-3cea-5f71-9924-e2644ba11201}",
+        "hidden": false,
+        "name": "Developer Command Prompt for VS 2022",
+        "source": "Windows.Terminal.VisualStudio"
+      },
+      {
+        "guid": "{df43f508-417f-5e1c-bb08-f4061196b400}",
+        "hidden": false,
+        "name": "Developer PowerShell for VS 2022",
+        "source": "Windows.Terminal.VisualStudio"
       }
     ]
   },
@@ -285,24 +297,24 @@
     },
     {
       "name": "wal",
-      "black": "#271814",
-      "red": "#c67967",
-      "green": "#7885aa",
-      "yellow": "#6f7caa",
-      "blue": "#8a8aaa",
-      "purple": "#a68da2",
-      "cyan": "#aa7c7d",
-      "white": "#c9c5c4",
-      "brightBlack": "#5d514e",
-      "brightRed": "#c67967",
-      "brightGreen": "#7885aa",
-      "brightYellow": "#6f7caa",
-      "brightBlue": "#8a8aaa",
-      "brightPurple": "#a68da2",
-      "brightCyan": "#aa7c7d",
-      "brightWhite": "#c9c5c4",
-      "background": "#271814",
-      "foreground": "#c9c5c4"
+      "black": "#11211c",
+      "red": "#5aa990",
+      "green": "#218fa8",
+      "yellow": "#9ca5a9",
+      "blue": "#7491aa",
+      "purple": "#134caa",
+      "cyan": "#4e70a9",
+      "white": "#c3c7c6",
+      "brightBlack": "#4c5854",
+      "brightRed": "#5aa990",
+      "brightGreen": "#218fa8",
+      "brightYellow": "#9ca5a9",
+      "brightBlue": "#7491aa",
+      "brightPurple": "#134caa",
+      "brightCyan": "#4e70a9",
+      "brightWhite": "#c3c7c6",
+      "background": "#11211c",
+      "foreground": "#c3c7c6"
     }
   ],
   "showTabsInTitlebar": true,

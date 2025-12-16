@@ -151,6 +151,7 @@ window_rules:
       - window_process: { equals: 'Lively' }
         window_class: { regex: 'HwndWrapper' }
 
+
 binding_modes:
   # When enabled, the focused window can be resized via arrow keys or HJKL.
   - name: 'resize'
@@ -324,12 +325,12 @@ keybindings:
   ## David's section begins
   ################################################################################################
 
-  # Launching default file browser (OneCommander)
+  # Launching default file browser
   - commands: ['shell-exec explorer.exe']
     bindings: ['alt+e']
 
-  # Launching google chrome
-  - commands: ['shell-exec %ProgramFiles%/Google/Chrome/Application/chrome.exe']
+  # Launching web-browser
+  - commands: ['shell-exec %ProgramFiles%/BraveSoftware/Brave-Browser/Application/brave.exe']
     bindings: ['alt+shift+g']
 
   # Change the default sound output device to the next one. Function available in Pwsh profile
