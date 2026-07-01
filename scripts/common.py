@@ -16,8 +16,8 @@ HOME : Path = Path.home()
 WINDOTFILES : Path = Path.home() / "windotfiles/"
 WINDOTFILES_SCRIPTS : Path = Path.home() / "windotfiles/scripts/"
 WINDOTFILES_ASSETS : Path = Path.home() / "windotfiles/assets/"
-APPDATA_ROAMING : Path = os.environ['appdata']
-APPDATA_LOCAL : Path = os.environ['LocalAppData']
+APPDATA_ROAMING : Path = Path(os.environ['appdata'])
+APPDATA_LOCAL : Path = Path(os.environ['LocalAppData'])
 PROGRAM_FILES : Path = Path(os.environ['programfiles'])
 
 #########################################
@@ -60,7 +60,7 @@ class EInstaller():
     Enum class for providing an easier way to select the installer of a package/library/extension
     """
     WINGET = "winget install --accept-source-agreements --accept-package-agreements "
-    WINGET_UPDGRADE = "winget upgrade "
+    WINGET_UPGRADE = "winget upgrade "
     PIP = "pip install "
 
 #########################################

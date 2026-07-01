@@ -27,8 +27,8 @@
   - [3. Python and Microsoft PowerShell 7](#3-python-and-microsoft-powerShell-7)
   - [4. Dependencies](#4-dependencies)
   - [5. Run the script](#5-run-the-script)
-  - [6. Configure the Task Scheduler](#4-configure-the-task-scheduler)
-  - [7. Reboot the system](#5-reboot-the-system)
+  - [6. Configure the Task Scheduler](#6-configure-the-task-scheduler)
+  - [7. Reboot the system](#7-reboot-the-system)
 - [Usage](#usage)
   - [Startup launcher](#startup-launcher)
   - [Update the color scheme](#update-the-color-scheme)
@@ -87,7 +87,7 @@ This should be enough to begin with the installation.
 In order to fully install and use the windotfiles, you need to install some dependencies.\
 Some dependencies are mandatory for a basic windotfiles installation but others are optional since they are just preferences.
 
-You can check the list of dependencies in the files `scripts/common`.
+You can check the list of dependencies in the file `scripts/common.py`.
 You will find it under `REQUIRED` and `OPTIONAL WINGET_PROGRAMS`
 
 ## 5. Run the script
@@ -98,10 +98,10 @@ Windotfiles won't work if you don't run the script as admin
 ## 6. Configure the Task Scheduler
 
 > [!WARNING]
-Adding the `start-dotfiles` task to the **Task Scheduler** is optional but recommended for faster inits.
+Adding the `Start windotfiles` task to the **Task Scheduler** is optional but recommended for faster inits.
 Using the startup folder will be slower and less user friendly.
 
-The windotfiles repository includes a `start-dotfiles.xml` that must be used to configure the **Task Scheduler** to start the dotfiles automatically on log on.
+The windotfiles repository includes a `start-windotfiles.xml` that must be used to configure the **Task Scheduler** to start the dotfiles automatically on log on. On import, Task Scheduler assigns the task to the current user.
 This task is in charge of launching the [`Startup launcher`](#startup-launcher) that will launch the setup.
 
 ![alt text](readme/task-scheduler.png)

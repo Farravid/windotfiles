@@ -5,13 +5,13 @@ It uses the inquirer library to prompt the user for a choice, and then uses a
 match statement to determine which setup to display. If the user chooses to 
 launch default apps with the setup, the launch_default_apps function is called.
 
-The display_decorator function uses the neofetch command to display system 
+The display_decorator function uses the fastfetch command to display system
 information, and then prints a decorative banner.
 
-The common module contains functions that are used to launch applications and 
+The common module contains functions that are used to launch applications and
 run commands.
 
-This script uses Python 3.11 features, such as the match statement and the 
+This script uses Python 3.11 features, such as the match statement and the
 willingness to use non-ASCII characters in strings.
 """
 
@@ -67,6 +67,9 @@ def move_window_to_workspace(process_name, workspace):
     """
 
     window_id = get_window_id(process_name)
+    if window_id is None:
+        print(f"No open window for '{process_name}', skipping move")
+        return
     try:
         subprocess.run(["glazewm", "command", "--id", window_id, "move", "--workspace", str(workspace)], check=True)
         print(f"Moved window {window_id} to workspace {workspace}")
@@ -75,7 +78,7 @@ def move_window_to_workspace(process_name, workspace):
 
 def display_decorator():
     """
-    This function uses the neofetch command to display system information, and 
+    This function uses the fastfetch command to display system information, and
     then prints a decorative banner.
     """
     subprocess.Popen("fastfetch", shell=True)
@@ -96,7 +99,7 @@ def launch_default_apps():
 
 def launch_windotfiles_setup():
     """
-    This function launches the VSCode with windotfiles, a terminal and the GitHub Desktop app.
+    This function launches Rider with windotfiles, a terminal and the GitHub Desktop app.
     """
     common.launch_command("start /b wezterm-gui", "Windows Terminal")
     common.launch_command("start /b rider64.exe %USERPROFILE%/windotfiles", "Windotfiles in Rider")

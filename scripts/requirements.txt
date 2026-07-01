@@ -1,0 +1,6 @@
+# Python deps for the windotfiles install/update scripts.
+# Installed by install.bat before install.py runs.
+inquirer
+pyuac
+pywin32
+pillow

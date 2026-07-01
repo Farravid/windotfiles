@@ -31,8 +31,7 @@ def prepare_powershell():
 def set_windows_options():
     print(f"\n === Battery options: Set to never sleep never hibernate === \n")
     subprocess.run("pwsh -Command powercfg -change -standby-timeout-ac 0", shell=True)
-    subprocess.run("pwsh -Command powercfg -change -monitor-timeout-ac 0", shell=True)    
-    pass
+    subprocess.run("pwsh -Command powercfg -change -monitor-timeout-ac 0", shell=True)
 
 def install_pywal():
     """
@@ -61,9 +60,13 @@ def create_sym_links(symlink_file: str, system_file_path: str):
     print(f"Symlinking {common.PURPLE + symlink_file + common.NC + ' to ' + common.PURPLE + str(system_file_path) + common.NC}")
     os.symlink(dotfiles_file_path, system_file_path)
 
+ZEBAR_WIDGET = "mushfikurr.overline-zebar@1.0.0"
+
 def copy_zebar_widgets():
-    shutil.rmtree(str(common.APPDATA_ROAMING) + "\\zebar\\downloads\\mushfikurr.overline-zebar@1.0.0", ignore_errors=True)
-    shutil.copytree(str(common.WINDOTFILES) + "\\.config\\glazewm\\zebar\\mushfikurr.overline-zebar@1.0.0", str(common.APPDATA_ROAMING) + "\\zebar\\downloads\\mushfikurr.overline-zebar@1.0.0")
+    dest = str(common.APPDATA_ROAMING) + "\\zebar\\downloads\\" + ZEBAR_WIDGET
+    src = str(common.WINDOTFILES) + "\\.config\\glazewm\\zebar\\" + ZEBAR_WIDGET
+    shutil.rmtree(dest, ignore_errors=True)
+    shutil.copytree(src, dest)
 
 #TODO:
 # Investigate settings windows System > For developers

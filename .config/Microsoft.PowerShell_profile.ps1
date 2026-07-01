@@ -1,5 +1,5 @@
 oh-my-posh init pwsh --config "$HOME/.cache/wal/posh-wal-atomic.omp.json" | Invoke-Expression
-Import-Module $env:USERPROFILE\windotfiles\\vendor\winwal\winwal.psm1
+Import-Module $env:USERPROFILE\windotfiles\vendor\winwal\winwal.psm1
 
 ###############################
 # FUNCTIONS
@@ -26,6 +26,12 @@ function change_audio_output
 
 # Move and show the windotfiles folder
 function windotfiles {Set-Location -Path $env:USERPROFILE\windotfiles && Get-ChildItem -Force }
+
+# Update the installed tools/packages (parity with the nushell alias)
+function update-windotfiles { python -- $env:USERPROFILE\windotfiles\scripts\update.py }
+
+# Regenerate the color scheme from a wallpaper (parity with the nushell alias)
+function update-winwal { python -- $env:USERPROFILE\windotfiles\scripts\update_winwal_colors.py }
 
 ###############################
 # VISUAL CODE FOLDERS
