@@ -134,7 +134,6 @@ Make sure to disable all the relevant programs from windows start up in order to
 ## Update the color scheme
 In top of winwal, we have an `update-winwal` powershell command available for updating the color scheme based on the given wallpaper.\
 This command, for now, supports updating the color scheme of the following software:
-- `Windows Terminal`
 - `Wezterm`
 
 # Credits

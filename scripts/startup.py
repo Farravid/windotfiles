@@ -101,7 +101,7 @@ def launch_windotfiles_setup():
     """
     This function launches Rider with windotfiles, a terminal and the GitHub Desktop app.
     """
-    common.launch_command("start /b wezterm-gui", "Windows Terminal")
+    common.launch_command("start /b wezterm-gui", "WezTerm")
     common.launch_command("start /b rider64.exe %USERPROFILE%/windotfiles", "Windotfiles in Rider")
     common.launch_command("start /b " + str(common.APPDATA_LOCAL / Path("GitHubDesktop/GitHubDesktop.exe")), "Github Desktop")
     time.sleep(5)

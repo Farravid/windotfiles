@@ -28,15 +28,6 @@ import shutil
 import common
 
 
-def prepare_powershell():
-    """
-    Installs the latest version of the PSReadLine module and sets the execution policy to RemoteSigned.
-    """
-    print(f"\n === Installing the last version of module" + common.PURPLE + " PSReadLine " + common.NC + " === \n")
-    subprocess.run("pwsh -Command Install-Module PSReadLine -force", shell=True)
-    print(f"\n === Installing the last version of module" + common.PURPLE + " AudioDeviceCmdlets " + common.NC + " === \n")
-    subprocess.run("pwsh -Command Install-Module AudioDeviceCmdlets -force", shell=True)
-
 def set_windows_options():
     print(f"\n === Battery options: Set to never sleep never hibernate === \n")
     subprocess.run("pwsh -Command powercfg -change -standby-timeout-ac 0", shell=True)
@@ -104,19 +95,15 @@ def main():
 
     input("Pre-installation ready, press enter to continue with the setup. >")
 
-    # Allow the PowerShell profile and modules to load (per-user, no admin needed).
+    # winwal (the color engine) is a PowerShell module, so let it import per-user (no admin needed).
     subprocess.run("pwsh -Command Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser -Force", shell=True)
     common.change_win_color_mode()
     set_windows_options()
-    prepare_powershell()
     common.reload_powershell()
 
     common.install_pckgs(common.EInstaller.WINGET, common.REQUIRED_WINGET_PROGRAMS)
     common.reload_powershell()
 
-    result = subprocess.run('pwsh -Command $PROFILE', shell=True, capture_output=True, text=True)
-    create_sym_links(".config/Microsoft.PowerShell_profile.ps1", result.stdout.strip())
-    create_sym_links(".config/wt/settings.json", str(common.APPDATA_LOCAL) + "\\Packages\\Microsoft.WindowsTerminal_8wekyb3d8bbwe\\LocalState\\settings.json")
     create_sym_links(".config/wezterm/wezterm.lua", str(common.HOME) + "\\.config\\wezterm\\wezterm.lua")
     create_sym_links(".config/wezterm/winwal.toml", str(common.HOME) + "\\.config\\wezterm\\colors\\winwal.toml")
     create_sym_links(".config/glazewm/config.yaml", str(common.HOME) + "\\.glzr\\glazewm\\config.yaml")

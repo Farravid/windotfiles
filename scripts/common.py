@@ -69,13 +69,12 @@ class EInstaller():
 
 def reload_powershell():
     """
-    Reloads the Powershell environment by updating the PATH and reloading the profile.
+    Refreshes PATH so newly-installed programs are visible to later steps.
 
     Returns:
         None
     """
     launch_command("pwsh -Command $env:Path = [System.Environment]::GetEnvironmentVariable(\"Path\",\"Machine\") + \";\" + [System.Environment]::GetEnvironmentVariable(\"Path\",\"User\")", "a reload for the path")
-    launch_command("pwsh -Command Invoke-Expression $PROFILE", "a reloading for the Powershell profile")
 
 def launch_command(command: str, app_name: str = "", show_output: bool = False, use_popen : bool = False) -> None:
     """

@@ -1,7 +1,8 @@
 # windotfiles
 
-Personal Windows 11 dotfiles: terminal (WezTerm + Nushell/PowerShell), tiling WM
-(GlazeWM + Zebar), and a pywal-based color pipeline (winwal). Windows-only.
+Personal Windows 11 dotfiles: terminal (WezTerm + Nushell), tiling WM
+(GlazeWM + Zebar), and a pywal-based color pipeline (winwal, a PowerShell module
+used only as a backend — PowerShell is not an interactive shell here). Windows-only.
 
 **The repo must live at `%USERPROFILE%\windotfiles`** — paths across the scripts and
 configs are hardcoded to that location.
@@ -9,8 +10,7 @@ configs are hardcoded to that location.
 ## Layout
 
 - `.config/` — the actual dotfiles, symlinked into place by `install.py`
-  (WezTerm, Nushell, PowerShell profile, Windows Terminal, GlazeWM/Zebar,
-  Flow Launcher, Flameshot, fastfetch).
+  (WezTerm, Nushell, GlazeWM/Zebar, Flow Launcher, Flameshot, fastfetch).
 - `scripts/` — Python setup/runtime tooling (see below).
 - `vendor/` — third-party bits: `winwal` (git submodule), Buttery Taskbar, ColorTool.
 - `assets/` — wallpapers. `readme/` — docs media.
