@@ -24,6 +24,10 @@ configs are hardcoded to that location.
 - `update_winwal_colors.py` — regenerates the palette from a wallpaper and writes
   `.config/wezterm/winwal.toml` (WezTerm reads this live and re-themes on reload).
 - `startup.py` — logon launcher: starts GlazeWM, prompts for a setup, arranges windows.
+  Setups are TOML files in `scripts/setups/` (one per file, each lists apps + workspaces).
+- `setup_editor.py` — PySide6 GUI to create/edit those setups: pick a program from
+  Explorer (icon + processName auto-grabbed), set its workspace (`python setup_editor.py`).
+  Themed from the live pywal palette.
 - `common.py` — shared paths, the winget package lists, and helpers.
 
 Python deps are pinned in `scripts/requirements.txt` (`inquirer`, `pillow`); `install.py` installs them itself.

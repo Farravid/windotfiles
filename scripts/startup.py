@@ -1,71 +1,70 @@
 """
-This script is used to display different programs depending on the work.
+Logon launcher: starts GlazeWM, asks which setup to open, launches its apps and
+moves each window to its workspace.
 
-It uses the inquirer library to prompt the user for a choice, and then uses a 
-match statement to determine which setup to display. If the user chooses to 
-launch default apps with the setup, the launch_default_apps function is called.
+Setups are TOML templates in scripts/setups/. Each file is one selectable setup;
+add a file, get a new choice. Nothing is launched unless you pick a setup.
+Edit setups with the GUI: `python setup_editor.py`.
 
-The display_decorator function uses the fastfetch command to display system
-information, and then prints a decorative banner.
-
-The common module contains functions that are used to launch applications and
-run commands.
-
-This script uses Python 3.11 features, such as the match statement and the
-willingness to use non-ASCII characters in strings.
+Run `python startup.py --check` to validate every setup file without launching.
 """
 
+import sys
 import time
-import inquirer
-import common
 import json
+import ctypes
+import tomllib
 import subprocess
 from pathlib import Path
-import ctypes
+
+import inquirer
+
+import common
 
 PURPLE = '\033[0;35m'
 NC = '\033[0m'
 
+SETUPS_DIR = Path(__file__).parent / "setups"
+
+
+def load_setups() -> dict[str, list[dict]]:
+    """Map setup name (file stem) -> list of app dicts, read from setups/*.toml."""
+    setups = {}
+    for path in sorted(SETUPS_DIR.glob("*.toml")):
+        apps = tomllib.loads(path.read_text(encoding="utf-8")).get("apps", [])
+        for app in apps:
+            missing = {"launch", "process", "workspace"} - app.keys()
+            if missing:
+                raise ValueError(f"{path.name}: app {app!r} missing keys {missing}")
+        setups[path.stem] = apps
+    return setups
+
+
+def glazewm_running() -> bool:
+    """True if a GlazeWM instance is already up (the IPC query answers)."""
+    try:
+        return subprocess.run(["glazewm", "query", "windows"],
+                              capture_output=True, timeout=5).returncode == 0
+    except Exception:
+        return False
+
+
 def get_window_id(process_name: str):
-    """
-    This function retrieves the window ID of a specific process running on the system.
-    It uses the 'glazewm query windows' command to obtain a list of all running windows,
-    then iterates through the list to find the window with the matching process name.
-
-    Parameters:
-    process_name (str): The name of the process for which to retrieve the window ID.
-
-    Returns:
-    int | None: The window ID of the specified process, or None if no matching process is found.
-    """
+    """Return the GlazeWM window id for a running process, or None."""
     try:
         result = subprocess.run(["glazewm", "query", "windows"], capture_output=True, text=True, check=True)
-        data = json.loads(result.stdout)
-
-        windows = data.get("data", {}).get("windows", [])
-
+        windows = json.loads(result.stdout).get("data", {}).get("windows", [])
         for window in windows:
             if window.get("processName") == process_name:
                 return window.get("id")
-
         return None
     except Exception as e:
         print(f"Error: {e}")
         return None
-    
+
+
 def move_window_to_workspace(process_name, workspace):
-    """
-    Move a window associated with a specific process to a designated workspace.
-
-    This function attempts to move a window identified by its process name to a specified
-    workspace using the glazewm window manager. It first retrieves the window ID for the
-    given process name and then uses glazewm commands to move the window.
-
-    Parameters:
-    process_name (str): The name of the process whose window should be moved.
-    workspace (int): The number of the workspace to which the window should be moved.
-    """
-
+    """Move a process's window to a workspace via GlazeWM (no-op if not open)."""
     window_id = get_window_id(process_name)
     if window_id is None:
         print(f"No open window for '{process_name}', skipping move")
@@ -76,85 +75,61 @@ def move_window_to_workspace(process_name, workspace):
     except Exception as e:
         print(f"Error moving window: {e}")
 
-def display_decorator():
-    """
-    This function uses the fastfetch command to display system information, and
-    then prints a decorative banner.
-    """
-    subprocess.Popen("fastfetch", shell=True)
-    time.sleep(1.5)
-    print(f"{PURPLE}" * 60 + NC)
-    print("== Default apps ==")
-    print("[WS2] Brave")
-    print("[WS3] Spotify, Discord")
-    print(f"{PURPLE}" * 60 + NC)
 
-def launch_default_apps():
-    """
-    This function launches the default apps for each workspace.
-    """
-    common.launch_command("start /b brave.exe", "Brave")
-    common.launch_command("start /b " + str(common.APPDATA_ROAMING / Path("Spotify/Spotify.exe")), "Spotify")
-
-
-def launch_windotfiles_setup():
-    """
-    This function launches Rider with windotfiles, a terminal and the GitHub Desktop app.
-    """
-    common.launch_command("start /b wezterm-gui", "WezTerm")
-    common.launch_command("start /b rider64.exe %USERPROFILE%/windotfiles", "Windotfiles in Rider")
-    common.launch_command("start /b " + str(common.APPDATA_LOCAL / Path("GitHubDesktop/GitHubDesktop.exe")), "Github Desktop")
+def launch_setup(name: str, apps: list[dict]):
+    """Launch every app in a setup, wait for windows, then move them to workspaces."""
+    print(f"{PURPLE}== Setup: {name} =={NC}")
+    for app in apps:
+        common.launch_command(app["launch"], app.get("name", app["process"]))
     time.sleep(5)
+    for app in apps:
+        move_window_to_workspace(app["process"], app["workspace"])
 
-def move_windows_to_workspaces():
-    move_window_to_workspace("wezterm-gui", 1)
-    move_window_to_workspace("Godot_v4", 1)
-    move_window_to_workspace("rider64", 1)
-    move_window_to_workspace("Code", 1)
-    move_window_to_workspace("p4v", 2)
-    move_window_to_workspace("GitHubDesktop", 2)
-    move_window_to_workspace("brave", 2)
-    move_window_to_workspace("Slack", 2)
-    move_window_to_workspace("Spotify", 3)
-    move_window_to_workspace("Discord", 3)
-    move_window_to_workspace("ProtonVPN", 4)
 
 def main():
-    """
-    This function is the main entry point of the script. It uses the inquirer 
-    library to prompt the user for a choice, and then calls the appropriate 
-    function based on the choice.
-    """
     ctypes.windll.kernel32.SetConsoleTitleW("Startup")
 
-    options = [
-        inquirer.List('choice',
-                      message="Select a setup to display:",
-                      choices = ["Windotfiles", "None"],
+    subprocess.Popen("fastfetch", shell=True)
+    time.sleep(1.5)
 
-                      )
-    ]
+    setups = load_setups()
 
-    answer = inquirer.prompt(options)
-    show_default_apps = inquirer.confirm("Do you want to launch default apps with this setup (Default=Yes)?", default=True)
-    update = inquirer.confirm("Do you want to update the windotfiles (Default=No)?", default=False)
+    print(f"{PURPLE}" * 60 + NC)
+    for name, apps in setups.items():
+        print(f"{name}: " + ", ".join(app.get("name", app["process"]) for app in apps))
+    print(f"{PURPLE}" * 60 + NC)
 
-    if show_default_apps:
-        launch_default_apps()
-        time.sleep(5)
-        
+    answer = inquirer.prompt([
+        inquirer.List('choice', message="Select a setup to open:", choices=[*setups, "None"])
+    ])
+    update = inquirer.confirm("Update windotfiles first (Default=No)?", default=False)
+
     if update:
         common.launch_command('python %USERPROFILE%/windotfiles/scripts/update.py', "Updating windotfiles", True)
+    if answer['choice'] != "None":
+        launch_setup(answer['choice'], setups[answer['choice']])
 
-    match answer['choice']:
-        case 'Windotfiles'  : launch_windotfiles_setup()
-    
-    move_windows_to_workspaces()
+
+def check():
+    """Validate every setup file; exit non-zero on the first bad one."""
+    try:
+        setups = load_setups()
+    except (ValueError, tomllib.TOMLDecodeError) as e:
+        print(f"Invalid setup: {e}")
+        sys.exit(1)
+    for name, apps in setups.items():
+        print(f"OK  {name}: {len(apps)} app(s)")
+    print(f"{len(setups)} setup(s) valid")
+
 
 if __name__ == "__main__":
-    common.launch_command("start glazewm")
+    if "--check" in sys.argv:
+        check()
+        sys.exit(0)
+    if glazewm_running():
+        print("GlazeWM already running, not launching another instance")
+    else:
+        common.launch_command("start glazewm")
     common.launch_command("start /b " + str(common.WINDOTFILES / Path("vendor/buttery-taskbar2/buttery-taskbar.exe")))
     common.launch_command("glazewm command set-floating && glazewm command size --width 900 --height 900")
-    display_decorator()
     main()
-

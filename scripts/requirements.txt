@@ -2,3 +2,4 @@
 # install.py installs these itself on first run.
 inquirer
 pillow
+PySide6

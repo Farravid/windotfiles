@@ -10,3 +10,6 @@ target/
 
 # Python
 __pycache__/
+
+# Personal, machine-specific startup setups (create them with setup_editor.py)
+scripts/setups/*.toml
