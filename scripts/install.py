@@ -30,8 +30,8 @@ import common
 
 def set_windows_options():
     print(f"\n === Battery options: Set to never sleep never hibernate === \n")
-    subprocess.run("pwsh -Command powercfg -change -standby-timeout-ac 0", shell=True)
-    subprocess.run("pwsh -Command powercfg -change -monitor-timeout-ac 0", shell=True)
+    subprocess.run("pwsh -NoProfile -Command powercfg -change -standby-timeout-ac 0", shell=True)
+    subprocess.run("pwsh -NoProfile -Command powercfg -change -monitor-timeout-ac 0", shell=True)
 
 def install_pywal():
     """
@@ -96,7 +96,7 @@ def main():
     input("Pre-installation ready, press enter to continue with the setup. >")
 
     # winwal (the color engine) is a PowerShell module, so let it import per-user (no admin needed).
-    subprocess.run("pwsh -Command Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser -Force", shell=True)
+    subprocess.run("pwsh -NoProfile -Command Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser -Force", shell=True)
     common.change_win_color_mode()
     set_windows_options()
     common.reload_powershell()

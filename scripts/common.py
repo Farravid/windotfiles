@@ -74,7 +74,7 @@ def reload_powershell():
     Returns:
         None
     """
-    launch_command("pwsh -Command $env:Path = [System.Environment]::GetEnvironmentVariable(\"Path\",\"Machine\") + \";\" + [System.Environment]::GetEnvironmentVariable(\"Path\",\"User\")", "a reload for the path")
+    launch_command("pwsh -NoProfile -Command $env:Path = [System.Environment]::GetEnvironmentVariable(\"Path\",\"Machine\") + \";\" + [System.Environment]::GetEnvironmentVariable(\"Path\",\"User\")", "a reload for the path")
 
 def launch_command(command: str, app_name: str = "", show_output: bool = False, use_popen : bool = False) -> None:
     """
@@ -153,6 +153,6 @@ def change_win_color_mode(to_dark: bool = True) -> None:
     """
     theme_value = "0" if to_dark else "1"
     launch_command(
-        f"pwsh -Command New-ItemProperty -Path HKCU:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Themes\\Personalize -Name SystemUsesLightTheme -Value {theme_value} -Type Dword -Force; New-ItemProperty -Path HKCU:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Themes\\Personalize -Name AppsUseLightTheme -Value {theme_value} -Type Dword -Force",
+        f"pwsh -NoProfile -Command New-ItemProperty -Path HKCU:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Themes\\Personalize -Name SystemUsesLightTheme -Value {theme_value} -Type Dword -Force; New-ItemProperty -Path HKCU:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Themes\\Personalize -Name AppsUseLightTheme -Value {theme_value} -Type Dword -Force",
         app_name="a change to the windows color mode",
     )

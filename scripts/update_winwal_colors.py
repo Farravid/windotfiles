@@ -114,13 +114,13 @@ def update_winwal(wallpaper_path):
 
     # Apply the wallpaper using Windows API for persistence
     ctypes.windll.user32.SystemParametersInfoW(20, 0, wallpaper_path, 3)
-    common.launch_command(f"pwsh -Command Set-ItemProperty -Path 'HKCU:\\Control Panel\\Desktop' -Name WallPaper -Value '{wallpaper_path}'", "Applying Wallpaper")
+    common.launch_command(f"pwsh -NoProfile -Command Set-ItemProperty -Path 'HKCU:\\Control Panel\\Desktop' -Name WallPaper -Value '{wallpaper_path}'", "Applying Wallpaper")
 
     # winwal is a PowerShell module. Import it inline so this works without a PS profile
     # (we no longer symlink one — WezTerm + Nushell is the only interactive shell).
     winwal_module = common.WINDOTFILES / "vendor" / "winwal" / "winwal.psm1"
     common.launch_command(
-        f"pwsh -Command \"Import-Module '{winwal_module}'; Update-WalTheme -Backend colorz -Image {wallpaper_path}\"",
+        f"pwsh -NoProfile -Command \"Import-Module '{winwal_module}'; Update-WalTheme -Backend colorz -Image {wallpaper_path}\"",
         "Update-WalTheme to update color schemes with the given wallpaper", True
     )
     
