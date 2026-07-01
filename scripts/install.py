@@ -33,6 +33,11 @@ def set_windows_options():
     subprocess.run("pwsh -NoProfile -Command powercfg -change -standby-timeout-ac 0", shell=True)
     subprocess.run("pwsh -NoProfile -Command powercfg -change -monitor-timeout-ac 0", shell=True)
 
+def install_audio_cmdlets():
+    """Module behind the GlazeWM alt+a audio-toggle binding (see config.yaml)."""
+    print(f"\n === Installing the module" + common.PURPLE + " AudioDeviceCmdlets " + common.NC + "(alt+a audio toggle) === \n")
+    subprocess.run("pwsh -NoProfile -Command Install-Module AudioDeviceCmdlets -Scope CurrentUser -Force", shell=True)
+
 def install_pywal():
     """
     Installs the pywal package and its dependencies.
@@ -99,6 +104,7 @@ def main():
     subprocess.run("pwsh -NoProfile -Command Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser -Force", shell=True)
     common.change_win_color_mode()
     set_windows_options()
+    install_audio_cmdlets()
     common.reload_powershell()
 
     common.install_pckgs(common.EInstaller.WINGET, common.REQUIRED_WINGET_PROGRAMS)

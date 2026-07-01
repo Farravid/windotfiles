@@ -333,8 +333,8 @@ keybindings:
   - commands: ['shell-exec %ProgramFiles%/BraveSoftware/Brave-Browser/Application/brave.exe']
     bindings: ['alt+shift+g']
 
-  # Change the default sound output device to the next one. Function available in Pwsh profile
-  - commands: ['shell-exec pwsh -Command change_audio_output']
+  # Toggle the default playback device between index 1 and 2 (needs AudioDeviceCmdlets).
+  - commands: ['shell-exec pwsh -NoProfile -Command "$a=Get-AudioDevice -Playback; Get-AudioDevice -List | ? Index -EQ ($(if($a.Index -eq 1){2}else{1})) | Set-AudioDevice"']
     bindings: ['alt+a']
     
   ################################################################################################
