@@ -10,6 +10,10 @@
       "id": "User.copy.644BA8F2"
     },
     {
+      "command": "paste",
+      "id": "User.paste"
+    },
+    {
       "command": {
         "action": "moveFocus",
         "direction": "right"
@@ -17,12 +21,12 @@
       "id": "User.moveFocus.87C324ED"
     },
     {
-      "command": "paste",
-      "id": "User.paste"
-    },
-    {
-      "command": "find",
-      "id": "User.find"
+      "command": {
+        "action": "splitPane",
+        "split": "auto",
+        "splitMode": "duplicate"
+      },
+      "id": "User.splitPane.A6751878"
     },
     {
       "command": {
@@ -32,12 +36,8 @@
       "id": "User.moveFocus.F747588A"
     },
     {
-      "command": {
-        "action": "splitPane",
-        "split": "auto",
-        "splitMode": "duplicate"
-      },
-      "id": "User.splitPane.A6751878"
+      "command": "find",
+      "id": "User.find"
     },
     {
       "command": "closePane",
@@ -74,10 +74,6 @@
       "keys": "ctrl+c"
     },
     {
-      "id": "User.closeTab.0",
-      "keys": "ctrl+shift+q"
-    },
-    {
       "id": "User.paste",
       "keys": "ctrl+v"
     },
@@ -86,16 +82,20 @@
       "keys": "ctrl+shift+f"
     },
     {
-      "id": "User.moveFocus.2A0DA8E0",
-      "keys": "ctrl+shift+left"
+      "id": "User.closeTab.0",
+      "keys": "ctrl+shift+q"
+    },
+    {
+      "id": "User.splitPane.A6751878",
+      "keys": "alt+shift+d"
     },
     {
       "id": "User.moveFocus.87C324ED",
       "keys": "ctrl+shift+right"
     },
     {
-      "id": "User.splitPane.A6751878",
-      "keys": "alt+shift+d"
+      "id": "User.moveFocus.2A0DA8E0",
+      "keys": "ctrl+shift+left"
     },
     {
       "id": "User.closePane",
@@ -130,7 +130,7 @@
       },
       "useAcrylic": true,
       "colorScheme": "wal",
-      "cursorColor": "#c3c7c6"
+      "cursorColor": "#c5c2c2"
     },
     "list": [
       {
@@ -245,6 +245,30 @@
         "hidden": false,
         "name": "Developer PowerShell for VS 2022",
         "source": "Windows.Terminal.VisualStudio"
+      },
+      {
+        "guid": "{c33dcfbe-7214-563a-bbba-f7db7fd6da2a}",
+        "hidden": false,
+        "name": "Developer Command Prompt for VS 2022 (2)",
+        "source": "Windows.Terminal.VisualStudio"
+      },
+      {
+        "guid": "{990cd5a8-abc9-585e-af37-da3e5124f913}",
+        "hidden": false,
+        "name": "Developer PowerShell for VS 2022 (2)",
+        "source": "Windows.Terminal.VisualStudio"
+      },
+      {
+        "guid": "{15dd9889-1052-5a2d-9099-a2d32438ce66}",
+        "hidden": true,
+        "name": "Developer Command Prompt for VS 2022 [12]",
+        "source": "Windows.Terminal.VisualStudio"
+      },
+      {
+        "guid": "{1b4b244d-c7f7-52fa-9bd9-defc050aadf5}",
+        "hidden": true,
+        "name": "Developer PowerShell for VS 2022 [12]",
+        "source": "Windows.Terminal.VisualStudio"
       }
     ]
   },
@@ -297,24 +321,24 @@
     },
     {
       "name": "wal",
-      "black": "#11211c",
-      "red": "#5aa990",
-      "green": "#218fa8",
-      "yellow": "#9ca5a9",
-      "blue": "#7491aa",
-      "purple": "#134caa",
-      "cyan": "#4e70a9",
-      "white": "#c3c7c6",
-      "brightBlack": "#4c5854",
-      "brightRed": "#5aa990",
-      "brightGreen": "#218fa8",
-      "brightYellow": "#9ca5a9",
-      "brightBlue": "#7491aa",
-      "brightPurple": "#134caa",
-      "brightCyan": "#4e70a9",
-      "brightWhite": "#c3c7c6",
-      "background": "#11211c",
-      "foreground": "#c3c7c6"
+      "black": "#190d0b",
+      "red": "#aa3c2d",
+      "green": "#4d57aa",
+      "yellow": "#6e5eaa",
+      "blue": "#9f61a4",
+      "purple": "#aa4c7c",
+      "cyan": "#aa3f47",
+      "white": "#c5c2c2",
+      "brightBlack": "#6e5c5a",
+      "brightRed": "#aa3c2d",
+      "brightGreen": "#4d57aa",
+      "brightYellow": "#6e5eaa",
+      "brightBlue": "#9f61a4",
+      "brightPurple": "#aa4c7c",
+      "brightCyan": "#aa3f47",
+      "brightWhite": "#c5c2c2",
+      "background": "#190d0b",
+      "foreground": "#c5c2c2"
     }
   ],
   "showTabsInTitlebar": true,
