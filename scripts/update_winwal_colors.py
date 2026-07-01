@@ -8,6 +8,7 @@ from pathlib import Path
 from PIL import ImageColor
 from colorsys import rgb_to_hsv, hsv_to_rgb
 import common
+import rider_theme
 
 #########################################
 # HELPER FUNCTIONS
@@ -126,6 +127,11 @@ def update_winwal(wallpaper_path):
     
     import_winwal_brights()
     import_wezterm()
+
+    try:
+        rider_theme.write_theme()
+    except Exception as e:
+        print(f"Rider theme skipped: {e}")
 
     neofetch_image_path = str(common.WINDOTFILES_ASSETS) + "\\neofetch.png"
     common.launch_command(f"magick {wallpaper_path} -gravity Center -crop 1200x1100+0+0 +repage {neofetch_image_path}", "an update for fastfetch image")

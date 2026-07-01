@@ -49,6 +49,16 @@ def glazewm_running() -> bool:
         return False
 
 
+def process_running(image_name: str) -> bool:
+    """True if a process with this exe name (e.g. 'buttery-taskbar.exe') is running."""
+    try:
+        out = subprocess.run(["tasklist", "/FI", f"IMAGENAME eq {image_name}"],
+                             capture_output=True, text=True, timeout=5).stdout
+        return image_name.lower() in out.lower()
+    except Exception:
+        return False
+
+
 def get_window_id(process_name: str):
     """Return the GlazeWM window id for a running process, or None."""
     try:
@@ -130,6 +140,9 @@ if __name__ == "__main__":
         print("GlazeWM already running, not launching another instance")
     else:
         common.launch_command("start glazewm")
-    common.launch_command("start /b " + str(common.WINDOTFILES / Path("vendor/buttery-taskbar2/buttery-taskbar.exe")))
+    if process_running("buttery-taskbar.exe"):
+        print("Buttery Taskbar already running, not launching another instance")
+    else:
+        common.launch_command("start /b " + str(common.WINDOTFILES / Path("vendor/buttery-taskbar2/buttery-taskbar.exe")))
     common.launch_command("glazewm command set-floating && glazewm command size --width 900 --height 900")
     main()
