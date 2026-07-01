@@ -1,21 +1,30 @@
 """
-This script is used to install all the necessary tools and packages for a new development environment.
-It uses the Windows Package Manager (winget) and Python's package installer (pip) to install the required software.
-It also sets up the necessary configuration files and creates symlinks to the dotfiles repository.
+Installs all the tools, packages and config symlinks for a new development environment.
+Uses the Windows Package Manager (winget) and pip.
 
 Usage:
-1. Navigate to the directory where install.bat is located.
-3. Run the batch script as administrator.
+    python install.py
 
-Note: This script requires an internet connection and may prompt you to accept EULAs and other agreements.
+No admin needed, but creating symlinks on Windows requires Developer Mode
+(Settings > Privacy & security > For developers > Developer Mode = On). The script
+checks for this up front and tells you if it's missing.
+
+Note: requires an internet connection and may prompt you to accept EULAs.
 """
 
 import os
+import sys
 import subprocess
-import logging
-import shutil
-import pyuac
 from pathlib import Path
+
+# Bootstrap our own dependencies before importing them, so a bare `python install.py`
+# works on a fresh machine with nothing but Python installed.
+subprocess.run(
+    [sys.executable, "-m", "pip", "install", "-q", "-r", str(Path(__file__).with_name("requirements.txt"))],
+    check=False,
+)
+
+import shutil
 import common
 
 
@@ -68,15 +77,35 @@ def copy_zebar_widgets():
     shutil.rmtree(dest, ignore_errors=True)
     shutil.copytree(src, dest)
 
-#TODO:
-# Investigate settings windows System > For developers
+def can_symlink() -> bool:
+    """Probe whether this account may create symlinks (admin or Developer Mode)."""
+    probe = common.WINDOTFILES / ".symlink_probe"
+    link = common.WINDOTFILES / ".symlink_probe.link"
+    try:
+        probe.write_text("")
+        link.unlink(missing_ok=True)
+        os.symlink(probe, link)
+        return True
+    except OSError:
+        return False
+    finally:
+        link.unlink(missing_ok=True)
+        probe.unlink(missing_ok=True)
 
 def main():
     """
     The main function of the script.
     """
+    if not can_symlink():
+        print("This setup creates symlinks, which needs Windows Developer Mode (or admin).")
+        print("Enable it: Settings > Privacy & security > For developers > Developer Mode = On, then re-run.")
+        input("Press enter to close the window. >")
+        return
+
     input("Pre-installation ready, press enter to continue with the setup. >")
 
+    # Allow the PowerShell profile and modules to load (per-user, no admin needed).
+    subprocess.run("pwsh -Command Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser -Force", shell=True)
     common.change_win_color_mode()
     set_windows_options()
     prepare_powershell()
@@ -109,8 +138,4 @@ def main():
     input("Press enter to close the window. >")
 
 if __name__ == "__main__":
-    if not pyuac.isUserAdmin():
-        logging.error("You should launch the install.bat script as admin!")
-        input("Press enter to close the window. >")
-    else:
-        main()
+    main()

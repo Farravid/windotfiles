@@ -91,9 +91,15 @@ You can check the list of dependencies in the file `scripts/common.py`.
 You will find it under `REQUIRED` and `OPTIONAL WINGET_PROGRAMS`
 
 ## 5. Run the script
-Go to the **windotfiles** folder and run the `install.bat` batch script as **ADMIN**
+Run the installer with Python:
+```shell
+python $env:USERPROFILE\windotfiles\scripts\install.py
+```
+No admin required. The script installs its own Python dependencies on first run.
 > [!WARNING]
-Windotfiles won't work if you don't run the script as admin
+> Creating symlinks on Windows needs **Developer Mode** enabled
+> (`Settings > Privacy & security > For developers > Developer Mode = On`).
+> The installer checks for this and tells you if it's missing.
 
 ## 6. Configure the Task Scheduler
 

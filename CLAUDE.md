@@ -18,15 +18,15 @@ configs are hardcoded to that location.
 
 ## Scripts (`scripts/`)
 
-- `install.bat` → installs Python deps from `requirements.txt`, then runs `install.py`.
-- `install.py` — one-time setup: winget packages, symlinks, pywal. **Run as admin.**
+- `install.py` — one-time setup: winget packages, symlinks, pywal. Run with
+  `python install.py` (no admin; installs its own deps; needs Developer Mode for symlinks).
 - `update.py` — upgrades winget packages + pip.
 - `update_winwal_colors.py` — regenerates the palette from a wallpaper and writes
   `.config/wezterm/winwal.toml` (WezTerm reads this live and re-themes on reload).
 - `startup.py` — logon launcher: starts GlazeWM, prompts for a setup, arranges windows.
 - `common.py` — shared paths, the winget package lists, and helpers.
 
-Python deps are pinned in `scripts/requirements.txt` (`inquirer`, `pyuac`, `pywin32`, `pillow`).
+Python deps are pinned in `scripts/requirements.txt` (`inquirer`, `pillow`); `install.py` installs them itself.
 
 ## Conventions
 
