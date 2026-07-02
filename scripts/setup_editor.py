@@ -53,6 +53,14 @@ def delete_setup(name: str) -> None:
     (SETUPS_DIR / f"{name}.toml").unlink(missing_ok=True)
 
 
+def rename_setup(old: str, new: str) -> None:
+    (SETUPS_DIR / f"{old}.toml").rename(SETUPS_DIR / f"{new}.toml")
+
+
+def clone_setup(old: str, new: str) -> None:
+    (SETUPS_DIR / f"{new}.toml").write_bytes((SETUPS_DIR / f"{old}.toml").read_bytes())
+
+
 def exe_of(app: dict) -> str | None:
     """The program path for an app: stored `exe`, else parsed out of `launch`."""
     if app.get("exe"):
@@ -85,6 +93,12 @@ def _selftest():
     assert back == apps, back
     assert exe_of(back[0]) == r"C:\Program Files\Foo Bar\slack.exe"
     assert list_setups() == ["t"]
+    rename_setup("t", "t2")
+    assert list_setups() == ["t2"] and read_setup("t2") == apps
+    rename_setup("t2", "t")
+    clone_setup("t", "t-copy")
+    assert list_setups() == ["t", "t-copy"] and read_setup("t-copy") == apps
+    delete_setup("t-copy")
     # a hand-written entry with no `exe` still yields a path for its icon
     assert exe_of({"launch": 'start /b "" "C:\\x\\brave.exe"'}) == r"C:\x\brave.exe"
     assert exe_of({"launch": "start /b wezterm-gui"}) is None
@@ -234,13 +248,18 @@ class Editor(QMainWindow):
         # ---- sidebar
         self.setups = QListWidget()
         self.setups.currentItemChanged.connect(self.on_pick)
+        self.setups.itemDoubleClicked.connect(lambda *_: self.rename_current())
         new_btn = QPushButton("New")
         new_btn.clicked.connect(self.new_setup)
+        clone_btn = QPushButton("Clone")
+        clone_btn.setObjectName("Ghost")
+        clone_btn.clicked.connect(self.clone_current)
         del_btn = QPushButton("Delete")
         del_btn.setObjectName("Ghost")
         del_btn.clicked.connect(self.delete_current)
         sbtns = QHBoxLayout()
         sbtns.addWidget(new_btn)
+        sbtns.addWidget(clone_btn)
         sbtns.addWidget(del_btn)
         side = QVBoxLayout()
         side.setContentsMargins(12, 12, 12, 12)
@@ -336,21 +355,43 @@ class Editor(QMainWindow):
         self.hint.setVisible(not self.cards)
         self.set_clean()
 
+    def ask_name(self, title: str, initial: str = "") -> str | None:
+        name, ok = QInputDialog.getText(
+            self, title, "Setup name (letters, numbers, - _):", text=initial)
+        name = name.strip()
+        if not ok or not name:
+            return None
+        if not NAME_RE.fullmatch(name):
+            QMessageBox.warning(self, "Invalid name", "Use only letters, numbers, dashes, underscores.")
+            return None
+        if name in list_setups():
+            QMessageBox.warning(self, "Exists", f"Setup '{name}' already exists.")
+            return None
+        return name
+
     def new_setup(self):
         if not self.confirm_discard():
             return
-        name, ok = QInputDialog.getText(self, "New setup", "Setup name (letters, numbers, - _):")
-        if not ok or not name.strip():
+        name = self.ask_name("New setup")
+        if name:
+            write_setup(name, [])
+            self.refresh_setups(select=name)
+
+    def rename_current(self):
+        if self.current is None or not self.confirm_discard():
             return
-        name = name.strip()
-        if not NAME_RE.fullmatch(name):
-            QMessageBox.warning(self, "Invalid name", "Use only letters, numbers, dashes, underscores.")
+        name = self.ask_name("Rename setup", initial=self.current)
+        if name:
+            rename_setup(self.current, name)
+            self.refresh_setups(select=name)
+
+    def clone_current(self):
+        if self.current is None or not self.confirm_discard():
             return
-        if name in list_setups():
-            QMessageBox.warning(self, "Exists", f"Setup '{name}' already exists.")
-            return
-        write_setup(name, [])
-        self.refresh_setups(select=name)
+        name = self.ask_name("Clone setup", initial=f"{self.current}-copy")
+        if name:
+            clone_setup(self.current, name)
+            self.refresh_setups(select=name)
 
     def delete_current(self):
         if self.current and QMessageBox.question(
