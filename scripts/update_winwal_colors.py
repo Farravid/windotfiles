@@ -181,10 +181,6 @@ def update_winwal(wallpaper_path):
     neofetch_image_path = str(common.WINDOTFILES_ASSETS) + "\\neofetch.png"
     common.launch_command(f"magick {wallpaper_path} -gravity Center -crop 1200x1100+0+0 +repage {neofetch_image_path}", "an update for fastfetch image")
 
-    # oh-my-posh caches the parsed theme, so running shells keep the old prompt
-    # colors until the cache is cleared; then the next prompt re-reads the new omp.json.
-    common.launch_command("oh-my-posh cache clear", "a cache clear so running shells repaint the prompt")
-
     # Kill Zebar first: reloading the config relaunches it (config_reload_commands),
     # but launching zebar.exe while it's already running no-ops (single instance),
     # so the widgets never re-read the regenerated winwal.css without a fresh start.
