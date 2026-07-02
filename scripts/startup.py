@@ -41,8 +41,11 @@ def load_setups() -> dict[str, list[dict]]:
 
 
 def focus_console():
-    """Bring this console back to the foreground (launched apps steal focus at logon)."""
-    hwnd = ctypes.windll.kernel32.GetConsoleWindow()
+    """Bring this terminal back to the foreground (launched apps steal focus at logon)."""
+    # ponytail: under WezTerm the ConPTY console window is hidden, so target the
+    # WezTerm window by class; fall back to the real console if run elsewhere.
+    hwnd = (ctypes.windll.user32.FindWindowW("org.wezfurlong.wezterm", None)
+            or ctypes.windll.kernel32.GetConsoleWindow())
     if hwnd:
         # ponytail: fake an Alt keypress — Windows blocks SetForegroundWindow
         # from background processes unless a key event is in flight.
