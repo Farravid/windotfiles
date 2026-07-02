@@ -85,26 +85,18 @@ def process_running(image_name: str) -> bool:
         return False
 
 
-def get_window_id(process_name: str):
-    """Return the GlazeWM window id for a running process, or None."""
+def query_windows() -> list[dict]:
+    """Return GlazeWM's current window list (empty on error)."""
     try:
         result = subprocess.run(["glazewm", "query", "windows"], capture_output=True, text=True, check=True)
-        windows = json.loads(result.stdout).get("data", {}).get("windows", [])
-        for window in windows:
-            if window.get("processName") == process_name:
-                return window.get("id")
-        return None
+        return json.loads(result.stdout).get("data", {}).get("windows", [])
     except Exception as e:
         print(f"Error: {e}")
-        return None
+        return []
 
 
-def move_window_to_workspace(process_name, workspace):
-    """Move a process's window to a workspace via GlazeWM (no-op if not open)."""
-    window_id = get_window_id(process_name)
-    if window_id is None:
-        print(f"No open window for '{process_name}', skipping move")
-        return
+def move_window(window_id, workspace):
+    """Move a GlazeWM window to a workspace."""
     try:
         subprocess.run(["glazewm", "command", "--id", window_id, "move", "--workspace", str(workspace)], check=True)
         print(f"Moved window {window_id} to workspace {workspace}")
@@ -113,13 +105,24 @@ def move_window_to_workspace(process_name, workspace):
 
 
 def launch_setup(name: str, apps: list[dict]):
-    """Launch every app in a setup, wait for windows, then move them to workspaces."""
+    """Launch every app in a setup, moving each window as soon as GlazeWM manages it."""
     print(f"{PURPLE}== Setup: {name} =={NC}")
     for app in apps:
         common.launch_command(app["launch"], app.get("name", app["process"]))
-    time.sleep(5)
-    for app in apps:
-        move_window_to_workspace(app["process"], app["workspace"])
+    # ponytail: 1s poll of the window list instead of a GlazeWM IPC event
+    # subscription — same effect within a second, no stream parsing. Upgrade
+    # to `glazewm sub -e window_managed` if slow-launching apps need it snappier.
+    pending = {app["process"]: app["workspace"] for app in apps}
+    deadline = time.time() + 60
+    while pending and time.time() < deadline:
+        for window in query_windows():
+            workspace = pending.pop(window.get("processName"), None)
+            if workspace is not None:
+                move_window(window["id"], workspace)
+        if pending:
+            time.sleep(1)
+    for process in pending:
+        print(f"No window appeared for '{process}' within 60s, skipping move")
 
 
 def main():
