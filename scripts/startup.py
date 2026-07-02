@@ -55,13 +55,15 @@ def focus_console():
 
 
 def refresh_taskbar():
-    """Close the stale unthemed Shell_TrayWnd so Explorer recreates a clean one.
+    """Make the taskbar re-read theme colors (it's created unthemed at logon).
 
-    ponytail: fixes the white-taskbar-flash-on-first-Win-press startup race.
+    ponytail: WM_CLOSE-recreating Shell_TrayWnd didn't cure the white flash on
+    first Win press — the recreated tray was just as stale. Broadcasting
+    ImmersiveColorSet makes Explorer re-read accent colors and repaint in place.
     """
-    hwnd = ctypes.windll.user32.FindWindowW("Shell_TrayWnd", None)
-    if hwnd:
-        ctypes.windll.user32.SendMessageW(hwnd, 0x0010, 0, 0)  # WM_CLOSE
+    ctypes.windll.user32.SendMessageTimeoutW(
+        0xFFFF, 0x001A, 0, "ImmersiveColorSet",  # HWND_BROADCAST, WM_SETTINGCHANGE
+        0x0002, 1000, None)                      # SMTO_ABORTIFHUNG, 1s per window
 
 
 def glazewm_running() -> bool:
