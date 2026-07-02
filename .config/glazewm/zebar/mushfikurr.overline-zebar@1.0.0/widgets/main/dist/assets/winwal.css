@@ -1,0 +1,16 @@
+:root {
+  --border: #6e6459 !important;
+  --background: #131110 !important;
+  --background-deeper: #0b0a09 !important;
+  --button: #6e6459 !important;
+  --button-border: #8f8273 !important;
+  --primary: #aa9857 !important;
+  --primary-border: #ffe482 !important;
+  --primary-text: #fffdfd !important;
+  --text: #c4c3c3 !important;
+  --text-muted: #6e6459 !important;
+  --icon: #c4c3c3 !important;
+  --success: #aa886f !important;
+  --danger: #aa928b !important;
+  --warning: #aa8154 !important;
+}
