@@ -29,13 +29,23 @@ $env.config.show_banner = false
 # ALIASES
 ##########################################################
 
-alias windotfiles = cd $"($env.USERPROFILE)/windotfiles/"
-alias update-windotfiles = python -- $"($env.USERPROFILE)/windotfiles/scripts/update.py"
-alias update-winwal = python -- $"($env.USERPROFILE)/windotfiles/scripts/update_winwal_colors.py"
-alias windotfiles-startup = python -- $"($env.USERPROFILE)/windotfiles/scripts/startup.py"
+alias dot = cd $"($env.USERPROFILE)/windotfiles/"
+alias dot-update = python -- $"($env.USERPROFILE)/windotfiles/scripts/update.py"
+alias dot-winwal = python -- $"($env.USERPROFILE)/windotfiles/scripts/update_winwal_colors.py"
+alias dot-setups = python -- $"($env.USERPROFILE)/windotfiles/scripts/setup_editor.py"
 alias doc = cd $"($env.USERPROFILE)/Documents/"
 alias down = cd $"($env.USERPROFILE)/Downloads/"
 alias show_path = echo $env.PATH
+
+def --env unreal-claude [] {
+    cd D:\dev\ 
+    claude 
+}
+
+def --env dot-claude [] { 
+    dot 
+    claude 
+}
 
 ##########################################################
 # OTHER
@@ -44,5 +54,5 @@ alias show_path = echo $env.PATH
 # Fix jumping when pressing any key
 $env.config.shell_integration.osc133 = false
 
-sleep 100ms
+sleep 200ms
 fastfetch

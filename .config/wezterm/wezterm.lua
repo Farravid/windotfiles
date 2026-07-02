@@ -11,6 +11,10 @@ local config = wezterm.config_builder()
 config.font = wezterm.font('JetBrainsMono Nerd Font')
 config.font_size = 13
 
+-- spawn size (default 80x24 is what glazewm floats windows at — too tiny)
+config.initial_cols = 130
+config.initial_rows = 35
+
 config.automatically_reload_config = true
 config.hide_tab_bar_if_only_one_tab = true
 
@@ -109,9 +113,9 @@ config.keys = {
   -- close current tab
   { key = 'w', mods = 'CTRL', action = wezterm.action.CloseCurrentTab { confirm = true } },
 
-  -- move between tabs, vim-style
-  { key = 'h', mods = 'CTRL', action = wezterm.action.ActivateTabRelative(-1) },
-  { key = 'l', mods = 'CTRL', action = wezterm.action.ActivateTabRelative(1) },
+  -- move between tabs, vim-style (leader so ctrl+l still clears the shell)
+  { key = 'h', mods = 'LEADER', action = wezterm.action.ActivateTabRelative(-1) },
+  { key = 'l', mods = 'LEADER', action = wezterm.action.ActivateTabRelative(1) },
 
   -- Ctrl+<n>: switch to tab n, creating it if needed
   { key = '1', mods = 'CTRL', action = goto_or_create_tab(0) },
