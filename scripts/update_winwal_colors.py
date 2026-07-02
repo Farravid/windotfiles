@@ -8,7 +8,6 @@ from pathlib import Path
 from PIL import ImageColor
 from colorsys import rgb_to_hsv, hsv_to_rgb
 import common
-import rider_theme
 
 #########################################
 # HELPER FUNCTIONS
@@ -104,6 +103,56 @@ def import_wezterm():
     line_prepender(wezterm_colors, "foreground = \""       + color_lines[7][:-1] + "\"")
     line_prepender(wezterm_colors, "[colors]")
 
+def import_zebar():
+    """
+    Regenerate the overline-zebar palette from the pywal colors.
+
+    overline-zebar applies its theme as inline CSS variables on :root, so a
+    stylesheet with !important overrides whatever theme is selected in its UI.
+    We write that stylesheet into each widget's assets dir; index.html links it.
+    """
+    c = [line.rstrip("\r\n") for line in get_color_lines()]
+
+    theme = {
+        "--border":            c[8],
+        "--background":        c[0],
+        "--background-deeper": brighten_color(c[0], 0.6),  # darker
+        "--button":            c[8],
+        "--button-border":     brighten_color(c[8], 1.3),
+        "--primary":           c[4],
+        "--primary-border":    c[12],
+        "--primary-text":      c[15],
+        "--text":              c[7],
+        "--text-muted":        c[8],
+        "--icon":              c[7],
+        "--success":           c[2],
+        "--danger":            c[1],
+        "--warning":           c[3],
+    }
+
+    css = ":root {\n" + "".join(
+        f"  {k}: {v} !important;\n" for k, v in theme.items()
+    ) + "}\n"
+
+    widget_pkg = "mushfikurr.overline-zebar@1.0.0"
+    link = '<link rel="stylesheet" href="./assets/winwal.css">'
+    # The repo copy is the committed source; install.py copies it into the live
+    # downloads dir (no symlink), so write both — downloads is what zebar serves.
+    packs = [
+        common.WINDOTFILES / ".config" / "glazewm" / "zebar" / widget_pkg,
+        common.APPDATA_ROAMING / "zebar" / "downloads" / widget_pkg,
+    ]
+    for pack in packs:
+        for widget in ("main", "system-stats"):
+            dist = pack / "widgets" / widget / "dist"
+            if not dist.is_dir():
+                continue
+            (dist / "assets" / "winwal.css").write_text(css, encoding="utf8")
+            index = dist / "index.html"
+            html = index.read_text(encoding="utf8")
+            if "winwal.css" not in html:
+                index.write_text(html.replace("</head>", f"    {link}\n  </head>", 1), encoding="utf8")
+
 #####################################################################
 ## Actual winwal update
 ####################################################################
@@ -127,15 +176,19 @@ def update_winwal(wallpaper_path):
     
     import_winwal_brights()
     import_wezterm()
-
-    try:
-        rider_theme.write_theme()
-    except Exception as e:
-        print(f"Rider theme skipped: {e}")
+    import_zebar()
 
     neofetch_image_path = str(common.WINDOTFILES_ASSETS) + "\\neofetch.png"
     common.launch_command(f"magick {wallpaper_path} -gravity Center -crop 1200x1100+0+0 +repage {neofetch_image_path}", "an update for fastfetch image")
 
+    # oh-my-posh caches the parsed theme, so running shells keep the old prompt
+    # colors until the cache is cleared; then the next prompt re-reads the new omp.json.
+    common.launch_command("oh-my-posh cache clear", "a cache clear so running shells repaint the prompt")
+
+    # Kill Zebar first: reloading the config relaunches it (config_reload_commands),
+    # but launching zebar.exe while it's already running no-ops (single instance),
+    # so the widgets never re-read the regenerated winwal.css without a fresh start.
+    common.launch_command('taskkill /IM zebar.exe /F', "a kill for Zebar so the reload relaunches it fresh")
     common.launch_command("glazewm command wm-reload-config", "a reload for GlazeWM and Zebar")
 
 def main():        
