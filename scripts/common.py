@@ -25,7 +25,7 @@ PROGRAM_FILES : Path = Path(os.environ['programfiles'])
 # PROGRAMS
 #########################################
 REQUIRED_WINGET_PROGRAMS = [
-        "wezterm",
+        "wez.wezterm.nightly",
         "nushell",
         "glazewm",
         "glzr-io.zebar",
