@@ -40,6 +40,27 @@ def load_setups() -> dict[str, list[dict]]:
     return setups
 
 
+def focus_console():
+    """Bring this console back to the foreground (launched apps steal focus at logon)."""
+    hwnd = ctypes.windll.kernel32.GetConsoleWindow()
+    if hwnd:
+        # ponytail: fake an Alt keypress — Windows blocks SetForegroundWindow
+        # from background processes unless a key event is in flight.
+        ctypes.windll.user32.keybd_event(0x12, 0, 0, 0)      # Alt down
+        ctypes.windll.user32.SetForegroundWindow(hwnd)
+        ctypes.windll.user32.keybd_event(0x12, 0, 2, 0)      # Alt up (KEYEVENTF_KEYUP)
+
+
+def refresh_taskbar():
+    """Close the stale unthemed Shell_TrayWnd so Explorer recreates a clean one.
+
+    ponytail: fixes the white-taskbar-flash-on-first-Win-press startup race.
+    """
+    hwnd = ctypes.windll.user32.FindWindowW("Shell_TrayWnd", None)
+    if hwnd:
+        ctypes.windll.user32.SendMessageW(hwnd, 0x0010, 0, 0)  # WM_CLOSE
+
+
 def glazewm_running() -> bool:
     """True if a GlazeWM instance is already up (the IPC query answers)."""
     try:
@@ -109,6 +130,7 @@ def main():
         print(f"{name}: " + ", ".join(app.get("name", app["process"]) for app in apps))
     print(f"{PURPLE}" * 60 + NC)
 
+    focus_console()
     answer = inquirer.prompt([
         inquirer.List('choice', message="Select a setup to open:", choices=[*setups, "None"])
     ])
@@ -144,5 +166,6 @@ if __name__ == "__main__":
         print("Buttery Taskbar already running, not launching another instance")
     else:
         common.launch_command("start /b " + str(common.WINDOTFILES / Path("vendor/buttery-taskbar2/buttery-taskbar.exe")))
-    common.launch_command("glazewm command set-floating && glazewm command size --width 900 --height 900")
+    refresh_taskbar()
+    common.launch_command("glazewm command set-floating && glazewm command size --width 1000 --height 1000")
     main()
