@@ -22,13 +22,7 @@
 # Table of Contents
 - [Repository explanation](#repository-explanation)
 - [Installation](#installation)
-  - [1. Clone the repository](#1-clone-the-repository)
-  - [2. WinGet](#2-winget)
-  - [3. Python and Microsoft PowerShell 7](#3-python-and-microsoft-powerShell-7)
-  - [4. Dependencies](#4-dependencies)
-  - [5. Run the script](#5-run-the-script)
-  - [6. Configure the Task Scheduler](#6-configure-the-task-scheduler)
-  - [7. Reboot the system](#7-reboot-the-system)
+  - [Troubleshooting](#troubleshooting)
 - [Usage](#usage)
   - [Startup launcher](#startup-launcher)
   - [Update the color scheme](#update-the-color-scheme)
@@ -44,77 +38,46 @@ Tired of setting up Windows again and again on different machines or fresh insta
 On top of that, I'm decided to speed up my productivity with a window tilling manager similar to i3 on Linux 🌟 `GlazeWM` 🌟 and some other cool features and automatizations.  
 
 # Installation
-In this section we will describe all the necessary steps to install the windotfiles 
+From a `PowerShell` terminal:
 
-## 1. Clone the repository
-Using the following command to clone the repository with `PowerShell`
 ```shell
-cd $env:USERPROFILE 
-git clone --recurse-submodules https://github.com/Farravid/windotfiles.git
+winget install Python.Python.3.13 Git.Git
 ```
 
-This will clone the repository and also recursively clone the submodules.
+Then, in a **new** terminal (so `python` and `git` are on PATH):
+
+```shell
+cd $env:USERPROFILE
+git clone https://github.com/Farravid/windotfiles.git
+python windotfiles\scripts\install.py
+```
+
+Reboot when the script finishes, and that's it.
+
+The script handles everything else: git submodules, PowerShell 7, all required
+programs (see `REQUIRED_WINGET_PROGRAMS` in `scripts/common.py`), config symlinks,
+the pywal color pipeline, optional programs (it asks one by one), and the
+`Start windotfiles` logon task in the **Task Scheduler** that launches the
+[`Startup launcher`](#startup-launcher) on log on.
+
 > [!WARNING]
-If you don't clone the repository in the user's home directory, the setup won't work at all.\
-Most of the setup depends on this.
+The repository must live in the user's home directory (`%USERPROFILE%\windotfiles`),
+otherwise the setup won't work at all. Python should be installed from winget, not
+from the Microsoft Store.
 
-## 2. WinGet
-The main pre-requisite is to have the `WinGet` package manager operative. It should be available on the lastest Windows versions.
+> [!WARNING]
+> Creating symlinks on Windows needs **Developer Mode** enabled
+> (`Settings > Privacy & security > For developers > Developer Mode = On`).
+> The installer checks for this and tells you if it's missing. No admin required.
 
-Nevertheless, and it is no surprise, `WinGet` could not work as expected with a fresh windows installation.\
+## Troubleshooting
+`WinGet` may not work as expected on a fresh Windows installation.\
 If you end up having the blue stuck problem visit this issue: https://github.com/microsoft/winget-cli/issues/3832, specially the following code:
 ```
 Invoke-WebRequest -Uri https://aka.ms/getwinget -OutFile winget.msixbundle
 Add-AppPackage -ForceApplicationShutdown .\winget.msixbundle
 del .\winget.msixbundle
 ```
-
-## 3. Python and Microsoft PowerShell 7
-
-This windotfiles repository uses `Python` and `PowerShell` for some of the functionalities.
-We need to make sure those are installed on the system.
-> [!WARNING]
-Python should be installed from winget, not from Microsoft Store. Make sure to use the same commands described here.
-
-```
-winget install Python.Python.3.13
-winget install Microsoft.PowerShell
-```
-
-This should be enough to begin with the installation.
-
-## 4. Dependencies
-In order to fully install and use the windotfiles, you need to install some dependencies.\
-Some dependencies are mandatory for a basic windotfiles installation but others are optional since they are just preferences.
-
-You can check the list of dependencies in the file `scripts/common.py`.
-You will find it under `REQUIRED` and `OPTIONAL WINGET_PROGRAMS`
-
-## 5. Run the script
-Run the installer with Python:
-```shell
-python $env:USERPROFILE\windotfiles\scripts\install.py
-```
-No admin required. The script installs its own Python dependencies on first run.
-> [!WARNING]
-> Creating symlinks on Windows needs **Developer Mode** enabled
-> (`Settings > Privacy & security > For developers > Developer Mode = On`).
-> The installer checks for this and tells you if it's missing.
-
-## 6. Configure the Task Scheduler
-
-> [!WARNING]
-Adding the `Start windotfiles` task to the **Task Scheduler** is optional but recommended for faster inits.
-Using the startup folder will be slower and less user friendly.
-
-The windotfiles repository includes a `start-windotfiles.xml` that must be used to configure the **Task Scheduler** to start the dotfiles automatically on log on. On import, Task Scheduler assigns the task to the current user.
-This task is in charge of launching the [`Startup launcher`](#startup-launcher) that will launch the setup.
-
-![alt text](readme/task-scheduler.png)
-
-## 7. Reboot the system
-
-After completing the previous steps, restart the system to fully apply the changes.
 
 # Usage
 After the successful installation, you can still modify the windotfiles for your specific cases or use some of the functionalities described below.

@@ -1,6 +1,6 @@
 """
-Installs all the tools, packages and config symlinks for a new development environment.
-Uses the Windows Package Manager (winget) and pip.
+Installs all the tools, packages, config symlinks and the logon task for a new
+development environment. Uses the Windows Package Manager (winget) and pip.
 
 Usage:
     python install.py
@@ -73,6 +73,11 @@ def copy_zebar_widgets():
     shutil.rmtree(dest, ignore_errors=True)
     shutil.copytree(src, dest)
 
+def register_startup_task():
+    """Registers the logon task that runs startup.bat (replaces the manual Task Scheduler import)."""
+    print(f"\n === Registering the " + common.PURPLE + "Start windotfiles" + common.NC + " logon task === \n")
+    subprocess.run(f'schtasks /Create /XML "{common.WINDOTFILES / "start-windotfiles.xml"}" /TN "Start windotfiles" /F', shell=True)
+
 def can_symlink() -> bool:
     """Probe whether this account may create symlinks (admin or Developer Mode)."""
     probe = common.WINDOTFILES / ".symlink_probe"
@@ -92,6 +97,11 @@ def main():
     """
     The main function of the script.
     """
+    if shutil.which("winget") is None:
+        print("winget is missing or broken. Fix it first: https://github.com/microsoft/winget-cli/issues/3832")
+        input("Press enter to close the window. >")
+        return
+
     if not can_symlink():
         print("This setup creates symlinks, which needs Windows Developer Mode (or admin).")
         print("Enable it: Settings > Privacy & security > For developers > Developer Mode = On, then re-run.")
@@ -99,6 +109,13 @@ def main():
         return
 
     input("Pre-installation ready, press enter to continue with the setup. >")
+
+    # In case the repo was cloned without --recurse-submodules.
+    subprocess.run("git submodule update --init --recursive", shell=True, cwd=common.WINDOTFILES)
+
+    # PowerShell 7 (pwsh) backs everything below, so it goes first.
+    common.install_pckgs(common.EInstaller.WINGET, ["Microsoft.PowerShell"])
+    common.reload_powershell()
 
     # winwal (the color engine) is a PowerShell module, so let it import per-user (no admin needed).
     subprocess.run("pwsh -NoProfile -Command Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser -Force", shell=True)
@@ -126,8 +143,11 @@ def main():
     common.install_optional_pckgs(common.EInstaller.WINGET, common.OPTIONAL_WINGET_PROGRAMS)
     common.reload_powershell()
 
+    register_startup_task()
+
     common.launch_command("glazewm")
-    
+
+    print("\nAll done. Reboot to fully apply the changes.")
     input("Press enter to close the window. >")
 
 if __name__ == "__main__":

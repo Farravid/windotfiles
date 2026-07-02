@@ -1,5 +1,6 @@
 import subprocess
 import os
+import winreg
 import inquirer
 from pathlib import Path
 
@@ -69,12 +70,17 @@ class EInstaller():
 
 def reload_powershell():
     """
-    Refreshes PATH so newly-installed programs are visible to later steps.
+    Refreshes this process's PATH from the registry so newly-installed
+    programs are visible to later subprocess calls.
 
     Returns:
         None
     """
-    launch_command("pwsh -NoProfile -Command $env:Path = [System.Environment]::GetEnvironmentVariable(\"Path\",\"Machine\") + \";\" + [System.Environment]::GetEnvironmentVariable(\"Path\",\"User\")", "a reload for the path")
+    with winreg.OpenKey(winreg.HKEY_LOCAL_MACHINE, r"SYSTEM\CurrentControlSet\Control\Session Manager\Environment") as key:
+        machine_path = winreg.QueryValueEx(key, "Path")[0]
+    with winreg.OpenKey(winreg.HKEY_CURRENT_USER, "Environment") as key:
+        user_path = winreg.QueryValueEx(key, "Path")[0]
+    os.environ["Path"] = os.path.expandvars(machine_path + ";" + user_path)
 
 def launch_command(command: str, app_name: str = "", show_output: bool = False, use_popen : bool = False) -> None:
     """
