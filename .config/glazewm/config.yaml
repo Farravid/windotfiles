@@ -340,3 +340,52 @@ keybindings:
   ################################################################################################
   ## David's section ends
   ################################################################################################
+
+# Window animations (added by the animation PR fork; ignored/rejected by stock GlazeWM).
+# All keys optional — omit any to fall back to defaults.
+animations:
+  window_move:       # pure position changes
+    enabled: true
+    duration_ms: 150
+    easing: "cubic_bezier(0.2, 0.0, 0.0, 1.0)"
+    threshold_px: 10   # min pixels before animating
+
+  window_resize:     # size changes (moved windows lock-step to this timing)
+    enabled: true
+    duration_ms: 150
+    easing: "cubic_bezier(0.2, 0.0, 0.0, 1.0)"
+    threshold_px: 10
+
+  window_open:       # Windows only
+    enabled: true
+    duration_ms: 150
+    easing: "cubic_bezier(0.16, 1.0, 0.3, 1.0)"
+    style: "slide_right"     # slide_left/top/bottom | none/fade | zoom
+    opacity_from: 1.0        # 0.0 = fade in from transparent
+
+  workspace_switch:
+    enabled: true
+    duration_ms: 250
+    easing: "ease_out_cubic"
+    style: "slide"           # fade | zoom | iris
+    direction: "horizontal"  # or vertical (slide only)
+    iris_origin: "center"    # cursor | focused_window (iris only)
+    opacity_outgoing: 1.0
+    opacity_incoming: 1.0
+    zoom_factor: 0.1         # slide-only inward zoom, 0.0-1.0
+
+  window_close:      # Windows only
+    enabled: true
+    duration_ms: 150
+    easing: "ease_in_cubic"
+    style: "none"            # fade | zoom | slide_right/left/top/bottom
+    opacity_to: 0.0          # 0.0 = fade out to transparent
+
+  focus_change:      # Windows only - OFF by default
+    enabled: false
+    duration_ms: 150
+    easing: "cubic_bezier(0.16, 1.0, 0.3, 1.0)"
+    style: "opacity"         # or scale
+    opacity_from: 0.5        # opacity style: dim level, 0.0-1.0
+    scale_factor: 0.98       # scale style: start size ratio, 0.5-1.0
+    trigger: "all"           # or keyboard_only
