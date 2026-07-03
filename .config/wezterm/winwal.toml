@@ -1,10 +1,10 @@
 [colors]
-foreground = "#c7c3c2"
-background = "#21120e"
-cursor_bg = "#7885aa"
-cursor_border = "#6f7caa"
-cursor_fg = "#8a8aaa"
-selection_bg = "#a68da2"
-selection_fg = "#aa7c7d"
-ansi = ["#21120e","#c67967","#7885aa","#6f7caa","#8a8aaa","#a68da2","#aa7c7d","#c7c3c2"]
-brights = ["#72615d","#ff9b84","#b4c7ff","#a6baff","#cfcfff","#f9d3f3","#ffbabb","#fff9f8"]
+foreground = "#c6c3c2"
+background = "#1d110c"
+cursor_bg = "#af8a75"
+cursor_border = "#aca794"
+cursor_fg = "#7599a9"
+selection_bg = "#9d9fa8"
+selection_fg = "#aa3239"
+ansi = ["#1d110c","#aa6c55","#af8a75","#aca794","#7599a9","#9d9fa8","#aa3239","#c6c3c2"]
+brights = ["#70615c","#ffa27f","#ffc9aa","#fff7db","#afe5fd","#ebeefc","#ff4a55","#fffbf9"]
