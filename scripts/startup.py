@@ -95,34 +95,56 @@ def query_windows() -> list[dict]:
         return []
 
 
-def move_window(window_id, workspace):
+def focused_workspace() -> str | None:
+    """Name of the currently focused workspace (None on error)."""
+    try:
+        result = subprocess.run(["glazewm", "query", "workspaces"], capture_output=True, text=True, check=True)
+        for ws in json.loads(result.stdout).get("data", {}).get("workspaces", []):
+            if ws.get("hasFocus"):
+                return ws["name"]
+    except Exception:
+        pass
+    return None
+
+
+def move_window(window_id, workspace, label):
     """Move a GlazeWM window to a workspace."""
     try:
         subprocess.run(["glazewm", "command", "--id", window_id, "move", "--workspace", str(workspace)], check=True)
-        print(f"Moved window {window_id} to workspace {workspace}")
+        print(f"Moving {label} to workspace {workspace}")
     except Exception as e:
-        print(f"Error moving window: {e}")
+        print(f"Error moving {label}: {e}")
 
 
-def launch_setup(name: str, apps: list[dict]):
-    """Launch every app in a setup, moving each window as soon as GlazeWM manages it."""
+def launch_setup(name: str, apps: list[dict]) -> list[str]:
+    """Launch every app in a setup, moving each window as soon as GlazeWM manages it.
+
+    Returns the processes whose window never appeared within 60s (empty = all launched).
+    """
     print(f"{PURPLE}== Setup: {name} =={NC}")
+    # ponytail: moving the focused window follows it across workspaces, so
+    # placing each app yanks the view around. Remember where we started and
+    # focus back once at the end instead of chasing every move.
+    home = focused_workspace()
     for app in apps:
         common.launch_command(app["launch"], app.get("name", app["process"]))
     # ponytail: 1s poll of the window list instead of a GlazeWM IPC event
     # subscription — same effect within a second, no stream parsing. Upgrade
     # to `glazewm sub -e window_managed` if slow-launching apps need it snappier.
-    pending = {app["process"]: app["workspace"] for app in apps}
+    pending = {app["process"]: app for app in apps}
     deadline = time.time() + 60
     while pending and time.time() < deadline:
         for window in query_windows():
-            workspace = pending.pop(window.get("processName"), None)
-            if workspace is not None:
-                move_window(window["id"], workspace)
+            app = pending.pop(window.get("processName"), None)
+            if app is not None:
+                move_window(window["id"], app["workspace"], app.get("name", app["process"]))
         if pending:
             time.sleep(1)
     for process in pending:
         print(f"No window appeared for '{process}' within 60s, skipping move")
+    if home is not None:
+        subprocess.run(["glazewm", "command", "focus", "--workspace", str(home)], check=False)
+    return list(pending)
 
 
 def main():
@@ -147,7 +169,11 @@ def main():
     if update:
         common.launch_command('python %USERPROFILE%/windotfiles/scripts/update.py', "Updating windotfiles", True)
     if answer['choice'] != "None":
-        launch_setup(answer['choice'], setups[answer['choice']])
+        failed = launch_setup(answer['choice'], setups[answer['choice']])
+        # Everything launched -> let the script exit so WezTerm closes the window.
+        # Something failed -> hold the window open so the message stays readable.
+        if failed:
+            input("Press Enter to close...")
 
 
 def check():
