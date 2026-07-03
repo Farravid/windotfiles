@@ -16,7 +16,7 @@ config.initial_cols = 130
 config.initial_rows = 35
 
 config.automatically_reload_config = true
-config.hide_tab_bar_if_only_one_tab = true
+config.hide_tab_bar_if_only_one_tab = false  -- bar.wezterm should always show
 
 -- prettier tabs, colored from the live winwal palette (updated by `update-winwal`)
 config.use_fancy_tab_bar = true
@@ -128,6 +128,11 @@ config.keys = {
   { key = '8', mods = 'CTRL', action = goto_or_create_tab(7) },
   { key = '9', mods = 'CTRL', action = goto_or_create_tab(8) },
 }
+
+-- status bar (workspace/leader/clock/cwd, themed from the color scheme).
+-- Must run after color_scheme is set. Clones the repo on first launch.
+local bar = wezterm.plugin.require 'https://github.com/adriankarlen/bar.wezterm'
+bar.apply_to_config(config, { position = 'top' })
 
 -- and finally, return the configuration to wezterm
 return config
