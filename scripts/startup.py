@@ -95,18 +95,6 @@ def query_windows() -> list[dict]:
         return []
 
 
-def focused_workspace() -> str | None:
-    """Name of the currently focused workspace (None on error)."""
-    try:
-        result = subprocess.run(["glazewm", "query", "workspaces"], capture_output=True, text=True, check=True)
-        for ws in json.loads(result.stdout).get("data", {}).get("workspaces", []):
-            if ws.get("hasFocus"):
-                return ws["name"]
-    except Exception:
-        pass
-    return None
-
-
 def move_window(window_id, workspace, label):
     """Move a GlazeWM window to a workspace."""
     try:
@@ -122,10 +110,6 @@ def launch_setup(name: str, apps: list[dict]) -> list[str]:
     Returns the processes whose window never appeared within 60s (empty = all launched).
     """
     print(f"{PURPLE}== Setup: {name} =={NC}")
-    # ponytail: moving the focused window follows it across workspaces, so
-    # placing each app yanks the view around. Remember where we started and
-    # focus back once at the end instead of chasing every move.
-    home = focused_workspace()
     for app in apps:
         common.launch_command(app["launch"], app.get("name", app["process"]))
     # ponytail: 1s poll of the window list instead of a GlazeWM IPC event
@@ -142,8 +126,7 @@ def launch_setup(name: str, apps: list[dict]) -> list[str]:
             time.sleep(1)
     for process in pending:
         print(f"No window appeared for '{process}' within 60s, skipping move")
-    if home is not None:
-        subprocess.run(["glazewm", "command", "focus", "--workspace", str(home)], check=False)
+    subprocess.run(["glazewm", "command", "focus", "--workspace", "1"], check=False)
     return list(pending)
 
 
