@@ -35,6 +35,8 @@ alias dot-winwal = python -- $"($env.USERPROFILE)/windotfiles/scripts/update_win
 alias dot-setups = python -- $"($env.USERPROFILE)/windotfiles/scripts/setup_editor.py"
 alias doc = cd $"($env.USERPROFILE)/Documents/"
 alias down = cd $"($env.USERPROFILE)/Downloads/"
+alias appd = cd $env.APPDATA
+alias appdl = cd $env.LOCALAPPDATA
 alias show_path = echo $env.PATH
 
 def --env unreal-claude [] {
@@ -42,9 +44,18 @@ def --env unreal-claude [] {
     claude 
 }
 
-def --env dot-claude [] { 
-    dot 
-    claude 
+def --env dot-claude [] {
+    dot
+    claude
+}
+
+# yazi: quit with `q` changes the shell's cwd to where you browsed
+def --env y [...args] {
+    let tmp = (mktemp -t "yazi-cwd.XXXXXX")
+    yazi ...$args --cwd-file $tmp
+    let cwd = (open $tmp)
+    if $cwd != "" and $cwd != $env.PWD { cd $cwd }
+    rm -fp $tmp
 }
 
 ##########################################################
