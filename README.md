@@ -5,6 +5,7 @@
   <img alt="Static Badge" src="https://img.shields.io/badge/zebar-654FF0?style=for-the-badge&logoColor=white">
   <img alt="Static Badge" src="https://img.shields.io/badge/wezterm-4E49EE?style=for-the-badge&logo=wezterm&logoColor=white">
   <img alt="Static Badge" src="https://img.shields.io/badge/nushell-4E9A06?style=for-the-badge&logo=nushell&logoColor=white">
+  <img alt="Static Badge" src="https://img.shields.io/badge/yazi-A96CE4?style=for-the-badge&logoColor=white">
   <img src="https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54"</img>
   <p></p>  
 
@@ -105,3 +106,4 @@ This command, for now, supports updating the color scheme of the following softw
 - [`Buttery Taskbar 2`](https://github.com/LuisThiamNye/ButteryTaskbar2)
 - [`Oh My Posh`](https://ohmyposh.dev/)
 - [`Flow Launcher`](https://www.flowlauncher.com/)
+- [`Yazi`](https://github.com/sxyazi/yazi)

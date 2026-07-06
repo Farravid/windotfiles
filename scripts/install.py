@@ -33,6 +33,13 @@ def set_windows_options():
     subprocess.run("pwsh -NoProfile -Command powercfg -change -standby-timeout-ac 0", shell=True)
     subprocess.run("pwsh -NoProfile -Command powercfg -change -monitor-timeout-ac 0", shell=True)
 
+def set_yazi_file_env():
+    """yazi needs file(1) for MIME detection (text/image previews); Git ships it but not on PATH."""
+    print(f"\n === Pointing " + common.PURPLE + "YAZI_FILE_ONE" + common.NC + " at Git's file.exe (yazi previews) === \n")
+    file_exe = common.PROGRAM_FILES / "Git" / "usr" / "bin" / "file.exe"
+    os.environ["YAZI_FILE_ONE"] = str(file_exe)  # this process
+    subprocess.run(f'setx YAZI_FILE_ONE "{file_exe}"', shell=True)  # persistent (user)
+
 def install_audio_cmdlets():
     """Module behind the GlazeWM alt+a audio-toggle binding (see config.yaml)."""
     print(f"\n === Installing the module" + common.PURPLE + " AudioDeviceCmdlets " + common.NC + "(alt+a audio toggle) === \n")
@@ -126,6 +133,7 @@ def main():
 
     common.install_pckgs(common.EInstaller.WINGET, common.REQUIRED_WINGET_PROGRAMS)
     common.reload_powershell()
+    set_yazi_file_env()
 
     create_sym_links(".config/wezterm/wezterm.lua", str(common.HOME) + "\\.config\\wezterm\\wezterm.lua")
     create_sym_links(".config/wezterm/winwal.toml", str(common.HOME) + "\\.config\\wezterm\\colors\\winwal.toml")

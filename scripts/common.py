@@ -36,6 +36,10 @@ REQUIRED_WINGET_PROGRAMS = [
         "voidtools.Everything",
         "JanDeDobbeleer.OhMyPosh",
         "fastfetch",
+        "sxyazi.yazi",
+        "oschwartz10612.Poppler",
+        "junegunn.fzf",
+        "sharkdp.fd",
         "ImageMagick.ImageMagick",
         "flameshot"]
 

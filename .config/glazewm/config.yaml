@@ -325,8 +325,8 @@ keybindings:
   ## David's section begins
   ################################################################################################
 
-  # Launching default file browser
-  - commands: ['shell-exec explorer.exe']
+  # Launching yazi in a WezTerm window instead of Explorer
+  - commands: ['shell-exec wezterm-gui start -- yazi']
     bindings: ['alt+e']
 
   # Launching web-browser
