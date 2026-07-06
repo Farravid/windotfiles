@@ -25,6 +25,7 @@ subprocess.run(
 )
 
 import shutil
+import inquirer
 import common
 
 
@@ -79,6 +80,13 @@ def copy_zebar_widgets():
     src = str(common.WINDOTFILES) + "\\.config\\glazewm\\zebar\\" + ZEBAR_WIDGET
     shutil.rmtree(dest, ignore_errors=True)
     shutil.copytree(src, dest)
+
+def install_hermes_agent():
+    """Optional Hermes agent (NousResearch). Not on winget, so it uses their install script."""
+    answer = inquirer.prompt([inquirer.List(
+        "choice", "Install " + common.PURPLE + "Hermes agent" + common.NC + " (NousResearch)?", ["Yes", "No"])])
+    if answer["choice"] == "Yes":
+        subprocess.run("pwsh -NoProfile -Command irm https://hermes-agent.nousresearch.com/install.ps1 | iex", shell=True)
 
 def register_startup_task():
     """Registers the logon task that runs startup.bat (replaces the manual Task Scheduler import)."""
@@ -149,6 +157,7 @@ def main():
 
     install_pywal()
     common.install_optional_pckgs(common.EInstaller.WINGET, common.OPTIONAL_WINGET_PROGRAMS)
+    install_hermes_agent()
     common.reload_powershell()
 
     register_startup_task()

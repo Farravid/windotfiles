@@ -7,6 +7,8 @@ Usage:
 
 """
 
+import shutil
+
 import common
 
 def main():
@@ -16,6 +18,10 @@ def main():
     common.install_pckgs(common.EInstaller.WINGET_UPGRADE, common.REQUIRED_WINGET_PROGRAMS)
     common.launch_command("python -m pip install --upgrade pip", "Upgrading pip", True)
     common.install_optional_pckgs(common.EInstaller.WINGET_UPGRADE, common.OPTIONAL_WINGET_PROGRAMS)
+
+    # Hermes isn't a winget package; it self-updates. Only if it's installed.
+    if shutil.which("hermes"):
+        common.launch_command("hermes update", "Updating Hermes agent", True)
 
     input("Press enter to close the window. >")
 

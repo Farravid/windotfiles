@@ -46,13 +46,11 @@ REQUIRED_WINGET_PROGRAMS = [
 OPTIONAL_WINGET_PROGRAMS = [
         "JetBrains.Rider",
         "ProtonVPN",
-        "KDE.Okular",
-        "DygmaLabs.Bazecor",
         "Spotify.Spotify",
         "Brave.Brave",
         "GitHub.GitHubDesktop",
         "Discord.Discord",
-        "Obsidian.Obsidian",
+        "Ollama.Ollama",
         "OBSProject.OBSProject",
         "Microsoft.DirectX",
         "Nvidia.GeForceExperience"]
