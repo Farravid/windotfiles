@@ -52,6 +52,7 @@ REQUIRED_WINGET_PROGRAMS = [
         "glzr-io.zebar",
         "Git.Git",
         "Github.GitLFS",
+        "GitHub.CLI",
         "DEVCOM.JetBrainsMonoNerdFont",
         "Flow-Launcher.Flow-Launcher",
         "voidtools.Everything",
