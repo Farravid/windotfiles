@@ -84,7 +84,7 @@ def reload_powershell():
         user_path = winreg.QueryValueEx(key, "Path")[0]
     os.environ["Path"] = os.path.expandvars(machine_path + ";" + user_path)
 
-def launch_command(command: str, app_name: str = "", show_output: bool = False, use_popen : bool = False) -> None:
+def launch_command(command: str, app_name: str = "", show_output: bool = False, use_popen : bool = False, detached: bool = False) -> None:
     """
     Launches an application or a command prompt with the given command.
 
@@ -102,6 +102,21 @@ def launch_command(command: str, app_name: str = "", show_output: bool = False, 
     """
     if app_name:
         print(f"{PURPLE}== Launching {app_name} =={NC}")
+
+    if detached:
+        # ponytail: WezTerm runs its shell in a kill-on-close job object, so
+        # anything we launch dies when the terminal window closes. Break the new
+        # process out of that job so setup apps outlive the terminal.
+        flags = (subprocess.CREATE_BREAKAWAY_FROM_JOB
+                 | subprocess.DETACHED_PROCESS
+                 | subprocess.CREATE_NEW_PROCESS_GROUP)
+        try:
+            subprocess.Popen(command, shell=True, creationflags=flags,
+                             stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+        except OSError:
+            # Job forbids breakaway; fall back to a normal detached spawn.
+            subprocess.Popen(command, shell=True, stdout=subprocess.DEVNULL)
+        return
 
     if show_output:
         if use_popen: subprocess.Popen(command, shell=True)

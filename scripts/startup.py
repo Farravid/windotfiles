@@ -111,7 +111,7 @@ def launch_setup(name: str, apps: list[dict]) -> list[str]:
     """
     print(f"{PURPLE}== Setup: {name} =={NC}")
     for app in apps:
-        common.launch_command(app["launch"], app.get("name", app["process"]))
+        common.launch_command(app["launch"], app.get("name", app["process"]), detached=True)
     # ponytail: 1s poll of the window list instead of a GlazeWM IPC event
     # subscription — same effect within a second, no stream parsing. Upgrade
     # to `glazewm sub -e window_managed` if slow-launching apps need it snappier.
