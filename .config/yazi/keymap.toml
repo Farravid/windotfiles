@@ -1,0 +1,6 @@
+# Copy the hovered/selected file(s) to the Windows clipboard as real file
+# objects (CF_HDROP), so Ctrl+V pastes them into email/Explorer/etc.
+[[mgr.prepend_keymap]]
+on = ["<C-y>"]
+run = '''shell 'powershell -NoProfile -Command "Set-Clipboard -LiteralPath $@"' --confirm'''
+desc = "Copy file(s) to system clipboard"

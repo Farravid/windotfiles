@@ -1,0 +1,5 @@
+# Yazi's built-in Windows "edit" opener hardcodes VS Code; use nvim instead.
+[opener]
+edit = [
+	{ run = 'nvim %*', block = true, for = "windows" },
+]
