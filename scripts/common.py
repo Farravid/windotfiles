@@ -53,7 +53,8 @@ OPTIONAL_WINGET_PROGRAMS = [
         "Ollama.Ollama",
         "OBSProject.OBSProject",
         "Microsoft.DirectX",
-        "Nvidia.GeForceExperience"]
+        "Nvidia.GeForceExperience",
+        "Stoat.Stoat"]
 
 #########################################
 # TYPES
