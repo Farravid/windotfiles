@@ -23,6 +23,7 @@ oh-my-posh init nu --config $"($env.USERPROFILE)/.cache/wal/posh-wal-atomic.omp.
 # CONFIG
 ##########################################################
 $env.config.buffer_editor = "code"
+$env.EDITOR = "nvim"
 $env.config.show_banner = false
 
 ##########################################################

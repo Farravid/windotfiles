@@ -37,6 +37,7 @@ REQUIRED_WINGET_PROGRAMS = [
         "JanDeDobbeleer.OhMyPosh",
         "fastfetch",
         "sxyazi.yazi",
+        "Neovim.Neovim",
         "oschwartz10612.Poppler",
         "junegunn.fzf",
         "sharkdp.fd",
