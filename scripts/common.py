@@ -22,6 +22,27 @@ APPDATA_LOCAL : Path = Path(os.environ['LocalAppData'])
 PROGRAM_FILES : Path = Path(os.environ['programfiles'])
 
 #########################################
+# INSTALLED ARTIFACTS (shared by install.py / uninstall.py)
+#########################################
+ZEBAR_WIDGET = "mushfikurr.overline-zebar@1.0.0"
+
+# (repo file, symlink destination) pairs.
+SYMLINKS = [
+    (".config/wezterm/wezterm.lua",         HOME / ".config/wezterm/wezterm.lua"),
+    (".config/wezterm/winwal.toml",         HOME / ".config/wezterm/colors/winwal.toml"),
+    (".config/glazewm/config.yaml",         HOME / ".glzr/glazewm/config.yaml"),
+    (".config/glazewm/zebar/settings.json", HOME / ".glzr/zebar/settings.json"),
+    (".config/nushell/config.nu",           APPDATA_ROAMING / "nushell/config.nu"),
+    (".config/flowlauncher/Settings.json",  APPDATA_ROAMING / "FlowLauncher/Settings/Settings.json"),
+    (".config/flameshot.ini",               APPDATA_ROAMING / "flameshot/flameshot.ini"),
+    (".config/fastfetch/config.jsonc",      HOME / ".config/fastfetch/config.jsonc"),
+    (".config/yazi/keymap.toml",            APPDATA_ROAMING / "yazi/config/keymap.toml"),
+    (".config/yazi/yazi.toml",              APPDATA_ROAMING / "yazi/config/yazi.toml"),
+]
+
+PIP_PACKAGES = ["pywal", "colorz", "colorthief", "haishoku"]
+
+#########################################
 # PROGRAMS
 #########################################
 REQUIRED_WINGET_PROGRAMS = [

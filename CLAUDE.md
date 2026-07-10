@@ -20,6 +20,8 @@ configs are hardcoded to that location.
 
 - `install.py` — one-time setup: winget packages, symlinks, pywal. Run with
   `python install.py` (no admin; installs its own deps; needs Developer Mode for symlinks).
+- `uninstall.py` — reverses `install.py`: symlinks, Zebar widget, logon task, and
+  (after confirmation) the winget/pip packages. Leaves Windows preferences and optional apps alone.
 - `update.py` — upgrades winget packages + pip.
 - `update_winwal_colors.py` — regenerates the palette from a wallpaper and writes
   `.config/wezterm/winwal.toml` (WezTerm reads this live and re-themes on reload).

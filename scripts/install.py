@@ -50,7 +50,7 @@ def install_pywal():
     """
     Installs the pywal package and its dependencies.
     """
-    common.install_pckgs(common.EInstaller.PIP, ["pywal", "colorz", "colorthief", "haishoku"])
+    common.install_pckgs(common.EInstaller.PIP, common.PIP_PACKAGES)
     print(f"\n === Importing and running" + common.PURPLE + " winwal " + common.NC + "module to the powershell 7 === \n")
     common.launch_command('python %USERPROFILE%/windotfiles/scripts/update_winwal_colors.py')
     
@@ -73,11 +73,9 @@ def create_sym_links(symlink_file: str, system_file_path: str):
     print(f"Symlinking {common.PURPLE + symlink_file + common.NC + ' to ' + common.PURPLE + str(system_file_path) + common.NC}")
     os.symlink(dotfiles_file_path, system_file_path)
 
-ZEBAR_WIDGET = "mushfikurr.overline-zebar@1.0.0"
-
 def copy_zebar_widgets():
-    dest = str(common.APPDATA_ROAMING) + "\\zebar\\downloads\\" + ZEBAR_WIDGET
-    src = str(common.WINDOTFILES) + "\\.config\\glazewm\\zebar\\" + ZEBAR_WIDGET
+    dest = str(common.APPDATA_ROAMING) + "\\zebar\\downloads\\" + common.ZEBAR_WIDGET
+    src = str(common.WINDOTFILES) + "\\.config\\glazewm\\zebar\\" + common.ZEBAR_WIDGET
     shutil.rmtree(dest, ignore_errors=True)
     shutil.copytree(src, dest)
 
@@ -143,14 +141,8 @@ def main():
     common.reload_powershell()
     set_yazi_file_env()
 
-    create_sym_links(".config/wezterm/wezterm.lua", str(common.HOME) + "\\.config\\wezterm\\wezterm.lua")
-    create_sym_links(".config/wezterm/winwal.toml", str(common.HOME) + "\\.config\\wezterm\\colors\\winwal.toml")
-    create_sym_links(".config/glazewm/config.yaml", str(common.HOME) + "\\.glzr\\glazewm\\config.yaml")
-    create_sym_links(".config/glazewm/zebar/settings.json", str(common.HOME) + "\\.glzr\\zebar\\settings.json")
-    create_sym_links(".config/nushell/config.nu", str(common.APPDATA_ROAMING) + "\\nushell\\config.nu")
-    create_sym_links(".config/flowlauncher/Settings.json", str(common.APPDATA_ROAMING) + "\\FlowLauncher\\Settings\\Settings.json")
-    create_sym_links(".config/flameshot.ini", str(common.APPDATA_ROAMING) + "\\flameshot\\flameshot.ini")
-    create_sym_links(".config/fastfetch/config.jsonc", str(common.HOME) + "\\.config\\fastfetch\\config.jsonc")
+    for repo_file, system_path in common.SYMLINKS:
+        create_sym_links(repo_file, str(system_path))
     copy_zebar_widgets()
 
     common.reload_powershell()
