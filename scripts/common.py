@@ -41,6 +41,7 @@ SYMLINKS = [
     (".config/opencode/opencode.jsonc",     HOME / ".config/opencode/opencode.jsonc"),
     (".config/opencode/package.json",       HOME / ".config/opencode/package.json"),
     (".config/opencode/package-lock.json",  HOME / ".config/opencode/package-lock.json"),
+    (".config/nvim",                        APPDATA_LOCAL / "nvim"),
 ]
 
 PIP_PACKAGES = ["pywal", "colorz", "colorthief", "haishoku"]
@@ -66,6 +67,10 @@ REQUIRED_WINGET_PROGRAMS = [
         "oschwartz10612.Poppler",
         "junegunn.fzf",
         "sharkdp.fd",
+        "BurntSushi.ripgrep.MSVC",
+        "JesseDuffield.lazygit",
+        "zig.zig",
+        "tree-sitter.tree-sitter-cli",
         "ImageMagick.ImageMagick",
         "flameshot",
         "SST.opencode"]
