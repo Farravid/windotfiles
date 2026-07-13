@@ -80,6 +80,16 @@ def --env volumen-oc [] {
     ^opencode
 }
 
+def --env dot-nv [] {
+    dot
+    ^nvim
+}
+
+def --env volumen-nv [] {
+    volumen
+    ^nvim
+}
+
 # yazi: quit with `q` changes the shell's cwd to where you browsed
 def --env y [...args] {
     let tmp = (mktemp -t "yazi-cwd.XXXXXX")
