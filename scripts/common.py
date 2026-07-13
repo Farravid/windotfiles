@@ -43,6 +43,9 @@ SYMLINKS = [
     (".config/fastfetch/config.jsonc",      HOME / ".config/fastfetch/config.jsonc"),
     (".config/yazi/keymap.toml",            APPDATA_ROAMING / "yazi/config/keymap.toml"),
     (".config/yazi/yazi.toml",              APPDATA_ROAMING / "yazi/config/yazi.toml"),
+    (".config/opencode/opencode.jsonc",     HOME / ".config/opencode/opencode.jsonc"),
+    (".config/opencode/package.json",       HOME / ".config/opencode/package.json"),
+    (".config/opencode/package-lock.json",  HOME / ".config/opencode/package-lock.json"),
 ]
 
 PIP_PACKAGES = ["pywal", "colorz", "colorthief", "haishoku"]
@@ -69,7 +72,8 @@ REQUIRED_WINGET_PROGRAMS = [
         "junegunn.fzf",
         "sharkdp.fd",
         "ImageMagick.ImageMagick",
-        "flameshot"]
+        "flameshot",
+        "SST.opencode"]
 
 OPTIONAL_WINGET_PROGRAMS = [
         "JetBrains.Rider",
@@ -82,8 +86,7 @@ OPTIONAL_WINGET_PROGRAMS = [
         "OBSProject.OBSProject",
         "Microsoft.DirectX",
         "Nvidia.GeForceExperience",
-        "Stoat.Stoat",
-        "SST.opencode"]
+        "Stoat.Stoat"]
 
 #########################################
 # TYPES

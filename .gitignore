@@ -11,5 +11,8 @@ target/
 # Python
 __pycache__/
 
+# Node / opencode plugins
+node_modules/
+
 # Personal, machine-specific startup setups (create them with setup_editor.py)
 scripts/setups/*.toml

@@ -145,6 +145,11 @@ def main():
         create_sym_links(repo_file, str(system_path))
     copy_zebar_widgets()
 
+    npm_dir = common.HOME / ".config/opencode"
+    if (npm_dir / "package.json").is_file():
+        print(f"\n === Installing " + common.PURPLE + "opencode npm dependencies" + common.NC + " === \n")
+        common.launch_command(f"npm install --prefix {npm_dir}", "opencode npm dependencies", True)
+
     common.reload_powershell()
 
     install_pywal()

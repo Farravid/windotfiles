@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "@dietrichgebert/ponytail": "^4.8.4",
+    "@opencode-ai/plugin": "1.17.18"
+  }
+}
