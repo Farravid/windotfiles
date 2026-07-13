@@ -36,11 +36,30 @@ def read_setup(name: str) -> list[dict]:
     return data.get("apps", [])
 
 
+def launch_cmd(exe: str, args: str = "") -> str:
+    """The shell command that starts `exe`, optionally with extra arguments.
+
+    Args let a card launch a program *inside* another — e.g. a terminal with a
+    program already running: exe = wezterm-gui.exe, args = `start -- nvim`.
+    """
+    cmd = f'start "" "{exe}"'
+    return f"{cmd} {args.strip()}" if args.strip() else cmd
+
+
+def args_of(app: dict) -> str:
+    """Arguments a card should show: the stored `args`, else parsed off `launch`."""
+    if app.get("args"):
+        return app["args"]
+    exe, launch = app.get("exe", ""), app.get("launch", "")
+    prefix = f'start "" "{exe}"'
+    return launch[len(prefix):].strip() if exe and launch.startswith(prefix) else ""
+
+
 def write_setup(name: str, apps: list[dict]) -> None:
     out = []
     for a in apps:
         out.append("[[apps]]")
-        for k in ("name", "exe", "launch", "process"):
+        for k in ("name", "exe", "launch", "args", "process"):
             if a.get(k):
                 out.append(f"{k} = {_toml_str(str(a[k]))}")
         out.append(f"workspace = {int(a.get('workspace', 1))}")
@@ -76,7 +95,7 @@ def app_from_exe(path: str) -> dict:
     return {
         "name": stem.replace("-", " ").replace("_", " ").title(),
         "exe": str(p),
-        "launch": f'start "" "{p}"',
+        "launch": launch_cmd(str(p)),
         "process": stem,   # GlazeWM reports the exe name without extension
         "workspace": 1,
     }
@@ -102,6 +121,17 @@ def _selftest():
     # a hand-written entry with no `exe` still yields a path for its icon
     assert exe_of({"launch": 'start /b "" "C:\\x\\brave.exe"'}) == r"C:\x\brave.exe"
     assert exe_of({"launch": "start /b wezterm-gui"}) is None
+    # args round-trip: launch is rebuilt to run a program inside the terminal
+    term = app_from_exe(r"C:\Program Files\WezTerm\wezterm-gui.exe")
+    term["args"] = "start -- nvim"
+    term["launch"] = launch_cmd(term["exe"], term["args"])
+    write_setup("a", [term])
+    got = read_setup("a")[0]
+    assert got["args"] == "start -- nvim"
+    assert got["launch"] == 'start "" "C:\\Program Files\\WezTerm\\wezterm-gui.exe" start -- nvim'
+    assert args_of(got) == "start -- nvim"
+    assert args_of(read_setup("t")[0]) == ""   # no args -> empty
+    delete_setup("a")
     delete_setup("t")
     assert list_setups() == []
     print("selftest ok")
@@ -201,10 +231,14 @@ class AppCard(QFrame):
         self.name.textChanged.connect(on_change)
         sub = QLabel(f"process: {app.get('process', '?')}")
         sub.setObjectName("Sub")
+        self.args = QLineEdit(args_of(app))
+        self.args.setPlaceholderText("arguments (optional) — e.g. terminal: start -- nvim")
+        self.args.textChanged.connect(on_change)
         col = QVBoxLayout()
         col.setSpacing(2)
         col.addWidget(self.name)
         col.addWidget(sub)
+        col.addWidget(self.args)
 
         ws_label = QLabel("Workspace")
         self.ws = QSpinBox()
@@ -233,6 +267,13 @@ class AppCard(QFrame):
         d = dict(self.app)
         d["name"] = self.name.text().strip() or self.app.get("process", "app")
         d["workspace"] = self.ws.value()
+        args = self.args.text().strip()
+        if d.get("exe"):          # rebuild launch from exe + args
+            d["launch"] = launch_cmd(d["exe"], args)
+        if args:
+            d["args"] = args
+        else:
+            d.pop("args", None)
         return d
 
 
