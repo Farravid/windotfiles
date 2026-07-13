@@ -12,6 +12,7 @@ Rider, ...) — uninstalling a browser someone kept using would be worse than
 leaving a registry value behind. Delete the repo folder itself afterwards.
 """
 
+import os
 import shutil
 import subprocess
 from pathlib import Path
@@ -24,7 +25,8 @@ def main():
         path = Path(system_path)
         if path.is_symlink():
             print(f"Removing symlink {common.PURPLE}{path}{common.NC}")
-            path.unlink()
+            if path.is_dir(): os.rmdir(path)
+            else: path.unlink()
         elif path.exists():
             print(f"Keeping {path}: not a symlink (not ours)")
 

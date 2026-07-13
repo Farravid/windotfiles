@@ -65,13 +65,15 @@ def create_sym_links(symlink_file: str, system_file_path: str):
     system_file_path = Path(system_file_path)
     dotfiles_file_path = common.WINDOTFILES / symlink_file
 
-    assert dotfiles_file_path.is_file(), "Trying to symlink an invalid dotfiles file!"
+    assert dotfiles_file_path.exists(), "Trying to symlink an invalid dotfiles file!"
+    is_dir = dotfiles_file_path.is_dir()
 
-    if system_file_path.exists(): os.remove(system_file_path)
+    if system_file_path.is_symlink() or system_file_path.is_file(): os.remove(system_file_path)
+    elif system_file_path.is_dir(): shutil.rmtree(system_file_path)
     else: os.makedirs(system_file_path.parent, exist_ok=True)
-        
+
     print(f"Symlinking {common.PURPLE + symlink_file + common.NC + ' to ' + common.PURPLE + str(system_file_path) + common.NC}")
-    os.symlink(dotfiles_file_path, system_file_path)
+    os.symlink(dotfiles_file_path, system_file_path, target_is_directory=is_dir)
 
 def copy_zebar_widgets():
     dest = str(common.APPDATA_ROAMING) + "\\zebar\\downloads\\" + common.ZEBAR_WIDGET
