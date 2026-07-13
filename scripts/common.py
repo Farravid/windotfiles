@@ -1,13 +1,8 @@
 import subprocess
-import sys
 import os
 import winreg
 import inquirer
 from pathlib import Path
-
-if Path(__file__).resolve().parent.parent != Path.home() / "windotfiles":
-    print("ERROR: windotfiles must live at %USERPROFILE%\\windotfiles", file=sys.stderr)
-    sys.exit(1)
 
 #########################################
 # TERMINAL COLORS
