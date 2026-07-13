@@ -36,11 +36,8 @@ SYMLINKS = [
     (".config/flowlauncher/Settings.json",  APPDATA_ROAMING / "FlowLauncher/Settings/Settings.json"),
     (".config/flameshot.ini",               APPDATA_ROAMING / "flameshot/flameshot.ini"),
     (".config/fastfetch/config.jsonc",      HOME / ".config/fastfetch/config.jsonc"),
-    (".config/yazi/keymap.toml",            APPDATA_ROAMING / "yazi/config/keymap.toml"),
-    (".config/yazi/yazi.toml",              APPDATA_ROAMING / "yazi/config/yazi.toml"),
-    (".config/opencode/opencode.jsonc",     HOME / ".config/opencode/opencode.jsonc"),
-    (".config/opencode/package.json",       HOME / ".config/opencode/package.json"),
-    (".config/opencode/package-lock.json",  HOME / ".config/opencode/package-lock.json"),
+    (".config/yazi",                        APPDATA_ROAMING / "yazi/config"),
+    (".config/opencode",                    HOME / ".config/opencode"),
     (".config/nvim",                        APPDATA_LOCAL / "nvim"),
 ]
 
