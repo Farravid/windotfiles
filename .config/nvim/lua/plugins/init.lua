@@ -7,6 +7,7 @@ return {
         { "<leader>a", group = "agents (opencode/hermes)" },
         { "<leader>f", group = "find" },
         { "<leader>h", group = "git hunks" },
+        { "<leader>s", group = "split" },
       },
     },
   },

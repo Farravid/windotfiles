@@ -67,10 +67,17 @@ return {
     map("n", "<leader>t", function() shell:toggle() end, { desc = "Toggle shell (nu)" })
 
     -- one-key close for whatever floating terminal currently has focus.
-    -- <C-\> alone (no second chord) is toggleterm's own convention for
-    -- this: a combo essentially never needed by interactive CLI programs,
-    -- so it's safe to claim, unlike plain <Esc> which opencode/hermes need
-    -- for their own menus/prompts.
-    map("t", "<C-\\>", [[<C-\><C-n><cmd>close<cr>]], { desc = "Close floating terminal" })
+    -- <C-q> is a chord essentially never needed by interactive CLI
+    -- programs (and not claimed by WezTerm or the shell here), so it's
+    -- safe to claim, unlike plain <Esc> which opencode/hermes need for
+    -- their own menus/prompts.
+    map("t", "<C-q>", [[<C-\><C-n><cmd>close<cr>]], { desc = "Close floating terminal" })
+
+    -- exposed so other plugins (e.g. the dashboard) can trigger the same
+    -- toggle without re-simulating keypresses
+    _G.WindotfilesAgents = {
+      open_opencode = function() toggle(opencode) end,
+      open_hermes = function() toggle(hermes) end,
+    }
   end,
 }
