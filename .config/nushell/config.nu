@@ -22,7 +22,7 @@ oh-my-posh init nu --config $"($env.USERPROFILE)/.cache/wal/posh-wal-atomic.omp.
 ##########################################################
 # CONFIG
 ##########################################################
-$env.config.buffer_editor = "code"
+$env.config.buffer_editor = "nvim"
 $env.EDITOR = "nvim"
 $env.config.show_banner = false
 
@@ -42,18 +42,42 @@ alias appdl = cd $env.LOCALAPPDATA
 alias show_path = echo $env.PATH
 
 def --env unreal-claude [] {
-    cd D:\dev\ 
-    claude 
+    cd D:\dev\
+    claude-work
 }
 
 def --env dot-claude [] {
     dot
-    claude
+    claude-personal
 }
 
 def --env volumen-cl [] {
     volumen
-    claude
+    claude-personal
+}
+
+def claude-work [...args] {
+    $env.CLAUDE_CONFIG_DIR = $"($env.USERPROFILE)/.claude-work"
+    ^claude ...$args
+}
+
+def claude-personal [...args] {
+    $env.CLAUDE_CONFIG_DIR = $"($env.USERPROFILE)/.claude-personal"
+    ^claude ...$args
+}
+
+def claude [...args] {
+    error make {msg: "bare 'claude' is disabled -- use 'claude-work' or 'claude-personal'"}
+}
+
+def --env dot-oc [] {
+    dot
+    ^opencode
+}
+
+def --env volumen-oc [] {
+    volumen
+    ^opencode
 }
 
 # yazi: quit with `q` changes the shell's cwd to where you browsed
