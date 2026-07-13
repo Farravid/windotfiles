@@ -1,0 +1,7 @@
+.gitattributes text eol=lf
+
+# npm always writes these with LF; force LF here too so Windows'
+# core.autocrlf doesn't flag a phantom "will be replaced by CRLF" on
+# every git operation.
+package.json text eol=lf
+package-lock.json text eol=lf
