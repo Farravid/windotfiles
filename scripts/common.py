@@ -39,6 +39,7 @@ SYMLINKS = [
     (".config/yazi",                        APPDATA_ROAMING / "yazi/config"),
     (".config/opencode",                    HOME / ".config/opencode"),
     (".config/nvim",                        APPDATA_LOCAL / "nvim"),
+    (".config/hermes/config.yaml",          APPDATA_LOCAL / "hermes/config.yaml"),
 ]
 
 PIP_PACKAGES = ["pywal", "colorz", "colorthief", "haishoku"]
@@ -70,7 +71,8 @@ REQUIRED_WINGET_PROGRAMS = [
         "tree-sitter.tree-sitter-cli",
         "ImageMagick.ImageMagick",
         "flameshot",
-        "SST.opencode"]
+        "SST.opencode",
+        "Ollama.Ollama"]
 
 OPTIONAL_WINGET_PROGRAMS = [
         "JetBrains.Rider",
@@ -79,7 +81,6 @@ OPTIONAL_WINGET_PROGRAMS = [
         "Brave.Brave",
         "GitHub.GitHubDesktop",
         "Discord.Discord",
-        "Ollama.Ollama",
         "OBSProject.OBSProject",
         "Microsoft.DirectX",
         "Nvidia.GeForceExperience",

@@ -7,10 +7,33 @@ used only as a backend — PowerShell is not an interactive shell here). Windows
 **The repo must live at `%USERPROFILE%\windotfiles`** — paths across the scripts and
 configs are hardcoded to that location.
 
+## Public repository — security
+
+**This repository is public.** It is strictly forbidden to commit or submit
+anything that could compromise the user's security: API keys, tokens, OAuth
+credentials, auth files, session/history databases, or any other
+secret-bearing machine state. When in doubt, leave it out and ask.
+
+This especially applies to agent config directories that mix tracked config
+with local secrets — e.g. `%LOCALAPPDATA%\hermes\`: only `config.yaml` is
+tracked (via `.config/hermes/config.yaml`); `auth.json`, `.env`,
+`state.db*`, and its caches must never be added to `SYMLINKS` or committed.
+Before staging changes near any agent config, check `git status`/`git diff`
+for exactly the files expected.
+
+## Agent workflow
+
+Three agents are in play here: Hermes (local LLM, via Ollama) for everyday
+lightweight use, Claude Code (frontier models) for heavier work, and
+OpenCode — currently prepped with a local Ollama provider in
+`.config/opencode/opencode.jsonc` but not yet the daily driver — as the
+eventual replacement once its local-LLM setup is ready.
+
 ## Layout
 
 - `.config/` — the actual dotfiles, symlinked into place by `install.py`
-  (WezTerm, Nushell, GlazeWM/Zebar, Flow Launcher, Flameshot, fastfetch).
+  (WezTerm, Nushell, GlazeWM/Zebar, Flow Launcher, Flameshot, fastfetch,
+  Hermes's `config.yaml` only — see security note above).
 - `scripts/` — Python setup/runtime tooling (see below).
 - `vendor/` — third-party bits: `winwal` (git submodule), Buttery Taskbar, ColorTool.
 - `assets/` — wallpapers. `readme/` — docs media.
