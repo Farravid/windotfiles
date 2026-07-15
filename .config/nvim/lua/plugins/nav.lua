@@ -4,6 +4,10 @@ return {
     dependencies = { "nvim-tree/nvim-web-devicons" },
     opts = {
       winopts = { height = 0.85, width = 0.85 },
+      files = {
+        no_ignore = true,
+        fd_opts = "--color=never --hidden --follow --exclude .git --exclude node_modules",
+      },
     },
     keys = {
       { "<leader>ff", function() require("fzf-lua").files() end, desc = "Find files" },
