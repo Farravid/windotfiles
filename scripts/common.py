@@ -167,7 +167,36 @@ def install_pckgs(installer: EInstaller, pkg_names: list, commands: str = ""):
     """
     for pkg_name in pkg_names:
         print(f"\n === Installing " + PURPLE + pkg_name + NC + " with " + installer + " === \n")
-        launch_command(installer + pkg_name + commands, "", True)
+        if installer == EInstaller.WINGET_UPGRADE:
+            winget_upgrade(pkg_name, commands)
+        else:
+            launch_command(installer + pkg_name + commands, "", True)
+
+
+def winget_upgrade(pkg_name: str, commands: str = "") -> None:
+    """
+    Upgrades a winget package, falling back to an uninstall+reinstall when winget
+    refuses an in-place upgrade because the new release uses a different install
+    technology (e.g. msi -> burn). That failure otherwise leaves the old version
+    installed and silently does nothing on every future `update.py` run.
+    """
+    result = subprocess.run(f"winget upgrade {pkg_name}{commands}", shell=True,
+                            capture_output=True, text=True)
+    print(result.stdout)
+    if result.returncode == 0 or "install technology is different" not in result.stdout.lower():
+        return
+
+    print(f"{PURPLE}== {pkg_name}: install technology changed, reinstalling =={NC}")
+    uninstall = subprocess.run(f"winget uninstall --id {pkg_name} --all-versions --silent",
+                              shell=True, capture_output=True, text=True)
+    print(uninstall.stdout)
+    if uninstall.returncode != 0:
+        print(f"Uninstall failed (exit {uninstall.returncode}) -- this usually needs admin rights. "
+              f"Re-run update.py elevated, or uninstall {pkg_name} manually and re-run update.py.")
+        return
+
+    subprocess.run(f"winget install --id {pkg_name} --accept-source-agreements --accept-package-agreements",
+                   shell=True)
 
 
 def install_optional_pckgs(installer: EInstaller, pkg_names: list, commands: str = ""):
