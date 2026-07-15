@@ -107,7 +107,7 @@ def move_window(window_id, workspace, label):
 def launch_setup(name: str, apps: list[dict]) -> list[str]:
     """Launch every app in a setup, moving each window as soon as GlazeWM manages it.
 
-    Returns the processes whose window never appeared within 60s (empty = all launched).
+    Returns the processes whose window never appeared within 30s (empty = all launched).
     """
     print(f"{PURPLE}== Setup: {name} =={NC}")
     for app in apps:
@@ -116,7 +116,7 @@ def launch_setup(name: str, apps: list[dict]) -> list[str]:
     # subscription — same effect within a second, no stream parsing. Upgrade
     # to `glazewm sub -e window_managed` if slow-launching apps need it snappier.
     pending = {app["process"]: app for app in apps}
-    deadline = time.time() + 60
+    deadline = time.time() + 30
     while pending and time.time() < deadline:
         for window in query_windows():
             app = pending.pop(window.get("processName"), None)
@@ -125,7 +125,7 @@ def launch_setup(name: str, apps: list[dict]) -> list[str]:
         if pending:
             time.sleep(1)
     for process in pending:
-        print(f"No window appeared for '{process}' within 60s, skipping move")
+        print(f"No window appeared for '{process}' within 30s, skipping move")
     subprocess.run(["glazewm", "command", "focus", "--workspace", "1"], check=False)
     return list(pending)
 
@@ -152,11 +152,9 @@ def main():
     if update:
         common.launch_command('python %USERPROFILE%/windotfiles/scripts/update.py', "Updating windotfiles", True)
     if answer['choice'] != "None":
-        failed = launch_setup(answer['choice'], setups[answer['choice']])
-        # Everything launched -> let the script exit so WezTerm closes the window.
-        # Something failed -> hold the window open so the message stays readable.
-        if failed:
-            input("Press Enter to close...")
+        launch_setup(answer['choice'], setups[answer['choice']])
+        # Let the script exit so WezTerm closes the window automatically,
+        # whether or not every app's window was found in time.
 
 
 def check():
