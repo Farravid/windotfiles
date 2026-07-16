@@ -20,6 +20,12 @@ return {
 
     local opencode = Terminal:new({ cmd = "opencode", direction = "float", hidden = true })
     local hermes = Terminal:new({ cmd = "hermes chat", direction = "float", hidden = true })
+    -- run through nu (not the bare `claude` binary) so the
+    -- claude-personal function in config.nu sets CLAUDE_CONFIG_DIR first;
+    -- `-l` (login) is required for `-c` to source config.nu at all --
+    -- `-i -c` runs the command without ever loading it, so the def is
+    -- missing and nu errors with "not found"
+    local claude = Terminal:new({ cmd = "nu -l -c claude-personal", direction = "float", hidden = true })
     -- plain nu shell for ad-hoc commands (git, tests, ls, ...) without
     -- leaving nvim; kept separate from last_agent since sending code
     -- selections to a bare shell doesn't make sense the same way
@@ -63,6 +69,7 @@ return {
     local map = vim.keymap.set
     map("n", "<leader>ao", function() toggle(opencode) end, { desc = "Toggle opencode" })
     map("n", "<leader>ah", function() toggle(hermes) end, { desc = "Toggle hermes" })
+    map("n", "<leader>ac", function() toggle(claude) end, { desc = "Toggle claude code" })
     map({ "n", "v" }, "<leader>as", send_context, { desc = "Send selection/path to last agent" })
     map("n", "<leader>t", function() shell:toggle() end, { desc = "Toggle shell (nu)" })
 
@@ -78,6 +85,7 @@ return {
     _G.WindotfilesAgents = {
       open_opencode = function() toggle(opencode) end,
       open_hermes = function() toggle(hermes) end,
+      open_claude = function() toggle(claude) end,
     }
   end,
 }

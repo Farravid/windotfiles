@@ -11,15 +11,31 @@ return {
     local dashboard = require("alpha.themes.dashboard")
 
     dashboard.section.header.val = {
-      "                                                     ",
-      "  ██╗    ██╗██╗███╗   ██╗██████╗  ██████╗ ████████╗ ",
-      "  ██║    ██║██║████╗  ██║██╔══██╗██╔═══██╗╚══██╔══╝ ",
-      "  ██║ █╗ ██║██║██╔██╗ ██║██║  ██║██║   ██║   ██║    ",
-      "  ██║███╗██║██║██║╚██╗██║██║  ██║██║   ██║   ██║    ",
-      "  ╚███╔███╔╝██║██║ ╚████║██████╔╝╚██████╔╝   ██║    ",
-      "   ╚══╝╚══╝ ╚═╝╚═╝  ╚═══╝╚═════╝  ╚═════╝    ╚═╝    ",
-      "                                                     ",
-      "              opencode · hermes · nvim               ",
+      "                                                   ",
+      "                                              ___  ",
+      "                                           ,o88888 ",
+      "                                        ,o8888888' ",
+      "                  ,:o:o:oooo.        ,8O88Pd8888\"  ",
+      "              ,.::.::o:ooooOoOoO. ,oO8O8Pd888'\"    ",
+      "            ,.:.::o:ooOoOoOO8O8OOo.8OOPd8O8O\"      ",
+      "           , ..:.::o:ooOoOOOO8OOOOo.FdO8O8\"        ",
+      "          , ..:.::o:ooOoOO8O888O8O,COCOO\"          ",
+      "         , . ..:.::o:ooOoOOOO8OOOOCOCO\"            ",
+      "          . ..:.::o:ooOoOoOO8O8OCCCC\"o             ",
+      "             . ..:.::o:ooooOoCoCCC\"o:o             ",
+      "             . ..:.::o:o:,cooooCo\"oo:o:            ",
+      "          `   . . ..:.:cocoooo\"'o:o:::'            ",
+      "          .`   . ..::ccccoc\"'o:o:o:::'             ",
+      "         :.:.    ,c:cccc\"':.:.:.:.:.'              ",
+      "       ..:.:\"'`::::c:\"'..:.:.:.:.:.'               ",
+      "     ...:.'.:.::::\"'    . . . . .'                 ",
+      "    .. . ....:.\"' `   .  . . ''                    ",
+      "  . . . ....\"'                                     ",
+      "  .. . .\"'                                         ",
+      " .                                                 ",
+      "                                                   ",
+      "                                                   ",
+      "         opencode · hermes · claude · nvim           ",
       "                                                     ",
     }
 
@@ -30,6 +46,7 @@ return {
       dashboard.button("e", "  File tree", "<cmd>Neotree toggle reveal<cr>"),
       dashboard.button("o", "  opencode", "<cmd>lua WindotfilesAgents.open_opencode()<cr>"),
       dashboard.button("h", "  hermes", "<cmd>lua WindotfilesAgents.open_hermes()<cr>"),
+      dashboard.button("c", "  claude code", "<cmd>lua WindotfilesAgents.open_claude()<cr>"),
       dashboard.button("q", "  Quit", "<cmd>qa<cr>"),
     }
 
