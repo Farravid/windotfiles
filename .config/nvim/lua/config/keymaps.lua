@@ -23,3 +23,6 @@ map("n", "<leader>q", "<cmd>q<cr>", { desc = "Quit window" })
 -- split creation (Ctrl-h/j/k/l above then moves between them)
 map("n", "<leader>sv", "<cmd>vsplit<cr>", { desc = "Split vertically" })
 map("n", "<leader>sh", "<cmd>split<cr>", { desc = "Split horizontally" })
+
+-- plugin manager
+map("n", "<leader>l", "<cmd>Lazy<cr>", { desc = "Open Lazy plugin manager" })
