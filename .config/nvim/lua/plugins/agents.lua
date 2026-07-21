@@ -20,12 +20,9 @@ return {
 
     local opencode = Terminal:new({ cmd = "opencode", direction = "float", hidden = true })
     local hermes = Terminal:new({ cmd = "hermes chat", direction = "float", hidden = true })
-    -- run through nu (not the bare `claude` binary) so the
-    -- claude-personal function in config.nu sets CLAUDE_CONFIG_DIR first;
-    -- `-l` (login) is required for `-c` to source config.nu at all --
-    -- `-i -c` runs the command without ever loading it, so the def is
-    -- missing and nu errors with "not found"
-    local claude = Terminal:new({ cmd = "nu -l -c claude-personal", direction = "float", hidden = true })
+    -- personal profile is just the default ~/.claude, so the plain binary
+    -- works with no CLAUDE_CONFIG_DIR wrangling needed
+    local claude = Terminal:new({ cmd = "claude", direction = "float", hidden = true })
     -- plain nu shell for ad-hoc commands (git, tests, ls, ...) without
     -- leaving nvim; kept separate from last_agent since sending code
     -- selections to a bare shell doesn't make sense the same way

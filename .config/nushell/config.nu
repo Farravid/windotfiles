@@ -36,6 +36,7 @@ alias dot-winwal = python -- $"($env.USERPROFILE)/windotfiles/scripts/update_win
 alias dot-setups = python -- $"($env.USERPROFILE)/windotfiles/scripts/setup_editor.py"
 alias doc = cd $"($env.USERPROFILE)/Documents/"
 alias volumen = cd $"($env.USERPROFILE)/Documents/Github/volumen/"
+alias repos = cd $"($env.USERPROFILE)/Documents/Github/"
 alias down = cd $"($env.USERPROFILE)/Downloads/"
 alias appd = cd $env.APPDATA
 alias appdl = cd $env.LOCALAPPDATA
@@ -48,26 +49,17 @@ def --env unreal-claude [] {
 
 def --env dot-claude [] {
     dot
-    claude-personal
+    claude
 }
 
 def --env volumen-cl [] {
     volumen
-    claude-personal
+    claude
 }
 
 def claude-work [...args] {
     $env.CLAUDE_CONFIG_DIR = $"($env.USERPROFILE)/.claude-work"
     ^claude ...$args
-}
-
-def claude-personal [...args] {
-    $env.CLAUDE_CONFIG_DIR = $"($env.USERPROFILE)/.claude-personal"
-    ^claude ...$args
-}
-
-def claude [...args] {
-    error make {msg: "bare 'claude' is disabled -- use 'claude-work' or 'claude-personal'"}
 }
 
 def --env dot-oc [] {
