@@ -112,22 +112,34 @@ def launch_setup(name: str, apps: list[dict]) -> list[str]:
     print(f"{PURPLE}== Setup: {name} =={NC}")
     for app in apps:
         common.launch_command(app["launch"], app.get("name", app["process"]), detached=True)
+        time.sleep(2)
     # ponytail: 1s poll of the window list instead of a GlazeWM IPC event
     # subscription — same effect within a second, no stream parsing. Upgrade
     # to `glazewm sub -e window_managed` if slow-launching apps need it snappier.
-    pending = {app["process"]: app for app in apps}
+    # ponytail: a dict keyed by process name can't hold two apps that share the
+    # same process (e.g. two Brave profiles both report "brave") — queue them
+    # per process instead, and match windows to apps in launch order.
+    pending = {}
+    for app in apps:
+        pending.setdefault(app["process"], []).append(app)
+    matched_ids = set()
     deadline = time.time() + 30
-    while pending and time.time() < deadline:
+    while any(pending.values()) and time.time() < deadline:
         for window in query_windows():
-            app = pending.pop(window.get("processName"), None)
-            if app is not None:
+            if window["id"] in matched_ids:
+                continue
+            queue = pending.get(window.get("processName"))
+            if queue:
+                app = queue.pop(0)
+                matched_ids.add(window["id"])
                 move_window(window["id"], app["workspace"], app.get("name", app["process"]))
-        if pending:
+        if any(pending.values()):
             time.sleep(1)
-    for process in pending:
-        print(f"No window appeared for '{process}' within 30s, skipping move")
+    for process, queue in pending.items():
+        for app in queue:
+            print(f"No window appeared for '{app.get('name', process)}' within 30s, skipping move")
     subprocess.run(["glazewm", "command", "focus", "--workspace", "1"], check=False)
-    return list(pending)
+    return [app.get("name", app["process"]) for queue in pending.values() for app in queue]
 
 
 def main():
