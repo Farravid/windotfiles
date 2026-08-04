@@ -57,6 +57,11 @@ def --env volumen-cl [] {
     claude
 }
 
+def claude [...args] {
+    $env.CLAUDE_CONFIG_DIR = $"($env.USERPROFILE)/.claude"
+    ^claude ...$args
+}
+
 def claude-work [...args] {
     $env.CLAUDE_CONFIG_DIR = $"($env.USERPROFILE)/.claude-work"
     ^claude ...$args
