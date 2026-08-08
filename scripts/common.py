@@ -84,7 +84,8 @@ OPTIONAL_WINGET_PROGRAMS = [
         "OBSProject.OBSProject",
         "Microsoft.DirectX",
         "Nvidia.GeForceExperience",
-        "Stoat.Stoat"]
+        "Stoat.Stoat",
+        "AntibodySoftware.WizTree"]
 
 #########################################
 # TYPES
