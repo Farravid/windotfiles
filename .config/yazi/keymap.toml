@@ -1,6 +1,8 @@
 # Copy the hovered/selected file(s) to the Windows clipboard as real file
-# objects (CF_HDROP), so Ctrl+V pastes them into email/Explorer/etc.
+# objects (CF_HDROP + Preferred DropEffect), so Ctrl+V pastes them into
+# Explorer/email/WhatsApp/Slack/Discord/etc. Plain `Set-Clipboard -LiteralPath`
+# only sets CF_HDROP, which Electron/Chromium apps reject as empty content.
 [[mgr.prepend_keymap]]
 on = ["<C-y>"]
-run = '''shell 'powershell -NoProfile -Command "Set-Clipboard -LiteralPath $@"' --confirm'''
+run = '''shell --confirm -- powershell -NoProfile -Sta -ExecutionPolicy Bypass -Command "& $env:USERPROFILE\windotfiles\scripts\yazi-copy-files.ps1 %s"'''
 desc = "Copy file(s) to system clipboard"
