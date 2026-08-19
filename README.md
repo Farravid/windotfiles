@@ -49,7 +49,7 @@ Then, in a **new** terminal (so `python` and `git` are on PATH):
 
 ```shell
 cd $env:USERPROFILE
-git clone https://github.com/Farravid/windotfiles.git
+git clone -b vibe https://github.com/Farravid/windotfiles.git
 python windotfiles\scripts\install.py
 ```
 
