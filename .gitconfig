@@ -1,0 +1,10 @@
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
+[user]
+	name = David Martínez García
+	email = 51139214+Farravid@users.noreply.github.com
+[windows]
+	appendAtomically = false

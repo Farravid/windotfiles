@@ -1,0 +1,22 @@
+{
+  "model": "sonnet",
+  "statusLine": {
+    "type": "command",
+    "command": "powershell -ExecutionPolicy Bypass -File \"C:\\Users\\david\\.claude\\statusline-command.ps1\""
+  },
+  "enabledPlugins": {
+    "pyright-lsp@claude-plugins-official": true,
+    "home-assistant-manager@claude-skill-homeassistant": true
+  },
+  "extraKnownMarketplaces": {
+    "claude-skill-homeassistant": {
+      "source": {
+        "source": "github",
+        "repo": "komal-SkyNET/claude-skill-homeassistant"
+      }
+    }
+  },
+  "effortLevel": "medium",
+  "tui": "fullscreen",
+  "theme": "auto"
+}

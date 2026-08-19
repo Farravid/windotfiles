@@ -40,6 +40,9 @@ SYMLINKS = [
     (".config/opencode",                    HOME / ".config/opencode"),
     (".config/nvim",                        APPDATA_LOCAL / "nvim"),
     (".config/hermes/config.yaml",          APPDATA_LOCAL / "hermes/config.yaml"),
+    (".gitconfig",                          HOME / ".gitconfig"),
+    (".config/claude/settings.json",        HOME / ".claude/settings.json"),
+    (".config/claude/statusline-command.ps1", HOME / ".claude/statusline-command.ps1"),
 ]
 
 PIP_PACKAGES = ["pywal", "colorz", "colorthief", "haishoku"]
