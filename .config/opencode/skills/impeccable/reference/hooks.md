@@ -1,4 +1,4 @@
-# $impeccable hooks
+# /impeccable hooks
 
 Manage the **design detector hook** for the current project.
 
@@ -40,22 +40,28 @@ The first argument is the action. Defaults to `status`.
 2. Invoke the admin script and pass the user's output through verbatim:
 
    ```bash
-   node .agents/skills/impeccable/scripts/hook-admin.mjs <action> [args...]
+   node .claude/skills/impeccable/scripts/hook-admin.mjs <action> [args...]
    ```
 
-3. If `<action>` is `off`, follow up with a one-line note: "Done. New edits will not trigger the design hook in this project until you run `$impeccable hooks on`."
+3. If `<action>` is `off`, follow up with a one-line note: "Done. New edits will not trigger the design hook in this project until you run `/impeccable hooks on`."
 4. If `<action>` is `on`, follow up with: "Done. The design hook will fire after the next Edit/Write/MultiEdit on a UI file."
 5. If `<action>` is `ignore-value`, `ignore-file`, or `ignore-rule`, just print the script output. The default scope is shared `.impeccable/config.json`; add `--local` only when the user explicitly asks for a private exception.
 6. If `<action>` is `status`, just print the script output. Do not add commentary unless the user asked a follow-up question.
 
-## Intentional findings
+## Triage findings
 
-The hook itself never writes ignore config. Persist an exception only after the user explicitly confirms the flagged issue is intentional, and always go through `hook-admin.mjs`.
+The hook itself never writes ignore config; every exception goes through `hook-admin.mjs`. Triage each finding into one of three outcomes:
+
+- **Real design problem**: fix it. Never add an ignore to skip a fix or to push a blocked write through.
+- **Confident false positive or sanctioned exception**: persist the narrowest ignore yourself and disclose it in your reply. The bar is evidence you can name: an intentional demo or fixture, documentation of bad design, literal or domain-appropriate motion (a ball that bounces), or a choice the user already confirmed. Put that evidence in `--reason` as `"<who decided: evidence>"`; write "user confirmed" only when the user actually did.
+- **Unsure**: leave the finding standing and ask the user in one line. Ask once; a one-line question costs less than the hook re-firing on every later edit.
+
+Self-serve stops at `ignore-value`. `ignore-file` and `ignore-rule` silence too much to add on your own judgment; ask the user first.
 
 Prefer the narrowest exception:
 
-- If the finding line shows an exact `ignore-value` command, run that command. This writes shared `.impeccable/config.json` by default.
-- For value-specific findings such as `overused-font` and `bounce-easing`, use `ignore-value` when the user confirms the specific value. Do not use `ignore-rule overused-font` for a specific font.
+- If the finding line shows an `ignore-value <rule> <value>` pair, pass it to `hook-admin.mjs ignore-value` with your `--reason`. This writes shared `.impeccable/config.json` by default.
+- For value-specific findings such as `overused-font` and `bounce-easing`, use `ignore-value` for the specific value. Do not use `ignore-rule overused-font` for a specific font.
 - If the finding has no value-specific command, such as `side-tab`, scope that one rule to the file: `ignore-value <id> "*" --file <path>`. Run `npx impeccable detect <path>` first to see what actually fires there.
 - Reach for `ignore-file <path>` only when the whole file is out of scope for design review: a fixture, a generated artifact, a deliberate slop demo. It silences every rule for that file permanently, including rules that have not been written yet. A real UI surface with one noisy rule wants the file-scoped value ignore above.
 - Use `ignore-rule <id>` only when the user asks to suppress that whole rule across the project. For broad overused-font suppression, use `ignore-rule overused-font --all-values` only when the user asks to ignore overused fonts generally.
@@ -64,32 +70,32 @@ Prefer the narrowest exception:
 Example value-specific exception:
 
 ```bash
-node .agents/skills/impeccable/scripts/hook-admin.mjs ignore-value overused-font Inter --shared --reason "User confirmed Inter is intentional"
+node .claude/skills/impeccable/scripts/hook-admin.mjs ignore-value overused-font Inter --shared --reason "User confirmed Inter is intentional"
 ```
 
-Example intentional motion exception:
+Example self-served exception, with the evidence named:
 
 ```bash
-node .agents/skills/impeccable/scripts/hook-admin.mjs ignore-value bounce-easing bounce-ball --shared --reason "User confirmed ball bounce animation is intentional"
+node .claude/skills/impeccable/scripts/hook-admin.mjs ignore-value bounce-easing bounce-ball --shared --reason "Agent: literal ball-bounce animation, bounce easing is the subject"
 ```
 
 Example whole-rule font exception:
 
 ```bash
-node .agents/skills/impeccable/scripts/hook-admin.mjs ignore-rule overused-font --all-values --reason "User asked to ignore overused fonts generally"
+node .claude/skills/impeccable/scripts/hook-admin.mjs ignore-rule overused-font --all-values --reason "User asked to ignore overused fonts generally"
 ```
 
 Example one-rule-in-one-file exception, for a file that is still worth reviewing
 for everything else:
 
 ```bash
-node .agents/skills/impeccable/scripts/hook-admin.mjs ignore-value design-system-font-size "*" --file "src/overlay/widget.js" --reason "Injected widget builds its own type scale; DESIGN.md's ramp describes the site"
+node .claude/skills/impeccable/scripts/hook-admin.mjs ignore-value design-system-font-size "*" --file "src/overlay/widget.js" --reason "Injected widget builds its own type scale; DESIGN.md's ramp describes the site"
 ```
 
 Example whole-file exception, for a file that is out of scope entirely:
 
 ```bash
-node .agents/skills/impeccable/scripts/hook-admin.mjs ignore-file "src/legacy/Card.tsx"
+node .claude/skills/impeccable/scripts/hook-admin.mjs ignore-file "src/legacy/Card.tsx"
 ```
 
 ## Constraints
@@ -102,4 +108,4 @@ node .agents/skills/impeccable/scripts/hook-admin.mjs ignore-file "src/legacy/Ca
 ## Failure modes
 
 - If `.impeccable/config.json` or `.impeccable/config.local.json` is unreadable or malformed, the hook ignores that file and uses the remaining valid config/defaults. `hook-admin.mjs status` will show malformed files as ignored.
-- If the user asks to "disable the hook" globally, lead with `$impeccable hooks off` (persistent for this project; writes `hook.enabled: false` to config). The legacy `IMPECCABLE_HOOK_DISABLED=1` env var also works as a one-shot override that follows the shell.
+- If the user asks to "disable the hook" globally, lead with `/impeccable hooks off` (persistent for this project; writes `hook.enabled: false` to config). The legacy `IMPECCABLE_HOOK_DISABLED=1` env var also works as a one-shot override that follows the shell.
