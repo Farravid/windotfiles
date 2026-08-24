@@ -25,6 +25,9 @@ PROGRAM_FILES : Path = Path(os.environ['programfiles'])
 # INSTALLED ARTIFACTS (shared by install.py / uninstall.py)
 #########################################
 ZEBAR_WIDGET = "mushfikurr.overline-zebar@1.0.0"
+# Zebar takes a custom pack's id from its zpack.json "name", not from the folder,
+# and settings.json has to reference that exact id.
+ZEBAR_PACK_ID = "overline-zebar"
 
 # (repo file, symlink destination) pairs.
 SYMLINKS = [

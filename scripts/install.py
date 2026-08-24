@@ -82,8 +82,16 @@ def create_sym_links(symlink_file: str, system_file_path: str):
     os.symlink(dotfiles_file_path, system_file_path, target_is_directory=is_dir)
 
 def copy_zebar_widgets():
-    dest = str(common.APPDATA_ROAMING) + "\\zebar\\downloads\\" + common.ZEBAR_WIDGET
-    src = str(common.WINDOTFILES) + "\\.config\\glazewm\\zebar\\" + common.ZEBAR_WIDGET
+    """
+    Zebar v3 finds custom packs one level down from its config dir
+    (~/.glzr/zebar/<pack>/zpack.json), taking the pack id from that zpack.json's
+    "name" field. %APPDATA%/zebar/downloads is where v2 kept marketplace
+    downloads; v3 resolves those through installer metadata instead, so a pack
+    copied there is never found and the bar dies on startup with
+    "No widget pack found for ..." in ~/.glzr/zebar/errors.log.
+    """
+    dest = common.HOME / ".glzr" / "zebar" / common.ZEBAR_PACK_ID
+    src = common.WINDOTFILES / ".config" / "glazewm" / "zebar" / common.ZEBAR_WIDGET
     shutil.rmtree(dest, ignore_errors=True)
     shutil.copytree(src, dest)
 
