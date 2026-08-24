@@ -5,7 +5,8 @@ development environment. Uses the Windows Package Manager (winget) and pip.
 Usage:
     python install.py
 
-No admin needed, but creating symlinks on Windows requires Developer Mode
+Run this elevated: registering the logon task needs admin. Everything else
+works unelevated, but creating symlinks on Windows requires Developer Mode
 (Settings > Privacy & security > For developers > Developer Mode = On). The script
 checks for this up front and tells you if it's missing.
 
@@ -107,7 +108,15 @@ def install_hermes_agent():
 def register_startup_task():
     """Registers the logon task that runs startup.bat (replaces the manual Task Scheduler import)."""
     print(f"\n === Registering the " + common.PURPLE + "Start windotfiles" + common.NC + " logon task === \n")
-    subprocess.run(f'schtasks /Create /XML "{common.WINDOTFILES / "start-windotfiles.xml"}" /TN "Start windotfiles" /F', shell=True)
+    result = subprocess.run(f'schtasks /Create /XML "{common.WINDOTFILES / "start-windotfiles.xml"}" /TN "Start windotfiles" /F',
+                            shell=True, capture_output=True, text=True)
+    print(result.stdout or result.stderr)
+    if result.returncode != 0:
+        # This used to fail mutely, so a run that never registered the task
+        # still ended on "All done" and the launcher just never came up.
+        print(f"{common.PURPLE}Could not register the logon task{common.NC} -- schtasks needs "
+              f"an elevated terminal. Re-run install.py as administrator, or register it "
+              f"by hand from one.")
 
 def can_symlink() -> bool:
     """Probe whether this account may create symlinks (admin or Developer Mode)."""

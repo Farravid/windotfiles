@@ -53,6 +53,12 @@ git clone -b vibe https://github.com/Farravid/windotfiles.git
 python windotfiles\scripts\install.py
 ```
 
+Run that terminal **as administrator**. Everything except one step works
+unelevated, but registering the `Start windotfiles` logon task does not:
+`schtasks /Create` writes into `C:\Windows\System32\Tasks`, so without
+elevation it fails with `ERROR: Access is denied.` and you get the whole setup
+minus the [`Startup launcher`](#startup-launcher).
+
 Reboot when the script finishes, and that's it.
 
 The script handles everything else: git submodules, PowerShell 7, all required
@@ -69,7 +75,9 @@ from the Microsoft Store.
 > [!WARNING]
 > Creating symlinks on Windows needs **Developer Mode** enabled
 > (`Settings > Privacy & security > For developers > Developer Mode = On`).
-> The installer checks for this and tells you if it's missing. No admin required.
+> The installer checks for this and tells you if it's missing. Developer Mode
+> covers symlinks specifically -- the logon task still needs an elevated terminal,
+> as noted above.
 
 ## Troubleshooting
 `WinGet` may not work as expected on a fresh Windows installation.\
