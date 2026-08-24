@@ -34,12 +34,18 @@ try {
     # Leave $ModelName/$Effort/$Cwd empty if JSON parsing fails
 }
 
+# Claude Code keeps .claude.json beside ~/.claude rather than inside it, so
+# $ClaudeDir alone never found it. A CLAUDE_CONFIG_DIR profile may still keep
+# its own copy under that directory, so try the home one first, then there.
 $Account = ""
-try {
-    $ConfigJsonPath = Join-Path $ClaudeDir ".claude.json"
-    $Account = (Get-Content $ConfigJsonPath -Raw -ErrorAction Stop | ConvertFrom-Json -ErrorAction Stop).oauthAccount.emailAddress
-} catch {
-    # Leave $Account empty if the file/field is missing
+foreach ($candidate in @((Join-Path $HOME ".claude.json"),
+                         (Join-Path $ClaudeDir ".claude.json"))) {
+    try {
+        $Account = (Get-Content $candidate -Raw -ErrorAction Stop | ConvertFrom-Json -ErrorAction Stop).oauthAccount.emailAddress
+        if ($Account) { break }
+    } catch {
+        # Leave $Account empty if neither file has the field
+    }
 }
 
 $Esc = [char]27
@@ -59,7 +65,7 @@ if ($Effort) {
 $InfoStr = $InfoParts -join " "
 
 $PonytailOutput = ""
-if (Test-Path $PonytailScript) {
+if ($PonytailScript) {
     try {
         $PonytailOutput = ($StdinJson | & powershell -NoProfile -ExecutionPolicy Bypass -File $PonytailScript) -join "`n"
     } catch {
