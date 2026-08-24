@@ -5,3 +5,7 @@
 # every git operation.
 package.json text eol=lf
 package-lock.json text eol=lf
+
+# UTF-16 with a BOM: schtasks /XML rejects the file without it. Mark it binary
+# so no eol normalisation ever strips or rewrites those bytes again.
+start-windotfiles.xml -text
