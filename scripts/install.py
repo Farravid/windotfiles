@@ -65,7 +65,12 @@ def create_sym_links(symlink_file: str, system_file_path: str):
     system_file_path = Path(system_file_path)
     dotfiles_file_path = common.WINDOTFILES / symlink_file
 
-    assert dotfiles_file_path.exists(), "Trying to symlink an invalid dotfiles file!"
+    if not dotfiles_file_path.exists():
+        # Optional tools (hermes) don't always ship a config here. Skipping one
+        # symlink shouldn't abort a run that already installed every program.
+        print(f"Skipping {common.PURPLE + symlink_file + common.NC}: not in the repo")
+        return
+
     is_dir = dotfiles_file_path.is_dir()
 
     if system_file_path.is_symlink() or system_file_path.is_file(): os.remove(system_file_path)
@@ -82,7 +87,20 @@ def copy_zebar_widgets():
     shutil.copytree(src, dest)
 
 def install_hermes_agent():
-    """Hermes agent (NousResearch). Not on winget, so it uses their install script."""
+    """
+    Hermes agent (NousResearch), optional: it isn't on winget so it runs their
+    install script, and it ships no config of its own in this repo.
+    """
+    question = [
+        inquirer.List(
+            "choice",
+            "Do you want to install " + common.PURPLE + "Hermes agent" + common.NC + " ?",
+            ["Yes", "No"],
+        ),
+    ]
+    if inquirer.prompt(question)["choice"] != "Yes":
+        return
+
     print(f"\n === Installing " + common.PURPLE + "Hermes agent" + common.NC + " (NousResearch) === \n")
     subprocess.run("pwsh -NoProfile -Command irm https://hermes-agent.nousresearch.com/install.ps1 | iex", shell=True)
 
@@ -138,7 +156,6 @@ def main():
     common.reload_powershell()
 
     common.install_pckgs(common.EInstaller.WINGET, common.REQUIRED_WINGET_PROGRAMS)
-    install_hermes_agent()
     common.reload_powershell()
     set_yazi_file_env()
 
@@ -155,6 +172,7 @@ def main():
 
     install_pywal()
     common.install_optional_pckgs(common.EInstaller.WINGET, common.OPTIONAL_WINGET_PROGRAMS)
+    install_hermes_agent()
     common.reload_powershell()
 
     register_startup_task()

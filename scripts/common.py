@@ -53,7 +53,7 @@ PIP_PACKAGES = ["pywal", "colorz", "colorthief", "haishoku"]
 REQUIRED_WINGET_PROGRAMS = [
         "wez.wezterm.nightly",
         "nushell",
-        "glazewm",
+        "glzr-io.glazewm",
         "glzr-io.zebar",
         "Git.Git",
         "Github.GitLFS",
@@ -65,6 +65,7 @@ REQUIRED_WINGET_PROGRAMS = [
         "fastfetch",
         "sxyazi.yazi",
         "Neovim.Neovim",
+        "OpenJS.NodeJS",
         "oschwartz10612.Poppler",
         "junegunn.fzf",
         "sharkdp.fd",
@@ -73,9 +74,7 @@ REQUIRED_WINGET_PROGRAMS = [
         "zig.zig",
         "tree-sitter.tree-sitter-cli",
         "ImageMagick.ImageMagick",
-        "flameshot",
-        "SST.opencode",
-        "Ollama.Ollama"]
+        "flameshot"]
 
 OPTIONAL_WINGET_PROGRAMS = [
         "JetBrains.Rider",
@@ -84,11 +83,13 @@ OPTIONAL_WINGET_PROGRAMS = [
         "Brave.Brave",
         "GitHub.GitHubDesktop",
         "Discord.Discord",
-        "OBSProject.OBSProject",
+        "OBSProject.OBSStudio",
         "Microsoft.DirectX",
         "Nvidia.GeForceExperience",
         "Stoat.Stoat",
-        "AntibodySoftware.WizTree"]
+        "AntibodySoftware.WizTree",
+        "SST.opencode",
+        "Ollama.Ollama"]
 
 #########################################
 # TYPES
