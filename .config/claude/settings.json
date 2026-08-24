@@ -2,7 +2,7 @@
   "model": "sonnet",
   "statusLine": {
     "type": "command",
-    "command": "powershell -ExecutionPolicy Bypass -File \"C:\\Users\\david\\.claude\\statusline-command.ps1\""
+    "command": "powershell -NoProfile -ExecutionPolicy Bypass -Command '& \"$env:USERPROFILE\\.claude\\statusline-command.ps1\"'"
   },
   "enabledPlugins": {
     "pyright-lsp@claude-plugins-official": true,
