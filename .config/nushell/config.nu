@@ -35,7 +35,6 @@ alias dot-update = python -- $"($env.USERPROFILE)/windotfiles/scripts/update.py"
 alias dot-winwal = python -- $"($env.USERPROFILE)/windotfiles/scripts/update_winwal_colors.py"
 alias dot-setups = python -- $"($env.USERPROFILE)/windotfiles/scripts/setup_editor.py"
 alias doc = cd $"($env.USERPROFILE)/Documents/"
-alias volumen = cd $"($env.USERPROFILE)/Documents/Github/volumen/"
 alias repos = cd $"($env.USERPROFILE)/Documents/Github/"
 alias down = cd $"($env.USERPROFILE)/Downloads/"
 alias appd = cd $env.APPDATA
@@ -43,28 +42,8 @@ alias appdl = cd $env.LOCALAPPDATA
 alias show_path = echo $env.PATH
 
 def --env unreal-claude [] {
-    cd D:\dev\
-    claude-work
-}
-
-def --env dot-claude [] {
-    dot
+    cd W:\Carousel\
     claude
-}
-
-def --env volumen-cl [] {
-    volumen
-    claude
-}
-
-def claude [...args] {
-    $env.CLAUDE_CONFIG_DIR = $"($env.USERPROFILE)/.claude"
-    ^claude ...$args
-}
-
-def claude-work [...args] {
-    $env.CLAUDE_CONFIG_DIR = $"($env.USERPROFILE)/.claude-work"
-    ^claude ...$args
 }
 
 def --env dot-oc [] {
