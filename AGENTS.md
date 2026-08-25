@@ -43,17 +43,35 @@ eventual replacement once its local-LLM setup is ready.
 
 - `install.py` — one-time setup: winget packages, symlinks, pywal. Run with
   `python install.py` (no admin; installs its own deps; needs Developer Mode for symlinks).
-- `uninstall.py` — reverses `install.py`: symlinks, Zebar widget, logon task, and
-  (after confirmation) the winget/pip packages. Leaves Windows preferences and optional apps alone.
+- `uninstall.py` — reverses `install.py`: symlinks, the copied Zebar pack, logon
+  task, and (after confirmation) the winget/pip packages. Leaves Windows preferences and optional apps alone.
 - `update.py` — upgrades winget packages + pip.
 - `update_winwal_colors.py` — regenerates the palette from a wallpaper and writes
   `.config/wezterm/winwal.toml` (WezTerm reads this live and re-themes on reload).
+  It also themes the Zebar bar by dropping a `winwal.css` into both copies of the
+  `sakura` pack (the repo one and the installed one) and linking it from `index.html`.
 - `startup.py` — logon launcher: starts GlazeWM, prompts for a setup, arranges windows.
   Setups are TOML files in `scripts/setups/` (one per file, each lists apps + workspaces).
 - `setup_editor.py` — PySide6 GUI to create/edit those setups: pick a program from
   Explorer (icon + processName auto-grabbed), set its workspace (`python setup_editor.py`).
   Themed from the live pywal palette.
 - `common.py` — shared paths, the winget package lists, and helpers.
+
+The vendored `sakura` pack under `.config/glazewm/zebar/` carries two local patches
+that upstream doesn't have — re-apply them by hand if you ever pull a new version:
+
+- `zpack.json`: `zOrder` is `top_most`, not the stock `normal`. GlazeWM reserves a
+  60px top gap for the bar, but with `normal` the bar still sits behind tiled
+  windows and is effectively invisible.
+- `zpack.json`: the `default` preset is a centered island (`anchor: top_center`,
+  `width: 50%`, `offsetY: 8px`) rather than the stock full-width `top_left` /
+  `100%` — spanning a 5120px ultrawide leaves the groups stranded at the far
+  edges. `width` is the knob to turn if 50% (2560px here) feels off.
+- `main/dist/assets/index-*.js`: the two `ShowTemperature` guards also check
+  `t.weather`. Upstream reads `t.weather.celsiusTemp` with no null check (it does
+  guard `t.weather?.status` right above), so the first render — before the async
+  weather provider has produced anything — throws and tears down the rest of the
+  bar, leaving only the workspaces and uptime groups.
 
 Python deps are pinned in `scripts/requirements.txt` (`inquirer`, `pillow`); `install.py` installs them itself.
 

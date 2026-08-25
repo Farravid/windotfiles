@@ -1,4 +1,6 @@
 import os
+import re
+import hashlib
 import ctypes
 import subprocess
 import shlex
@@ -105,53 +107,51 @@ def import_wezterm():
 
 def import_zebar():
     """
-    Regenerate the overline-zebar palette from the pywal colors.
+    Regenerate the sakura zebar palette from the pywal colors.
 
-    overline-zebar applies its theme as inline CSS variables on :root, so a
-    stylesheet with !important overrides whatever theme is selected in its UI.
-    We write that stylesheet into each widget's assets dir; index.html links it.
+    sakura ships its theme as CSS variables on :root (with a .light override),
+    so a stylesheet using !important wins over whichever of the two is active.
+    We write that stylesheet next to the pack's own assets; index.html links it.
+
+    The repo copy is the committed source; install.py copies it into
+    ~/.glzr/zebar (no symlink), so write both -- the latter is what zebar serves.
     """
     c = [line.rstrip("\r\n") for line in get_color_lines()]
 
     theme = {
-        "--border":            c[8],
-        "--background":        c[0],
-        "--background-deeper": brighten_color(c[0], 0.6),  # darker
-        "--button":            c[8],
-        "--button-border":     brighten_color(c[8], 1.3),
-        "--primary":           c[4],
-        "--primary-border":    c[12],
-        "--primary-text":      c[15],
-        "--text":              c[7],
-        "--text-muted":        c[8],
-        "--icon":              c[7],
-        "--success":           c[2],
-        "--danger":            c[1],
-        "--warning":           c[3],
+        "--bg-main":      c[0],
+        "--text-main":    c[7],
+        "--accent":       c[4],
+        "--workspace-bg": c[4],
     }
 
     css = ":root {\n" + "".join(
         f"  {k}: {v} !important;\n" for k, v in theme.items()
     ) + "}\n"
 
-    widget_pkg = "mushfikurr.overline-zebar@1.0.0"
-    link = '<link rel="stylesheet" href="./assets/winwal.css">'
-    # The repo copy is the committed source; install.py copies it into the live
-    # downloads dir (no symlink), so write both — downloads is what zebar serves.
+    # The webview caches local assets, so the link carries a digest of the
+    # palette to bust that cache whenever the colors actually change.
+    stamp = hashlib.sha1(css.encode("utf8")).hexdigest()[:8]
+    link = f'<link rel="stylesheet" href="./assets/winwal.css?v={stamp}">'
+
     packs = [
-        common.WINDOTFILES / ".config" / "glazewm" / "zebar" / widget_pkg,
-        common.APPDATA_ROAMING / "zebar" / "downloads" / widget_pkg,
+        common.WINDOTFILES / ".config" / "glazewm" / "zebar" / common.ZEBAR_PACK_ID,
+        common.HOME / ".glzr" / "zebar" / common.ZEBAR_PACK_ID,
     ]
     for pack in packs:
-        for widget in ("main", "system-stats"):
-            dist = pack / "widgets" / widget / "dist"
-            if not dist.is_dir():
+        if not pack.is_dir():
+            print(f"No zebar pack at {common.PURPLE}{pack}{common.NC}, skipping it")
+            continue
+        for index in pack.glob("**/dist/index.html"):
+            assets = index.parent / "assets"
+            if not assets.is_dir():
                 continue
-            (dist / "assets" / "winwal.css").write_text(css, encoding="utf8")
-            index = dist / "index.html"
+            (assets / "winwal.css").write_text(css, encoding="utf8")
             html = index.read_text(encoding="utf8")
-            if "winwal.css" not in html:
-                index.write_text(html.replace("</head>", f"    {link}\n  </head>", 1), encoding="utf8")
+            # Drop the link a previous run left behind, then re-add it stamped.
+            html = re.sub(r'[ \t]*<link rel="stylesheet" href="\./assets/winwal\.css[^"]*">\r?\n', "", html)
+            html = re.sub(r'([ \t]*)</head>', lambda m: f"{m[1]}{link}\n{m[1]}</head>", html, count=1)
+            index.write_text(html, encoding="utf8")
 
 #####################################################################
 ## Actual winwal update

@@ -81,17 +81,22 @@ def create_sym_links(symlink_file: str, system_file_path: str):
     print(f"Symlinking {common.PURPLE + symlink_file + common.NC + ' to ' + common.PURPLE + str(system_file_path) + common.NC}")
     os.symlink(dotfiles_file_path, system_file_path, target_is_directory=is_dir)
 
-def copy_zebar_widgets():
+def copy_zebar_pack():
     """
-    Zebar v3 finds custom packs one level down from its config dir
+    Zebar v3 finds local packs one level down from its config dir
     (~/.glzr/zebar/<pack>/zpack.json), taking the pack id from that zpack.json's
-    "name" field. %APPDATA%/zebar/downloads is where v2 kept marketplace
-    downloads; v3 resolves those through installer metadata instead, so a pack
-    copied there is never found and the bar dies on startup with
-    "No widget pack found for ..." in ~/.glzr/zebar/errors.log.
+    "name" field. %APPDATA%/zebar/downloads is where marketplace packs land; v3
+    resolves those through installer metadata instead, so a pack copied there is
+    never found and the bar dies on startup with "No widget pack found for ..."
+    in ~/.glzr/zebar/errors.log.
+
+    We copy rather than symlink so zebar always sees a plain directory, and so
+    the repo copy stays the committed source of truth (update_winwal_colors.py
+    themes both).
     """
     dest = common.HOME / ".glzr" / "zebar" / common.ZEBAR_PACK_ID
-    src = common.WINDOTFILES / ".config" / "glazewm" / "zebar" / common.ZEBAR_WIDGET
+    src = common.WINDOTFILES / ".config" / "glazewm" / "zebar" / common.ZEBAR_PACK_ID
+    print(f"Copying Zebar pack {common.PURPLE}{common.ZEBAR_PACK_ID}{common.NC} to {common.PURPLE}{dest}{common.NC}")
     shutil.rmtree(dest, ignore_errors=True)
     shutil.copytree(src, dest)
 
@@ -178,7 +183,8 @@ def main():
 
     for repo_file, system_path in common.SYMLINKS:
         create_sym_links(repo_file, str(system_path))
-    copy_zebar_widgets()
+
+    copy_zebar_pack()
 
     npm_dir = common.HOME / ".config/opencode"
     if (npm_dir / "package.json").is_file():

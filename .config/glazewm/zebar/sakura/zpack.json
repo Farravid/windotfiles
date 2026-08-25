@@ -1,0 +1,56 @@
+{
+  "$schema": "https://github.com/glzr-io/zebar/raw/v3.1.1/resources/zpack-schema.json",
+  "name": "sakura",
+  "version": "2026.6008.0",
+  "description": "Simple, clean and customizable sakura-themed bar",
+  "tags": [
+    "Sakura",
+    "Pink",
+    "Cute",
+    "Clean",
+    "Customizable"
+  ],
+  "previewImages": [
+    "resources\\preview_full.png"
+  ],
+  "repositoryUrl": "https://github.com/SynesthesiaDev/Zebar-Sakura",
+  "widgets": [
+    {
+      "name": "main",
+      "htmlPath": "main/dist/index.html",
+      "zOrder": "top_most",
+      "shownInTaskbar": false,
+      "focused": false,
+      "resizable": false,
+      "transparent": true,
+      "includeFiles": [
+        "main/dist/**"
+      ],
+      "caching": {
+        "defaultDuration": 604800,
+        "rules": []
+      },
+      "privileges": {
+        "shellCommands": []
+      },
+      "presets": [
+        {
+          "name": "default",
+          "anchor": "top_center",
+          "offsetX": "0px",
+          "offsetY": "8px",
+          "width": "50%",
+          "height": "40px",
+          "monitorSelection": {
+            "type": "all"
+          },
+          "dockToEdge": {
+            "enabled": false,
+            "edge": null,
+            "windowMargin": "0px"
+          }
+        }
+      ]
+    }
+  ]
+}

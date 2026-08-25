@@ -24,10 +24,11 @@ PROGRAM_FILES : Path = Path(os.environ['programfiles'])
 #########################################
 # INSTALLED ARTIFACTS (shared by install.py / uninstall.py)
 #########################################
-ZEBAR_WIDGET = "mushfikurr.overline-zebar@1.0.0"
-# Zebar takes a custom pack's id from its zpack.json "name", not from the folder,
-# and settings.json has to reference that exact id.
-ZEBAR_PACK_ID = "overline-zebar"
+# Sakura ships in this repo under .config/glazewm/zebar/<pack id>; install.py
+# copies it into ~/.glzr/zebar/<pack id>. Zebar takes a local pack's id from its
+# zpack.json "name", not from the folder, and settings.json has to reference that
+# exact id -- so folder and id are kept identical here.
+ZEBAR_PACK_ID = "sakura"
 
 # (repo file, symlink destination) pairs.
 SYMLINKS = [

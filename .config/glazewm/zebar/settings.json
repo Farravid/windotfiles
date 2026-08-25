@@ -2,7 +2,7 @@
   "$schema": "https://github.com/glzr-io/zebar/raw/v3.3.1/resources/settings-schema.json",
   "startupConfigs": [
     {
-      "pack": "overline-zebar",
+      "pack": "sakura",
       "widget": "main",
       "preset": "default"
     }

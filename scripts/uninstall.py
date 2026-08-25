@@ -1,6 +1,6 @@
 """
-Reverses install.py: removes the config symlinks, the copied Zebar widget,
-the "Start windotfiles" logon task, the YAZI_FILE_ONE env var and (after
+Reverses install.py: removes the config symlinks, the copied Zebar pack, the
+"Start windotfiles" logon task, the YAZI_FILE_ONE env var and (after
 confirmation) the winget/pip packages.
 
 Usage:
@@ -30,7 +30,10 @@ def main():
         elif path.exists():
             print(f"Keeping {path}: not a symlink (not ours)")
 
-    shutil.rmtree(common.APPDATA_ROAMING / "zebar" / "downloads" / common.ZEBAR_WIDGET, ignore_errors=True)
+    zebar_pack = common.HOME / ".glzr" / "zebar" / common.ZEBAR_PACK_ID
+    if zebar_pack.exists():
+        print(f"Removing Zebar pack {common.PURPLE}{zebar_pack}{common.NC}")
+        shutil.rmtree(zebar_pack, ignore_errors=True)
 
     print(f"\n === Removing the {common.PURPLE}Start windotfiles{common.NC} logon task === \n")
     subprocess.run('schtasks /Delete /TN "Start windotfiles" /F', shell=True)
